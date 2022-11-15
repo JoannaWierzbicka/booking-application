@@ -3,7 +3,7 @@ import React from 'react'
 export const App = () => {
   return (
     <div>
-      Booking APP
+      Booking APPLICATION
     </div>
   )
 }

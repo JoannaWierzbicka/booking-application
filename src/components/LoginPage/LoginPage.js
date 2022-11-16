@@ -44,9 +44,15 @@ export const LoginPage = (props) => {
       </StyledButton>
       <StyledButton
         className={'login-page-button'}
-        variant={'text'}
+        variant={'outlined'}
         onClick={onClickCreateAccount}
       >UTWÓRZ KONTO
+      </StyledButton>
+      <StyledButton
+        className={'login-page-button'}
+        variant={'text'}
+        onClick={onClickCreateAccount}
+      >Przypomnij hasło
       </StyledButton>
     </StyledForm>
   )

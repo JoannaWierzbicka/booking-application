@@ -6,9 +6,6 @@ export const StyledButton = styled(Button)`
    width: 222px;
 height: 40px;
 margin: 4px; 
-&:hover{
-    color: white;
-};
 }
 
 `

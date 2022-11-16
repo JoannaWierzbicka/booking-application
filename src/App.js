@@ -1,4 +1,5 @@
 import React from 'react'
+import CreateAccountPage from './components/CreateAccountPage'
 import Loader from './components/Loader'
 import LoginPage from './components/LoginPage'
 import Message from './components/Message'
@@ -37,7 +38,10 @@ export class App extends React.Component {
       infoMessage,
       notLoginUserRoute,
       loginEmail,
-      loginPassword
+      loginPassword,
+      createAccountEmail,
+      createAccountPassword,
+      createAccountPasswordRepeat
     } = this.state
     return (
       <div>
@@ -54,7 +58,21 @@ export class App extends React.Component {
             />
           </StyledFullPage>
 
-          : null}
+          :
+          notLoginUserRoute === 'CREATE-ACCOUNT' ?
+            <StyledFullPage>
+              <CreateAccountPage
+                email={createAccountEmail}
+                password={createAccountPassword}
+                repeatPassword={createAccountPasswordRepeat}
+                onChangeEmail={(e) => this.setState(() => ({ createAccountEmail: e.target.value }))}
+                onChangePassword={(e) => this.setState(() => ({ createAccountPassword: e.target.value }))}
+                onChangeRepeatPassword={(e) => this.setState(() => ({ createAccountPasswordRepeat: e.target.value }))}
+                onClickCreateAccount={() => console.log('onClickCreateAccount')}
+                onClickBackToLogin={() => console.log('onClickBackToLogin')}
+              />
+            </StyledFullPage>
+            : null}
         {
           isLoading ?
             <Loader/>

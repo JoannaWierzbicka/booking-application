@@ -1,23 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import TextField from '@mui/material/TextField'
-import LoginIcon from '@mui/icons-material/Login'
+import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import StyledButton from '../../styledComponents/StyledButton'
 import StyledForm from '../../styledComponents/StyledForm'
 
-export const LoginPage = (props) => {
+export const CreateAccountPage = (props) => {
   const {
     email,
-    password,
-    onClickLogin,
-    onClickCreateAccount,
     onChangeEmail,
-    onChangePassword
+    password,
+    onChangePassword,
+    repeatPassword,
+    onChangeRepeatPassword,
+    onClickCreateAccount,
+    onClickBackToLogin
   } = props
-
   return (
     <StyledForm>
-      <LoginIcon fontSize={'large'}/>
+      <PersonAddIcon fontSize={'large'}/>
       <TextField
         size={'small'}
         margin={'dense'}
@@ -35,30 +36,41 @@ export const LoginPage = (props) => {
         value={password}
         onChange={onChangePassword}
       />
+      <TextField
+        size={'small'}
+        margin={'dense'}
+        type={'password'}
+        label={'Powtórz hasło'}
+        variant={'outlined'}
+        value={repeatPassword}
+        onChange={onChangeRepeatPassword}
+      />
       <StyledButton
         className={'login-page-button'}
         color={'primary'}
         variant={'contained'}
-        onClick={onClickLogin}
-      >ZALOGUJ SIĘ
-      </StyledButton>
-      <StyledButton
-        className={'login-page-button'}
-        variant={'text'}
         onClick={onClickCreateAccount}
       >UTWÓRZ KONTO
+      </StyledButton>
+      <StyledButton
+        variant={'text'}
+        onClick={onClickBackToLogin}
+      >
+        Zaloguj się
       </StyledButton>
     </StyledForm>
   )
 }
 
-LoginPage.propTypes = {
+CreateAccountPage.propTypes = {
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
-  onClickLogin: PropTypes.func.isRequired,
-  onClickCreateAccount: PropTypes.func.isRequired,
+  repeatPassword: PropTypes.string.isRequired,
   onChangeEmail: PropTypes.func.isRequired,
-  onChangePassword: PropTypes.func.isRequired
+  onChangePassword: PropTypes.func.isRequired,
+  onClickCreateAccount: PropTypes.func.isRequired,
+  onClickBackToLogin: PropTypes.func.isRequired,
+  onChangeRepeatPassword: PropTypes.func.isRequired
 }
 
-export default LoginPage
+export default CreateAccountPage

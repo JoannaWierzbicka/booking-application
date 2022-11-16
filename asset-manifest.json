@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/booking-application/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/booking-application/static/js/main.8a786c3e.chunk.js",
-    "main.js.map": "/booking-application/static/js/main.8a786c3e.chunk.js.map",
+    "main.js": "/booking-application/static/js/main.b68ba0f2.chunk.js",
+    "main.js.map": "/booking-application/static/js/main.b68ba0f2.chunk.js.map",
     "runtime-main.js": "/booking-application/static/js/runtime-main.0d0f3230.js",
     "runtime-main.js.map": "/booking-application/static/js/runtime-main.0d0f3230.js.map",
-    "static/js/2.751534ac.chunk.js": "/booking-application/static/js/2.751534ac.chunk.js",
-    "static/js/2.751534ac.chunk.js.map": "/booking-application/static/js/2.751534ac.chunk.js.map",
+    "static/js/2.ef847b13.chunk.js": "/booking-application/static/js/2.ef847b13.chunk.js",
+    "static/js/2.ef847b13.chunk.js.map": "/booking-application/static/js/2.ef847b13.chunk.js.map",
     "index.html": "/booking-application/index.html",
     "static/css/main.6dea0f05.chunk.css.map": "/booking-application/static/css/main.6dea0f05.chunk.css.map",
-    "static/js/2.751534ac.chunk.js.LICENSE.txt": "/booking-application/static/js/2.751534ac.chunk.js.LICENSE.txt"
+    "static/js/2.ef847b13.chunk.js.LICENSE.txt": "/booking-application/static/js/2.ef847b13.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.0d0f3230.js",
-    "static/js/2.751534ac.chunk.js",
+    "static/js/2.ef847b13.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.8a786c3e.chunk.js"
+    "static/js/main.b68ba0f2.chunk.js"
   ]
 }

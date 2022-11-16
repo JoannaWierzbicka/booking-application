@@ -2,6 +2,7 @@ import React from 'react'
 import Loader from './components/Loader'
 import LoginPage from './components/LoginPage'
 import Message from './components/Message'
+import StyledFullPage from './styledComponents/StyledFullPage'
 
 export class App extends React.Component {
   state = {
@@ -33,12 +34,27 @@ export class App extends React.Component {
       hasError,
       errorMessage,
       isInfoDisplayed,
-      infoMessage
+      infoMessage,
+      notLoginUserRoute,
+      loginEmail,
+      loginPassword
     } = this.state
     return (
       <div>
         <h2>Booking APPLICATION</h2>
-        <LoginPage/>
+        {notLoginUserRoute === 'LOGIN' ?
+          <StyledFullPage>
+            <LoginPage
+              email={loginEmail}
+              password={loginPassword}
+              onClickLogin={() => console.log('login')}
+              onClickCreateAccount={() => console.log('create')}
+              onChangeEmail={(e) => this.setState(() => ({ loginEmail: e.target.value }))}
+              onChangePassword={(e) => this.setState(() => ({ loginPassword: e.target.value }))}
+            />
+          </StyledFullPage>
+
+          : null}
         {
           isLoading ?
             <Loader/>

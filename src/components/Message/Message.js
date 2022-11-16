@@ -23,7 +23,8 @@ export const Message = (props) => {
               />
             : null
       }
-      <p>{message}</p>
+      <p>{message}
+      </p>
       <Button
         variant={'contained'}
         color={'primary'}

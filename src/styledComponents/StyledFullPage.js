@@ -13,7 +13,8 @@ align-items: center;
 
 &.message {
     flex-direction: column;
-}
+};
+
 `
 
 export default StyledFullPage

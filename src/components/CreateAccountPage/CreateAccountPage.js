@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import TextField from '@mui/material/TextField'
-import PersonAddIcon from '@mui/icons-material/PersonAdd'
+// import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import StyledButton from '../../styledComponents/StyledButton'
 import StyledForm from '../../styledComponents/StyledForm'
+import Logo from '../Logo'
 
 export const CreateAccountPage = (props) => {
   const {
@@ -18,7 +19,8 @@ export const CreateAccountPage = (props) => {
   } = props
   return (
     <StyledForm>
-      <PersonAddIcon fontSize={'large'}/>
+      <Logo style={{ width: '100px' }}/>
+      {/* <PersonAddIcon fontSize={'large'}/> */}
       <TextField
         size={'small'}
         margin={'dense'}

@@ -5,7 +5,7 @@ import Loader from './components/Loader'
 import LoginPage from './components/LoginPage'
 import Message from './components/Message'
 import StyledFullPage from './styledComponents/StyledFullPage'
-import MainPage from './components/MainPage'
+import StartPage from './components/StartPage'
 
 export class App extends React.Component {
   state = {
@@ -19,7 +19,7 @@ export class App extends React.Component {
     userName: '',
     userEmail: '',
 
-    mainPageOn: true,
+    startPageOn: true,
     notLoginUserRoute: 'FORGOT-PASSWORD',
 
     // login page
@@ -49,13 +49,13 @@ export class App extends React.Component {
       createAccountPassword,
       createAccountPasswordRepeat,
       recoverPasswordEmail,
-      mainPageOn
+      startPageOn
     } = this.state
     return (
 
       <div>
-        {mainPageOn ?
-          <MainPage/> :
+        {startPageOn ?
+          <StartPage/> :
 
           notLoginUserRoute === 'LOGIN' ?
             <StyledFullPage>

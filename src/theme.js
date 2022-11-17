@@ -19,6 +19,9 @@ export const theme = createTheme({
     },
     success: {
       main: '#05c46b'
+    },
+    icon: {
+      main: '#F68E2A'
     }
   }
 })

@@ -1,15 +1,12 @@
 import styled from 'styled-components'
 
-export const StyledFooter = styled.div`
-position: fixed;
-bottom: 0;
+export const StyledFooter = styled.footer`
 width: 100vw;
 height: 60px;
-z-index: 9999;
-background-color: yellow;
 display: flex;
 justify-content: space-between;
 align-items: center;
+background-color: green;
 `
 
 export default StyledFooter

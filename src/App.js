@@ -19,8 +19,7 @@ export class App extends React.Component {
     userName: '',
     userEmail: '',
 
-    startPageOn: true,
-    notLoginUserRoute: 'FORGOT-PASSWORD',
+    notLoginUserRoute: 'START', // 'START', 'LOGIN', 'CREATE-ACCOUNT', 'FORGOT-PASSWORD'
 
     // login page
     loginEmail: '',
@@ -48,23 +47,27 @@ export class App extends React.Component {
       createAccountEmail,
       createAccountPassword,
       createAccountPasswordRepeat,
-      recoverPasswordEmail,
-      startPageOn
+      recoverPasswordEmail
     } = this.state
     return (
 
       <div>
-        {startPageOn ?
-          <StartPage/> :
-
+        {notLoginUserRoute === 'START' ?
+          <StyledFullPage>
+            <StartPage
+              onClickLogin={() => this.setState(() => ({ notLoginUserRoute: 'LOGIN' }))}
+            />
+          </StyledFullPage> :
           notLoginUserRoute === 'LOGIN' ?
             <StyledFullPage>
               <LoginPage
                 email={loginEmail}
                 password={loginPassword}
                 onClickLogin={() => console.log('login')}
-                onClickCreateAccount={() => console.log('create')}
+                onClickCreateAccount={() => this.setState(() => ({ notLoginUserRoute: 'CREATE-ACCOUNT' }))}
                 onChangeEmail={(e) => this.setState(() => ({ loginEmail: e.target.value }))}
+                onClickRecoverPassword={() => this.setState(() => ({ notLoginUserRoute: 'FORGOT-PASSWORD' }))}
+                onClickBackToStartPage={() => this.setState(() => ({ notLoginUserRoute: 'START' }))}
                 onChangePassword={(e) => this.setState(() => ({ loginPassword: e.target.value }))}
               />
             </StyledFullPage>
@@ -80,7 +83,8 @@ export class App extends React.Component {
                   onChangePassword={(e) => this.setState(() => ({ createAccountPassword: e.target.value }))}
                   onChangeRepeatPassword={(e) => this.setState(() => ({ createAccountPasswordRepeat: e.target.value }))}
                   onClickCreateAccount={() => console.log('onClickCreateAccount')}
-                  onClickBackToLogin={() => console.log('onClickBackToLogin')}
+                  onClickBackToStartPage={() => this.setState(() => ({ notLoginUserRoute: 'START' }))}
+                  onClickBackToLogin={() => this.setState(() => ({ notLoginUserRoute: 'LOGIN' }))}
                 />
               </StyledFullPage>
               :
@@ -90,7 +94,8 @@ export class App extends React.Component {
                     email={recoverPasswordEmail}
                     onChangeEmail={(e) => this.setState(() => ({ recoverPasswordEmail: e.target.value }))}
                     onClickRecover={() => console.log('onClickRecover')}
-                    onClickBackToLogin={() => console.log('onClickBackToLogin')}
+                    onClickBackToStartPage={() => this.setState(() => ({ notLoginUserRoute: 'START' }))}
+                    onClickBackToLogin={() => this.setState(() => ({ notLoginUserRoute: 'LOGIN' }))}
                   />
                 </StyledFullPage>
                 : null

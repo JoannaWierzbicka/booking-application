@@ -1,5 +1,6 @@
 import React from 'react'
 import StyledFullPage from '../../styledComponents/StyledFullPage'
+import StyledForm from '../../styledComponents/StyledForm'
 import { Button } from '@mui/material'
 import { PropTypes } from 'prop-types'
 import ErrorIcon from '@mui/icons-material/Error'
@@ -10,7 +11,8 @@ export const Message = (props) => {
 
   return (
     <StyledFullPage className={'message'}>
-      {
+      <StyledForm>
+        {
         icon === 'info'
           ? <InfoIcon
               color={'info'}
@@ -23,14 +25,16 @@ export const Message = (props) => {
               />
             : null
       }
-      <p>{message}
-      </p>
-      <Button
-        variant={'contained'}
-        color={'primary'}
-        onClick={onButtonClick}
-      >GO BACK
-      </Button>
+        <p>{message}
+        </p>
+        <Button
+          variant={'contained'}
+          color={'primary'}
+          onClick={onButtonClick}
+        >GO BACK
+        </Button>
+      </StyledForm>
+
     </StyledFullPage>
   )
 }

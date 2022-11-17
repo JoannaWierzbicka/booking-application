@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import TextField from '@mui/material/TextField'
-// import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import StyledButton from '../../styledComponents/StyledButton'
 import StyledForm from '../../styledComponents/StyledForm'
 import Logo from '../Logo'
@@ -15,12 +14,12 @@ export const CreateAccountPage = (props) => {
     repeatPassword,
     onChangeRepeatPassword,
     onClickCreateAccount,
-    onClickBackToLogin
+    onClickBackToLogin,
+    onClickBackToStartPage
   } = props
   return (
     <StyledForm>
-      <Logo style={{ width: '100px' }}/>
-      {/* <PersonAddIcon fontSize={'large'}/> */}
+      <Logo style={{ width: '120px' }}/>
       <TextField
         size={'small'}
         margin={'dense'}
@@ -48,17 +47,24 @@ export const CreateAccountPage = (props) => {
         onChange={onChangeRepeatPassword}
       />
       <StyledButton
-        className={'login-page-button'}
         color={'primary'}
         variant={'contained'}
         onClick={onClickCreateAccount}
       >UTWÓRZ KONTO
       </StyledButton>
       <StyledButton
-        variant={'text'}
+        variant={'outlined'}
+        color={'black'}
         onClick={onClickBackToLogin}
       >
         Zaloguj się
+      </StyledButton>
+      <StyledButton
+        className={'button-text--small'}
+        variant={'text'}
+        color={'black'}
+        onClick={onClickBackToStartPage}
+      >Powrót na stronę główną
       </StyledButton>
     </StyledForm>
   )
@@ -72,7 +78,8 @@ CreateAccountPage.propTypes = {
   onChangePassword: PropTypes.func.isRequired,
   onClickCreateAccount: PropTypes.func.isRequired,
   onClickBackToLogin: PropTypes.func.isRequired,
-  onChangeRepeatPassword: PropTypes.func.isRequired
+  onChangeRepeatPassword: PropTypes.func.isRequired,
+  onClickBackToStartPage: PropTypes.func.isRequired
 }
 
 export default CreateAccountPage

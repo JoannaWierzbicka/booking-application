@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import TextField from '@mui/material/TextField'
-import HelpIcon from '@mui/icons-material/Help'
+import Logo from '../Logo'
 import StyledButton from '../../styledComponents/StyledButton'
 import StyledForm from '../../styledComponents/StyledForm'
 
@@ -10,11 +10,12 @@ export const ForgottenPasswordPage = (props) => {
     email,
     onChangeEmail,
     onClickRecover,
-    onClickBackToLogin
+    onClickBackToLogin,
+    onClickBackToStartPage
   } = props
   return (
     <StyledForm>
-      <HelpIcon fontSize={'large'}/>
+      <Logo style={{ width: '120px' }}/>
       <p>Odzyskiwanie hasła</p>
       <TextField
         size={'small'}
@@ -25,17 +26,23 @@ export const ForgottenPasswordPage = (props) => {
         onChange={onChangeEmail}
       />
       <StyledButton
-        className={'login-page-button'}
         color={'primary'}
         variant={'contained'}
         onClick={onClickRecover}
       >PRZYPOMNIJ HASŁO
       </StyledButton>
       <StyledButton
-        className={'login-page-button'}
-        variant={'text'}
+        variant={'outlined'}
+        color={'black'}
         onClick={onClickBackToLogin}
       >Zaloguj się
+      </StyledButton>
+      <StyledButton
+        className={'button-text--small'}
+        variant={'text'}
+        color={'black'}
+        onClick={onClickBackToStartPage}
+      >Powrót na stronę główną
       </StyledButton>
     </StyledForm>
   )
@@ -45,7 +52,8 @@ ForgottenPasswordPage.propTypes = {
   email: PropTypes.string.isRequired,
   onChangeEmail: PropTypes.func.isRequired,
   onClickRecover: PropTypes.func.isRequired,
-  onClickBackToLogin: PropTypes.func.isRequired
+  onClickBackToLogin: PropTypes.func.isRequired,
+  onClickBackToStartPage: PropTypes.func.isRequired
 }
 
 export default ForgottenPasswordPage

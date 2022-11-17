@@ -2,12 +2,12 @@ import styled from '@emotion/styled'
 import Button from '@mui/material/Button'
 
 export const StyledButton = styled(Button)`
-&.login-page-button {
-   width: 222px;
-height: 40px;
-margin: 4px; 
+margin: 4px;
+width: 222px;
+font-size: small;
+&.button-text--small{
+   font-size: 10px;
 }
-
 `
 
 export default StyledButton

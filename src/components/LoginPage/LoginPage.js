@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import TextField from '@mui/material/TextField'
-import LoginIcon from '@mui/icons-material/Login'
+import Logo from '../Logo'
 import StyledButton from '../../styledComponents/StyledButton'
 import StyledForm from '../../styledComponents/StyledForm'
 
@@ -12,12 +12,14 @@ export const LoginPage = (props) => {
     onClickLogin,
     onClickCreateAccount,
     onChangeEmail,
-    onChangePassword
+    onChangePassword,
+    onClickRecoverPassword,
+    onClickBackToStartPage
   } = props
 
   return (
-    <StyledForm>
-      <LoginIcon fontSize={'large'}/>
+    <StyledForm style={{ backgroundColor: '#ffffff99' }}>
+      <Logo style={{ width: '120px' }}/>
       <TextField
         size={'small'}
         margin={'dense'}
@@ -36,23 +38,28 @@ export const LoginPage = (props) => {
         onChange={onChangePassword}
       />
       <StyledButton
-        className={'login-page-button'}
         color={'primary'}
         variant={'contained'}
         onClick={onClickLogin}
       >ZALOGUJ SIĘ
       </StyledButton>
       <StyledButton
-        className={'login-page-button'}
-        variant={'outlined'}
+        variant={'contained'}
         onClick={onClickCreateAccount}
       >UTWÓRZ KONTO
       </StyledButton>
       <StyledButton
-        className={'login-page-button'}
-        variant={'text'}
-        onClick={onClickCreateAccount}
+        variant={'outlined'}
+        color={'black'}
+        onClick={onClickRecoverPassword}
       >Przypomnij hasło
+      </StyledButton>
+      <StyledButton
+      className={'button-text--small'}
+        variant={'text'}
+        color={'black'}
+        onClick={onClickBackToStartPage}
+      >Powrót na stronę główną
       </StyledButton>
     </StyledForm>
   )
@@ -64,7 +71,9 @@ LoginPage.propTypes = {
   onClickLogin: PropTypes.func.isRequired,
   onClickCreateAccount: PropTypes.func.isRequired,
   onChangeEmail: PropTypes.func.isRequired,
-  onChangePassword: PropTypes.func.isRequired
+  onChangePassword: PropTypes.func.isRequired,
+  onClickRecoverPassword: PropTypes.func.isRequired,
+  onClickBackToStartPage: PropTypes.func.isRequired
 }
 
 export default LoginPage

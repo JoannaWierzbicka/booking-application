@@ -9,7 +9,6 @@ import StyledLink from '../../styledComponents/StyledLink'
 import Button from '@mui/material/Button'
 // import StyledFooter from '../../styledComponents/StyledFooter'
 import Logo from '../Logo'
-// import MenuIcon from '@mui/icons-material/Menu'
 
 export const StartPage = (props) => {
   const { onClickLogin } = props
@@ -18,7 +17,6 @@ export const StartPage = (props) => {
       <StyledHeader>
         <Logo style={{ marginLeft: '15px', width: '50px', height: '50px' }}/>
         <StyledMenu>
-          {/* <MenuIcon/> */}
           <StyledLink>Info</StyledLink>
           <StyledLink>Kontakt</StyledLink>
           <StyledLink onClick={onClickLogin}>Logowanie</StyledLink>

@@ -6,6 +6,8 @@ import Message from './components/Message'
 import StyledFullPage from './styledComponents/StyledFullPage'
 import StartPage from './components/StartPage'
 import { validateFormLogIn, validateFormCreate } from './helpers/validation'
+import AdminPageMain from './components/AdminPageMain'
+import Alert from '@mui/material/Alert'
 
 export class App extends React.Component {
   state = {
@@ -16,6 +18,7 @@ export class App extends React.Component {
     infoMessage: 'Some information',
 
     isUserLoggedIn: false,
+    newUserAlert: false,
     userName: '',
     userEmail: '',
 
@@ -46,7 +49,10 @@ export class App extends React.Component {
     })
 
     if (errors.length === 0) {
-      console.log('zalogowano pomyślnie')
+      this.setState({
+        isUserLoggedIn: true,
+        newUserAlert: false
+      })
     }
   }
 
@@ -59,6 +65,10 @@ export class App extends React.Component {
     })
 
     if (errors.length === 0) {
+      this.setState({
+        notLoginUserRoute: 'LOGIN',
+        newUserAlert: true
+      })
       console.log('konto utworzone pomyślnie')
     }
   }
@@ -77,19 +87,31 @@ export class App extends React.Component {
       createAccountPassword,
       createAccountPasswordRepeat,
       errorsLogIn,
-      errorsCreateAccount
+      errorsCreateAccount,
+      isUserLoggedIn,
+      newUserAlert
     } = this.state
     return (
-
       <div>
         {notLoginUserRoute === 'START' ?
           <StyledFullPage>
             <StartPage
-              onClickLogin={() => this.setState(() => ({ notLoginUserRoute: 'LOGIN' }))}
+              onClickLogin={() => this.setState(() =>
+                ({
+                  notLoginUserRoute: 'LOGIN',
+                  newUserAlert: false
+                }))}
             />
           </StyledFullPage> :
           notLoginUserRoute === 'LOGIN' ?
-            <StyledFullPage>
+            <StyledFullPage style={{ display: 'flex', flexDirection: 'column' }}>
+              {newUserAlert
+                ? <Alert
+                    severity={'success'}
+                    sx={{ position: 'fixed', top: '15px' }}
+                  >Dziękujemy za założenie konta <strong>możesz się zalogować</strong>
+                </Alert>
+                : null}
               <LoginPage
                 errors={errorsLogIn}
                 email={loginEmail}
@@ -116,6 +138,14 @@ export class App extends React.Component {
                   onClickBackToStartPage={() => this.setState(() => ({ notLoginUserRoute: 'START' }))}
                   onClickBackToLogin={() => this.setState(() => ({ notLoginUserRoute: 'LOGIN' }))}
                 />
+              </StyledFullPage>
+
+              : null
+          }
+        {
+            isUserLoggedIn ?
+              <StyledFullPage>
+                <AdminPageMain logOut={() => this.setState(() => ({ isUserLoggedIn: false }))}/>
               </StyledFullPage>
               : null
           }

@@ -13,13 +13,23 @@ export const LoginPage = (props) => {
     onClickCreateAccount,
     onChangeEmail,
     onChangePassword,
-    onClickRecoverPassword,
-    onClickBackToStartPage
+    onClickBackToStartPage,
+    errors
   } = props
 
+  const renderErrors = () => {
+    return errors.map((err, index) => (
+      <li
+        style={{ listStyle: 'none', color: 'red', margin: '5px', fontSize: '10px' }}
+        key={index}
+      >{err}
+      </li>))
+  }
+
   return (
-    <StyledForm style={{ backgroundColor: '#ffffff99' }}>
+    <StyledForm>
       <Logo style={{ width: '120px' }}/>
+      {renderErrors()}
       <TextField
         size={'small'}
         margin={'dense'}
@@ -44,20 +54,15 @@ export const LoginPage = (props) => {
       >ZALOGUJ SIĘ
       </StyledButton>
       <StyledButton
-        variant={'contained'}
+        variant={'outlined'}
+        color={'secondary'}
         onClick={onClickCreateAccount}
       >UTWÓRZ KONTO
       </StyledButton>
       <StyledButton
-        variant={'outlined'}
-        color={'black'}
-        onClick={onClickRecoverPassword}
-      >Przypomnij hasło
-      </StyledButton>
-      <StyledButton
-      className={'button-text--small'}
+        className={'button-text--small'}
         variant={'text'}
-        color={'black'}
+        color={'secondary'}
         onClick={onClickBackToStartPage}
       >Powrót na stronę główną
       </StyledButton>
@@ -72,8 +77,8 @@ LoginPage.propTypes = {
   onClickCreateAccount: PropTypes.func.isRequired,
   onChangeEmail: PropTypes.func.isRequired,
   onChangePassword: PropTypes.func.isRequired,
-  onClickRecoverPassword: PropTypes.func.isRequired,
-  onClickBackToStartPage: PropTypes.func.isRequired
+  onClickBackToStartPage: PropTypes.func.isRequired,
+  errors: PropTypes.array
 }
 
 export default LoginPage

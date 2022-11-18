@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import PropTypes from 'prop-types'
-// import StyledStartPage from '../../styledComponents/StyledStartPage'
+import StyledStartPage from '../../styledComponents/StyledStartPage'
 import StyledHeader from '../../styledComponents/StyledHeader'
 import StyledInfo from '../../styledComponents/StyledInfo'
 import StyledMenu from '../../styledComponents/StyledMenu'
@@ -14,7 +14,7 @@ import Logo from '../Logo'
 export const StartPage = (props) => {
   const { onClickLogin } = props
   return (
-    <div style={{ backgroundColor: '#ffffff87' }}>
+    <StyledStartPage>
       <StyledHeader>
         <Logo style={{ marginLeft: '15px', width: '50px', height: '50px' }}/>
         <StyledMenu>
@@ -33,7 +33,7 @@ export const StartPage = (props) => {
         >ZOBACZ WIĘCEJ
         </Button>
       </StyledInfo>
-    </div>
+    </StyledStartPage>
   )
 }
 

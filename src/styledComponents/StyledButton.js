@@ -4,7 +4,6 @@ import Button from '@mui/material/Button'
 export const StyledButton = styled(Button)`
 margin: 4px;
 width: 222px;
-font-size: small;
 &.button-text--small{
    font-size: 10px;
 }

@@ -10,11 +10,12 @@ left: 0;
 display: flex;
 justify-content: center;
 align-items: center;
+background-color: white;;
 
-background-image: url('https://bi.im-g.pl/im/f0/05/1b/z28334320IH,Bieszczady--Polonina-Carynska.jpg');
+/* background-image: url('');
 background-repeat: no-repeat;
 background-position: center;
-background-size: cover;
+background-size: cover; */
 
 &.message {
     flex-direction: column;

@@ -6,9 +6,8 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 padding: 12px;
-background-color: #ffffff99;
-border-radius: 5px;
-box-shadow: 2px 2px 6px 4px #c2cccc;
+background-color: #00800017;
+border-radius: 10px;
 `
 
 export default StyledForm

@@ -15,11 +15,23 @@ export const CreateAccountPage = (props) => {
     onChangeRepeatPassword,
     onClickCreateAccount,
     onClickBackToLogin,
-    onClickBackToStartPage
+    onClickBackToStartPage,
+    errors
   } = props
+
+  const renderErrors = () => {
+    return errors.map((err, index) => (
+      <li
+        style={{ listStyle: 'none', color: 'red', margin: '5px', fontSize: '10px' }}
+        key={index}
+      >{err}
+      </li>))
+  }
+
   return (
     <StyledForm>
       <Logo style={{ width: '120px' }}/>
+      {renderErrors()}
       <TextField
         size={'small'}
         margin={'dense'}
@@ -54,7 +66,7 @@ export const CreateAccountPage = (props) => {
       </StyledButton>
       <StyledButton
         variant={'outlined'}
-        color={'black'}
+        color={'secondary'}
         onClick={onClickBackToLogin}
       >
         Zaloguj się
@@ -62,11 +74,12 @@ export const CreateAccountPage = (props) => {
       <StyledButton
         className={'button-text--small'}
         variant={'text'}
-        color={'black'}
+        color={'secondary'}
         onClick={onClickBackToStartPage}
       >Powrót na stronę główną
       </StyledButton>
     </StyledForm>
+
   )
 }
 
@@ -79,7 +92,8 @@ CreateAccountPage.propTypes = {
   onClickCreateAccount: PropTypes.func.isRequired,
   onClickBackToLogin: PropTypes.func.isRequired,
   onChangeRepeatPassword: PropTypes.func.isRequired,
-  onClickBackToStartPage: PropTypes.func.isRequired
+  onClickBackToStartPage: PropTypes.func.isRequired,
+  errors: PropTypes.array
 }
 
 export default CreateAccountPage

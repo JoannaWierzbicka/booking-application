@@ -6,6 +6,7 @@ import StyledCalendarContainer from '../../styledComponents/StyledCalendarContai
 import Logo from '../Logo'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
+import CalendarTimeline from '../CalendarTimeline'
 
 export const AdminPageMain = (props) => {
   const { logOut } = props
@@ -21,12 +22,13 @@ export const AdminPageMain = (props) => {
         <Button onClick={logOut}>WYLOGUJ</Button>
       </StyledHeader>
       <StyledCalendarContainer>
-        <div style={{ border: '1px solid blue', minHeight: '50px' }}>wybór dat</div>
+        <CalendarTimeline/>
+        {/* <div style={{ border: '1px solid blue', minHeight: '50px' }}>wybór dat</div>
         <div style={{ height: '100vh', border: '1px solid green' }}>kalendarz</div>
         <div style={{ position: 'fixed', bottom: '0' }}>
           <button>dodaj pokój</button>
           <button>dodaj rezerwację</button>
-        </div>
+        </div> */}
 
       </StyledCalendarContainer>
 

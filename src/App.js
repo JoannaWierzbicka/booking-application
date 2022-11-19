@@ -17,7 +17,7 @@ export class App extends React.Component {
     errorMessage: 'Error occurred',
     infoMessage: 'Some information',
 
-    isUserLoggedIn: false,
+    isUserLoggedIn: true,
     newUserAlert: false,
     userName: '',
     userEmail: '',

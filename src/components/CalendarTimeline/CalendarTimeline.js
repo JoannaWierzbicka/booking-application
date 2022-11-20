@@ -36,6 +36,13 @@ const reservations = [
     title: 'Piotr Kowalski',
     start_time: moment('20221111'),
     end_time: moment('20221112').add(10, 'hours')
+  },
+  {
+    id: 4,
+    group: 3,
+    title: 'Piotr Kowalski',
+    start_time: moment('20221129'),
+    end_time: moment('20221201').add(10, 'hours')
   }
 ]
 

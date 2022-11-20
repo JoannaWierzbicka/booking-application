@@ -1,0 +1,14 @@
+{
+  "reservations": [
+    {
+      "firstName": "Jan",
+      "lastName": "Nowak",
+      "arrival": "2022-12-12",
+      "departure": "2022-12-15",
+      "nights": "3",
+      "room": "7",
+      "phone": "666666666",
+      "id": 1
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 export const CHANGE_MONTH = 'calendar/CHANGE_MONTH'
 export const CHANGE_YEAR = 'calendar/CHANGE_YEAR'
+export const LOAD = 'calendar/LOAD'
+export const ADD = 'calendar/ADD'
 
 const changeMonthAction = (newMonth) => ({
   type: CHANGE_MONTH,
@@ -11,4 +13,14 @@ const changeYearAction = (newYear) => ({
   payload: newYear
 })
 
-export { changeMonthAction, changeYearAction }
+const loadDataAction = (data) => ({
+  type: LOAD,
+  payload: data
+})
+
+const addDataAction = (newReservation) => ({
+  type: ADD,
+  payload: newReservation
+})
+
+export { changeMonthAction, changeYearAction, loadDataAction, addDataAction }

@@ -4,47 +4,11 @@ import React from 'react'
 import 'react-calendar-timeline/lib/Timeline.css'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
-import { changeMonthAction, changeYearAction } from '../../actions/calendar'
+import { changeMonthAction, changeYearAction, loadDataAction } from '../../actions/calendar'
+import DataApi from '../../api/DataApi'
+import ReservationForm from '../ReservationForm'
 
 const rooms = [{ id: 1, title: 'room no.1', height: 50, stackItems: false }, { id: 2, title: 'room no.2', height: 50, stackItems: false }, { id: 3, title: 'room no.3', height: 50, stackItems: false }]
-
-const reservations = [
-  {
-    id: 1,
-    group: 1,
-    title: 'Jan Nowak',
-    start_time: moment([2023, 0, 10]),
-    end_time: moment([2023, 0, 12]).add(10, 'hours'),
-    canChangeGroup: true
-  },
-  {
-    id: 2,
-    group: 2,
-    title: 'Anna Polak',
-    start_time: moment([2022, 11, 10]),
-    end_time: moment([2022, 11, 15]).add(10, 'hours'),
-    itemProps: {
-      onDoubleClick: () => console.log('click'),
-      style: {
-        background: 'red'
-      }
-    }
-  },
-  {
-    id: 3,
-    group: 3,
-    title: 'Piotr Kowalski',
-    start_time: moment('20221111'),
-    end_time: moment('20221112').add(10, 'hours')
-  },
-  {
-    id: 4,
-    group: 3,
-    title: 'Piotr Kowalski',
-    start_time: moment('20221129'),
-    end_time: moment('20221201').add(10, 'hours')
-  }
-]
 
 const months = [
   { name: 'STYCZEŃ', id: '01' },
@@ -66,7 +30,23 @@ const years = [
 ]
 
 export const CalendarTimeline = () => {
+  const [formVisible, setFormVisible] = React.useState(false)
   const dispatch = useDispatch()
+  const { date } = useSelector((state) => state.calendar)
+  const { reservations } = useSelector((state) => state.reservations)
+
+  const items = reservations.map(reservation => {
+    reservation.start_time = moment(reservation.start_time)
+    reservation.end_time = moment(reservation.end_time)
+    return reservation
+  })
+
+  const dataApi = new DataApi()
+
+  React.useEffect(() => {
+    dataApi.loadData()
+      .then(data => dispatch(loadDataAction(data)))
+  }, [])
 
   const handleChangeMonth = (month) => {
     return dispatch(changeMonthAction(month))
@@ -75,8 +55,6 @@ export const CalendarTimeline = () => {
   const handleChangeYear = (year) => {
     return dispatch(changeYearAction(year))
   }
-
-  const date = useSelector((state) => state.date)
 
   return (
     <>
@@ -107,10 +85,15 @@ export const CalendarTimeline = () => {
       </div>
       <Timeline
         groups={rooms}
-        items={reservations}
+        items={items}
         visibleTimeStart={date.start}
         visibleTimeEnd={date.end}
       />
+      <button onClick={() => setFormVisible(true)}>Dodaj rezerwację</button>
+      {
+        formVisible ? <ReservationForm close={() => setFormVisible(false)}/> : null
+      }
+
     </>
 
   )

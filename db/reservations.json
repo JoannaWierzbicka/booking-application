@@ -1,14 +1,74 @@
 {
   "reservations": [
     {
-      "firstName": "Jan",
-      "lastName": "Nowak",
-      "arrival": "2022-12-12",
-      "departure": "2022-12-15",
-      "nights": "3",
-      "room": "7",
-      "phone": "666666666",
-      "id": 1
+      "id": 1,
+      "group": 1,
+      "title": "Jan Nowak",
+      "start_time": "2022-11-11",
+      "end_time": "2022-12-12",
+      "canChangeGroup": true
+    },
+    {
+      "id": 2,
+      "group": 2,
+      "title": "Anna Polak",
+      "start_time": "2022-11-11",
+      "end_time": "2022-12-12",
+      "itemProps": {
+        "style": {
+          "background": "red"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "group": 3,
+      "title": "Piotr Kowalski",
+      "start_time": "2022-11-11",
+      "end_time": "2022-12-12"
+    },
+    {
+      "id": 4,
+      "group": 3,
+      "title": "Adam Pietrzyk",
+      "start_time": "2022-11-11",
+      "end_time": "2022-12-12"
+    },
+    {
+      "id": "60c24f6b-f6bc-4bf8-aed5-ba4f68f60d68",
+      "group": "1",
+      "title": "Anna",
+      "start_time": "2022-11-01",
+      "end_time": "2022-11-03",
+      "phone": "aasas",
+      "email": "asas"
+    },
+    {
+      "id": "543137e6-9251-4d91-ae04-f764cd5a3e8d",
+      "group": "2",
+      "title": "Hanna",
+      "start_time": "2022-11-01",
+      "end_time": "2022-11-01",
+      "phone": "asas",
+      "email": "asas"
+    },
+    {
+      "id": "1e9a876d-bd6f-4955-8575-d43988c49295",
+      "group": "3",
+      "title": "asasas",
+      "start_time": "2022-11-01",
+      "end_time": "2022-11-03",
+      "phone": "",
+      "email": ""
+    },
+    {
+      "id": "6f8bbd8f-b5c3-4f02-9f3b-81c789fbfe7c",
+      "group": "2",
+      "title": "henio",
+      "start_time": "2022-11-04",
+      "end_time": "2022-11-05",
+      "phone": "",
+      "email": ""
     }
   ]
 }

@@ -1,4 +1,4 @@
-import { LOAD, ADD } from '../actions/calendar'
+import { LOAD, ADD, REMOVE } from '../actions/calendar'
 
 const initialState = {
   reservations: []
@@ -15,6 +15,13 @@ export const reservationsReducer = (state = initialState, action) => {
       return {
         ...state,
         reservations: [...state.reservations, action.payload]
+      }
+    case REMOVE :
+      return {
+        ...state,
+        reservations: state.reservations.filter(
+          (reservation) => reservation.id !== action.payload
+        )
       }
     default :
       return state

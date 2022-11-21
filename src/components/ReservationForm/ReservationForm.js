@@ -5,8 +5,15 @@ import DataApi from '../../api/DataApi'
 import { addDataAction } from '../../actions/calendar'
 import { useDispatch, useSelector } from 'react-redux'
 import { v4 as uuid } from 'uuid'
+import { validateNewReservation } from '../../helpers/validationReservation'
 
 const divStyles = { zIndex: '999999', width: '80%', height: '80%', backgroundColor: 'white', position: 'fixed', top: 50, left: 50 }
+const initialResStyles = {
+  background: '#ffc107',
+  color: 'black',
+  borderRadius: '5px',
+  border: '1px solid orange'
+}
 
 export const ReservationForm = (props) => {
   const { close } = props
@@ -29,14 +36,18 @@ export const ReservationForm = (props) => {
     start_time: start,
     end_time: end,
     phone: phone,
-    email: email
+    email: email,
+    itemProps: {
+      style: initialResStyles
+    }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    validateNewReservation(newReservation)
     dataApi.addData(newReservation)
-    close()
     dispatch(addDataAction(newReservation))
+    close()
   }
 
   return (

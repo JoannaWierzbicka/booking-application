@@ -33,17 +33,19 @@ export class DataApi extends React.Component {
       })
   };
 
-  // removeMeetingFromApi = (id, callback) => {
-  //   fetch(`${this.apiUrl}/${id}`, {
-  //     method: 'DELETE'
-  //   })
-  //     .then((resp) => {
-  //       if (resp.ok) {
-  //         return resp.json()
-  //       }
-  //       throw new Error('Network error!')
-  //     })
-  // };
+  removeReservation = (id) => {
+    fetch(`${this.apiUrl}/${id}`, {
+      method: 'DELETE'
+    })
+      .then((resp) => {
+        if (resp.ok) {
+          return resp.json()
+        }
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  };
 }
 
 export default DataApi

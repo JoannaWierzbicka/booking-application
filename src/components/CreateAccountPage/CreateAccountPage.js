@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import TextField from '@mui/material/TextField'
-import StyledButton from '../../styledComponents/StyledButton'
+import Button from '@mui/material/Button'
 import StyledForm from '../../styledComponents/StyledForm'
 import Logo from '../Logo'
 
@@ -58,26 +58,26 @@ export const CreateAccountPage = (props) => {
         value={repeatPassword}
         onChange={onChangeRepeatPassword}
       />
-      <StyledButton
+      <Button
         color={'primary'}
         variant={'contained'}
         onClick={onClickCreateAccount}
       >UTWÓRZ KONTO
-      </StyledButton>
-      <StyledButton
+      </Button>
+      <Button
         variant={'outlined'}
         color={'secondary'}
         onClick={onClickBackToLogin}
       >
         Zaloguj się
-      </StyledButton>
-      <StyledButton
+      </Button>
+      <Button
         className={'button-text--small'}
         variant={'text'}
         color={'secondary'}
         onClick={onClickBackToStartPage}
       >Powrót na stronę główną
-      </StyledButton>
+      </Button>
     </StyledForm>
 
   )

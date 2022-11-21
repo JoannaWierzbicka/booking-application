@@ -1,12 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import Timeline from 'react-calendar-timeline'
+// import Timeline from 'react-calendar-timeline'
 import React from 'react'
-import 'react-calendar-timeline/lib/Timeline.css'
+// import 'react-calendar-timeline/lib/Timeline.css'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import { changeMonthAction, changeYearAction, loadDataAction } from '../../actions/calendar'
 import DataApi from '../../api/DataApi'
 import ReservationForm from '../ReservationForm'
+import ReservationInfo from '../ReservationInfo'
+import StyledTimeline from '../../styledComponents/StyledTimeline'
+import StyledButton from '../../styledComponents/StyledButton'
 
 const rooms = [{ id: 1, title: 'room no.1', height: 50, stackItems: false }, { id: 2, title: 'room no.2', height: 50, stackItems: false }, { id: 3, title: 'room no.3', height: 50, stackItems: false }]
 
@@ -30,7 +34,8 @@ const years = [
 ]
 
 export const CalendarTimeline = () => {
-  const [formVisible, setFormVisible] = React.useState(false)
+  const [formOn, setFormVisible] = React.useState(false)
+  const [reservationOn, setReservationOn] = React.useState([])
   const dispatch = useDispatch()
   const { date } = useSelector((state) => state.calendar)
   const { reservations } = useSelector((state) => state.reservations)
@@ -56,17 +61,22 @@ export const CalendarTimeline = () => {
     return dispatch(changeYearAction(year))
   }
 
+  const showItem = (id) => {
+    const clickedItem = items.filter((item) => item.id === id)
+    setReservationOn(clickedItem)
+  }
+
   return (
     <>
       <div style={{ height: '50px' }}>
         {
         years.map(year => {
           return (
-            <button
+            <StyledButton
               key={year}
               onClick={() => handleChangeYear(year)}
             >{year}
-            </button>)
+            </StyledButton>)
         })
       }
       </div>
@@ -75,25 +85,36 @@ export const CalendarTimeline = () => {
         {
         months.map(month => {
           return (
-            <button
+            <StyledButton
               key={month.id}
               onClick={() => handleChangeMonth(month.id)}
             >{month.name}
-            </button>)
+            </StyledButton>)
         })
       }
       </div>
-      <Timeline
+      <StyledTimeline
         groups={rooms}
         items={items}
         visibleTimeStart={date.start}
         visibleTimeEnd={date.end}
+        onItemClick={(itemId) => showItem(itemId)}
       />
-      <button onClick={() => setFormVisible(true)}>Dodaj rezerwację</button>
+      <StyledButton
+        onClick={() => setFormVisible(true)}
+      >Dodaj rezerwację
+      </StyledButton>
       {
-        formVisible ? <ReservationForm close={() => setFormVisible(false)}/> : null
+        formOn ? <ReservationForm close={() => setFormVisible(false)}/> : null
       }
-
+      {
+        reservationOn.length > 0
+          ? <ReservationInfo
+              close={() => setReservationOn([])}
+              data={reservationOn}
+            />
+          : null
+      }
     </>
 
   )

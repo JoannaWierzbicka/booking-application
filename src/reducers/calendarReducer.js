@@ -30,6 +30,7 @@ export const calendarReducer = (state = initialState, action) => {
           end: moment(`${action.payload}${state.month}`).endOf('month').valueOf()
         }
       }
+
     default:
       return state
   }

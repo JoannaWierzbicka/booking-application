@@ -1,12 +1,12 @@
-import styled from '@emotion/styled'
-import Button from '@mui/material/Button'
+import styled from 'styled-components'
 
-export const StyledButton = styled(Button)`
-margin: 4px;
-width: 222px;
-&.button-text--small{
-   font-size: 10px;
-}
+export const StyledButton = styled.button`
+    border-radius: 8px;
+    border: none;
+    background-color: #2196f385;
+    margin: 3px;
+    cursor: pointer;
+    padding: 4px 10px;
 `
 
 export default StyledButton

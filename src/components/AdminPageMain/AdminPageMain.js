@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from '@mui/material'
+import Button from '@mui/material/Button'
 import { PropTypes } from 'prop-types'
 import StyledHeader from '../../styledComponents/StyledHeader'
 import StyledCalendarContainer from '../../styledComponents/StyledCalendarContainer'

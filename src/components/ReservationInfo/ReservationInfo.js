@@ -12,7 +12,10 @@ import Divider from '@mui/material/Divider'
 
 export const ReservationInfo = (props) => {
   const dispatch = useDispatch()
+
+  // const [editable, setEditable] = React.useState(false)
   const { close, data } = props
+  const res = Object.assign(data[0])
 
   const dataApi = new DataApi()
 
@@ -26,15 +29,19 @@ export const ReservationInfo = (props) => {
     }
   }
 
+  const editReservation = (id) => {
+    console.log(id)
+  }
+
   return (
     <StyledPaper>
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}>
-        <div>{data[0].title}</div>
+        <div>{res.title}</div>
         <div>
-          <IconButton onClick={() => removeReservation(data[0].id)}>
+          <IconButton onClick={() => removeReservation(res.id)}>
             <DeleteIcon />
           </IconButton>
-          <IconButton onClick={() => console.log('edytuj')}>
+          <IconButton onClick={() => editReservation(res.id)}>
             <EditTwoToneIcon/>
           </IconButton>
           <IconButton
@@ -45,12 +52,12 @@ export const ReservationInfo = (props) => {
       </header>
       <Divider variant={'middle'}/>
       <StyledReservationInfo>
-        <p>Data przyjazdu: {data[0].start_time._i}</p>
-        <p>Data wyjazdu: {data[0].end_time._i}</p>
-        <p>Pokój: {data[0].group}</p>
+        <p>Data przyjazdu: {res.start_time._i}</p>
+        <p>Data wyjazdu: {res.end_time._i}</p>
+        <p>Pokój: {res.group}</p>
         <h6>Dane kontaktowe</h6>
-        <p>Email: {data[0].email}</p>
-        <p>Telefon: {data[0].phone}</p>
+        <p>Email: {res.email}</p>
+        <p>Telefon: {res.phone}</p>
       </StyledReservationInfo>
     </StyledPaper>
   )

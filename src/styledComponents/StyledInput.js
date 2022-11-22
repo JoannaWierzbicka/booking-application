@@ -7,6 +7,7 @@ border-radius: 5px;
     padding: 5px;
     margin: 5px;
     box-shadow: inset 1px 1px 1px 1px #00000045;
+    width: 80%;
 `
 
 export default StyledInput

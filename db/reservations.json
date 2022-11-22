@@ -67,40 +67,6 @@
           "border": "1px solid orange"
         }
       }
-    },
-    {
-      "id": "eb5e71d0-25d9-49c8-8402-f0ec260225ba",
-      "group": "3",
-      "title": "Hanna Nowak",
-      "start_time": "2022-11-26",
-      "end_time": "2022-11-30",
-      "phone": "666-666-666",
-      "email": "asia@asas.pl",
-      "itemProps": {
-        "style": {
-          "background": "#ffc107",
-          "color": "black",
-          "borderRadius": "5px",
-          "border": "1px solid orange"
-        }
-      }
-    },
-    {
-      "id": "de00d512-9c70-4760-9fbd-d996d4f071b8",
-      "group": "2",
-      "title": "Aisas",
-      "start_time": "2022-11-09",
-      "end_time": "2022-11-18",
-      "phone": "661120290",
-      "email": "joannawierzbicka@poczta.onet.pl",
-      "itemProps": {
-        "style": {
-          "background": "#ffc107",
-          "color": "black",
-          "borderRadius": "5px",
-          "border": "1px solid orange"
-        }
-      }
     }
   ]
 }

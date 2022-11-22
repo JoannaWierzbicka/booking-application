@@ -15,10 +15,13 @@ font-size: 10px;
         right: 5px;
          top: 5px;
     }
-    &.button-reservation--add{
+    &.button-reservation--new{
         padding: 14px;
         margin: 10px;
         font-size: 14px;
+    }
+    &.button-reservation--add{
+        padding: 10px;
     }
 `
 

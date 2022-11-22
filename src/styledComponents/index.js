@@ -14,6 +14,7 @@ import StyledReservationInfo from './StyledReservationInfo'
 import StyledSelect from './StyledSelect'
 import StyledStartPage from './StyledStartPage'
 import StyledTimeline from './StyledTimeline'
+import StyledInputWrapper from './StyleInputWrapper'
 
 export {
   StyledButton,
@@ -31,5 +32,6 @@ export {
   StyledReservationInfo,
   StyledSelect,
   StyledStartPage,
-  StyledTimeline
+  StyledTimeline,
+  StyledInputWrapper
 }

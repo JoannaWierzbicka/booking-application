@@ -46,6 +46,20 @@ export class DataApi extends React.Component {
         console.error(error)
       })
   };
+
+  editReservation = (id) => {
+    fetch(`${this.apiUrl}/${id}`, {
+      method: 'PUT'
+    })
+      .then((resp) => {
+        if (resp.ok) {
+          return resp.json()
+        }
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  };
 }
 
 export default DataApi

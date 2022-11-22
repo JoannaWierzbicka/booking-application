@@ -10,6 +10,8 @@ background-color: #00800017;
 border-radius: 10px;
 &.reservation{
     background-color: white;
+    flex-direction: row;
+    align-items: flex-start;
 }
 `
 

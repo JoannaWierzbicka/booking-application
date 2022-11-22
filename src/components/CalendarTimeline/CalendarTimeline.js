@@ -35,7 +35,7 @@ export const CalendarTimeline = () => {
         onItemClick={(id) => setReservationOn(items.filter((item) => item.id === id))}
       />
       <StyledButton
-        className={'button-reservation--add'}
+        className={'button-reservation--new'}
         onClick={() => setFormVisible(true)}
       >Dodaj rezerwację
       </StyledButton>

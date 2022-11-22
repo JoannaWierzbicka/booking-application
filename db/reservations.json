@@ -1,3 +1,106 @@
 {
-  "reservations": []
+  "reservations": [
+    {
+      "id": "ff78b904-b108-4390-848f-f2627fba561e",
+      "group": "",
+      "title": "",
+      "start_time": "",
+      "end_time": "",
+      "phone": "",
+      "email": "",
+      "itemProps": {
+        "style": {
+          "background": "#ffc107",
+          "color": "black",
+          "borderRadius": "5px",
+          "border": "1px solid orange"
+        }
+      }
+    },
+    {
+      "id": "df757334-64e3-4d2a-8416-d48f6d87970f",
+      "group": "",
+      "title": "",
+      "start_time": "",
+      "end_time": "",
+      "phone": "",
+      "email": "",
+      "itemProps": {
+        "style": {
+          "background": "#ffc107",
+          "color": "black",
+          "borderRadius": "5px",
+          "border": "1px solid orange"
+        }
+      }
+    },
+    {
+      "id": "6c827bc1-eb15-4dcc-9ee3-d2fb859ebe9d",
+      "group": "",
+      "title": "",
+      "start_time": "",
+      "end_time": "",
+      "phone": "",
+      "email": "",
+      "itemProps": {
+        "style": {
+          "background": "#ffc107",
+          "color": "black",
+          "borderRadius": "5px",
+          "border": "1px solid orange"
+        }
+      }
+    },
+    {
+      "id": "df6f0b88-b306-4b86-8470-6757d30f583d",
+      "group": "",
+      "title": "Anna Nowak",
+      "start_time": "2022-11-24",
+      "end_time": "2022-11-26",
+      "phone": "",
+      "email": "",
+      "itemProps": {
+        "style": {
+          "background": "#ffc107",
+          "color": "black",
+          "borderRadius": "5px",
+          "border": "1px solid orange"
+        }
+      }
+    },
+    {
+      "id": "eb5e71d0-25d9-49c8-8402-f0ec260225ba",
+      "group": "3",
+      "title": "Hanna Nowak",
+      "start_time": "2022-11-26",
+      "end_time": "2022-11-30",
+      "phone": "666-666-666",
+      "email": "asia@asas.pl",
+      "itemProps": {
+        "style": {
+          "background": "#ffc107",
+          "color": "black",
+          "borderRadius": "5px",
+          "border": "1px solid orange"
+        }
+      }
+    },
+    {
+      "id": "de00d512-9c70-4760-9fbd-d996d4f071b8",
+      "group": "2",
+      "title": "Aisas",
+      "start_time": "2022-11-09",
+      "end_time": "2022-11-18",
+      "phone": "661120290",
+      "email": "joannawierzbicka@poczta.onet.pl",
+      "itemProps": {
+        "style": {
+          "background": "#ffc107",
+          "color": "black",
+          "borderRadius": "5px",
+          "border": "1px solid orange"
+        }
+      }
+    }
+  ]
 }

@@ -3,7 +3,7 @@ import 'react-calendar-timeline/lib/Timeline.css'
 import styled from 'styled-components'
 
 export const StyledTimeline = styled(Timeline)`
-font-family: monospace;
+font-family: Montserrat, sans-serif;
 .rct-header-root {
     background: #673ab794;;
 }

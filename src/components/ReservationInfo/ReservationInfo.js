@@ -2,7 +2,13 @@
 import React from 'react'
 import DataApi from '../../api/DataApi'
 import { useDispatch } from 'react-redux'
-import { removeDataAction } from '../../actions/calendar'
+import { removeDataAction } from '../../actions/reservation'
+import { StyledPaper, StyledReservationInfo } from '../../styledComponents'
+import IconButton from '@mui/material/IconButton'
+import DeleteIcon from '@mui/icons-material/Delete'
+import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone'
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone'
+import Divider from '@mui/material/Divider'
 
 export const ReservationInfo = (props) => {
   const dispatch = useDispatch()
@@ -21,18 +27,32 @@ export const ReservationInfo = (props) => {
   }
 
   return (
-    <div style={{ zIndex: '999999', width: '80%', height: '80%', backgroundColor: 'white', position: 'fixed', top: 50, left: 50 }}>
-      <h3>{data[0].title}</h3>
-      <span>Data przyjazdu: {data[0].start_time._i}</span>
-      <span>Data wyjazdu: {data[0].end_time._i}</span>
-      <span>Pokój: {data[0].group}</span>
-      <button onClick={() => removeReservation(data[0].id)}>USUŃ REZERWACJĘ</button>
-      <button
-        onClick={close}
-        style={{ position: 'absolute', right: 5, top: 5 }}
-      >X
-      </button>
-    </div>
+    <StyledPaper>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}>
+        <div>{data[0].title}</div>
+        <div>
+          <IconButton onClick={() => removeReservation(data[0].id)}>
+            <DeleteIcon />
+          </IconButton>
+          <IconButton onClick={() => console.log('edytuj')}>
+            <EditTwoToneIcon/>
+          </IconButton>
+          <IconButton
+            onClick={close}
+          ><CloseTwoToneIcon/>
+          </IconButton>
+        </div>
+      </header>
+      <Divider variant={'middle'}/>
+      <StyledReservationInfo>
+        <p>Data przyjazdu: {data[0].start_time._i}</p>
+        <p>Data wyjazdu: {data[0].end_time._i}</p>
+        <p>Pokój: {data[0].group}</p>
+        <h6>Dane kontaktowe</h6>
+        <p>Email: {data[0].email}</p>
+        <p>Telefon: {data[0].phone}</p>
+      </StyledReservationInfo>
+    </StyledPaper>
   )
 }
 

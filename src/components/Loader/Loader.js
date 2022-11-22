@@ -1,7 +1,7 @@
 import React from 'react'
 import LoaderIcon from './LoaderIcon'
 
-import StyledFullPage from '../../styledComponents/StyledFullPage'
+import { StyledFullPage } from '../../styledComponents'
 
 export const Loader = () => {
   return (

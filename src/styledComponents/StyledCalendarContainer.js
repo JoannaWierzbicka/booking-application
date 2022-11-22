@@ -4,8 +4,9 @@ export const StyledCalendarContainer = styled.div`
 width: 100vw;
 height: 100vh;
 position: fixed;
-top: 60px;
+top: 180px;
 left: 0;
+
 `
 
 export default StyledCalendarContainer

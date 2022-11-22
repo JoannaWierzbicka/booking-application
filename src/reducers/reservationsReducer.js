@@ -1,4 +1,4 @@
-import { LOAD, ADD, REMOVE } from '../actions/calendar'
+import { LOAD, ADD, REMOVE } from '../actions/reservation'
 
 const initialState = {
   reservations: []

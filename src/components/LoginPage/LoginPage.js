@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import TextField from '@mui/material/TextField'
 import Logo from '../Logo'
 import Button from '@mui/material/Button'
-import StyledForm from '../../styledComponents/StyledForm'
+import { StyledForm } from '../../styledComponents'
 
 export const LoginPage = (props) => {
   const {

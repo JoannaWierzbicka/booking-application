@@ -1,13 +1,12 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import React from 'react'
+import PropTypes from 'prop-types'
 import DataApi from '../../api/DataApi'
-import { addDataAction } from '../../actions/calendar'
-import { useDispatch, useSelector } from 'react-redux'
+import { addDataAction } from '../../actions/reservation'
+import { useDispatch } from 'react-redux'
 import { v4 as uuid } from 'uuid'
-import { validateNewReservation } from '../../helpers/validationReservation'
+import { StyledPaper, StyledForm, StyledInput, StyledButton, StyledSelect } from '../../styledComponents'
+import { rooms } from '../../helpers/rooms'
 
-const divStyles = { zIndex: '999999', width: '80%', height: '80%', backgroundColor: 'white', position: 'fixed', top: 50, left: 50 }
 const initialResStyles = {
   background: '#ffc107',
   color: 'black',
@@ -18,7 +17,6 @@ const initialResStyles = {
 export const ReservationForm = (props) => {
   const { close } = props
   const dispatch = useDispatch()
-  const { reservations } = useSelector((state) => state.reservations)
 
   const dataApi = new DataApi()
 
@@ -44,91 +42,103 @@ export const ReservationForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    validateNewReservation(newReservation)
     dataApi.addData(newReservation)
     dispatch(addDataAction(newReservation))
     close()
   }
 
   return (
-    <div style={divStyles}>
-      <form
+    <StyledPaper>
+      <StyledForm
+        className={'reservation'}
         onSubmit={handleSubmit}
       >
         <h3>Dodaj rezerwację: </h3>
         <div>
-          <div>
-            <label>
-              Imię i nazwisko:
-              <input
-                name={'name'}
-                onChange={(e) => setName(e.target.value)}
-                value={name}
-              />
-            </label>
-          </div>
+          <label>
+            Imię i nazwisko:
+            <StyledInput
+              name={'name'}
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+              required
+            />
+          </label>
+        </div><div>
           <label>
             Data przyjazdu:
-            <input
+            <StyledInput
+              type={'date'}
               name={'start'}
               onChange={(e) => setStart(e.target.value)}
               value={start}
-              placeholder={'RRRR-MM-DD'}
+              required
             />
           </label>
+        </div>
+        <div>
           <label>
             Data wyjazdu:
-            <input
+            <StyledInput
+              type={'date'}
               name={'end'}
               onChange={(e) => setEnd(e.target.value)}
               value={end}
-              placeholder={'RRRR-MM-DD'}
+              required
             />
           </label>
-        </div>
-        <div>
-        </div>
-
-        <div>
+        </div><div>
           <label>
             Email:
-            <input
+            <StyledInput
+              type={'email'}
               name={'email'}
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               placeholder={'nazwa@poczty.pl'}
             />
           </label>
+        </div>
+        <div>
           <label>
             Telefon:
-            <input
+            <StyledInput
               name={'phone'}
               onChange={(e) => setPhone(e.target.value)}
               value={phone}
               placeholder={'xxx-xxx-xxx'}
             />
           </label>
-          <label>
-            Numer pokoju:
-            <input
-              name={'room'}
-              onChange={(e) => setRoom(e.target.value)}
-              value={room}
-              placeholder={'room nr'}
-            />
-          </label>
         </div>
         <div>
-          <button>DODAJ</button>
+          <label>
+            Numer pokoju:
+            <StyledSelect onChange={(e) => setRoom(e.target.value)}>{rooms.map(room => {
+              return (
+                <option
+                  key={room.id}
+                  value={room.id}
+                >{room.id}
+                </option>)
+            })}
+            </StyledSelect>
+          </label>
         </div>
-      </form>
-      <button
+
+        <StyledButton>DODAJ</StyledButton>
+
+      </StyledForm>
+      <StyledButton
+        className={'button--close'}
         onClick={close}
-        style={{ position: 'absolute', right: 5, top: 5 }}
       >X
-      </button>
-    </div>
+      </StyledButton>
+    </StyledPaper>
   )
+}
+
+ReservationForm.propTypes = {
+  close: PropTypes.func
 }
 
 export default ReservationForm

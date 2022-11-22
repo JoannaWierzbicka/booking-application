@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import StyledForm from '../../styledComponents/StyledForm'
+import { StyledForm } from '../../styledComponents'
 import Logo from '../Logo'
 
 export const CreateAccountPage = (props) => {

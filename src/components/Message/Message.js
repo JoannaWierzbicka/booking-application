@@ -1,6 +1,5 @@
 import React from 'react'
-import StyledFullPage from '../../styledComponents/StyledFullPage'
-import StyledForm from '../../styledComponents/StyledForm'
+import { StyledFullPage, StyledForm } from '../../styledComponents'
 import Button from '@mui/material/Button'
 import { PropTypes } from 'prop-types'
 import ErrorIcon from '@mui/icons-material/Error'

@@ -1,8 +1,14 @@
-import { LOAD, ADD, REMOVE } from '../actions/reservation'
+/* eslint-disable no-unused-vars */
+import { LOAD, ADD, REMOVE, EDIT } from '../actions/reservation'
 
 const initialState = {
   reservations: []
 }
+
+// const filtered = (array, id, add) => {
+//   const newArr = array.filter(el => el.id !== id)
+//   return newArr.concat(add)
+// }
 
 export const reservationsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -20,8 +26,13 @@ export const reservationsReducer = (state = initialState, action) => {
       return {
         ...state,
         reservations: state.reservations.filter(
-          (reservation) => reservation.id !== action.payload
+          (res) => res.id !== action.payload
         )
+      }
+    case EDIT :
+      return {
+        ...state,
+        reservations: state.reservations.map(res => res.id === action.payload.id ? action.payload : res)
       }
     default :
       return state

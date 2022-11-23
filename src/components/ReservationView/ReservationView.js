@@ -1,33 +1,27 @@
-/* eslint-disable no-unused-vars */
 import React from 'react'
-import PropTypes from 'prop-types'
-import DataApi from '../../api/DataApi'
-import { addDataAction } from '../../actions/reservation'
 import { useDispatch } from 'react-redux'
-import { v4 as uuid } from 'uuid'
+import PropTypes from 'prop-types'
 import { StyledPaper, StyledForm, StyledInput, StyledButton, StyledSelect, StyledInputWrapper } from '../../styledComponents'
 import { rooms } from '../../helpers/rooms'
 import Divider from '@mui/material/Divider'
-import Box from '@mui/material/Box'
-import TextField from '@mui/material/TextField'
 import IconButton from '@mui/material/IconButton'
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone'
 import { countries } from '../../helpers/countries'
+import { addDataAction, removeDataAction, editDataAction } from '../../actions/reservation'
+import DataApi from '../../api/DataApi'
+import DeleteIcon from '@mui/icons-material/Delete'
+import { v4 as uuid } from 'uuid'
 
-const initialResStyles = {
-  background: '#ffc107',
-  color: 'black',
-  borderRadius: '5px',
-  border: '1px solid orange'
-}
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-export const ReservationForm = (props) => {
-  const { close } = props
+export const ReservationView = (props) => {
+  const { type, data, close } = props
   const dispatch = useDispatch()
-
   const dataApi = new DataApi()
 
-  const emptyGuestData = {
+  const initialGuestData = {
+    phone: '',
+    email: '',
     street: '',
     houseNum: '',
     apartmentNum: '',
@@ -36,29 +30,24 @@ export const ReservationForm = (props) => {
     country: 'Poland'
   }
 
-  const [name, setName] = React.useState('')
-  const [start, setStart] = React.useState('')
-  const [end, setEnd] = React.useState('')
-  const [phone, setPhone] = React.useState('')
-  const [email, setEmail] = React.useState('')
-  const [room, setRoom] = React.useState('')
-  const [guestData, setGuestData] = React.useState(emptyGuestData)
+  const [name, setName] = React.useState(type === 'new' ? '' : data.title)
+  const [guests, setGuests] = React.useState(type === 'new' ? '' : data.guests)
+  const [start, setStart] = React.useState(type === 'new' ? '' : data.start_time._i)
+  const [end, setEnd] = React.useState(type === 'new' ? '' : data.end_time._i)
+  const [room, setRoom] = React.useState(type === 'new' ? '' : data.group)
+  const [guestData, setGuestData] = React.useState(type === 'new' ? initialGuestData : data.guestData)
 
-  const newReservation = {
-    id: uuid(),
+  const reservation = {
+    id: type === 'new' ? uuid() : data.id,
     group: room,
     title: name,
     start_time: start,
     end_time: end,
-    phone: phone,
-    email: email,
     status: '',
-    itemProps: {
-      style: initialResStyles
-    },
+    guests: guests,
     guestData: {
-      phone: phone,
-      email: email,
+      phone: guestData.phone,
+      email: guestData.email,
       street: guestData.street,
       houseNum: guestData.houseNum,
       apartmentNum: guestData.apartmentNum,
@@ -68,18 +57,42 @@ export const ReservationForm = (props) => {
     }
   }
 
+  const removeReservation = (id) => {
+    if (window.confirm('You sure?')) {
+      dataApi.removeReservation(id)
+      dispatch(removeDataAction(id))
+      close()
+    } else {
+      console.log('no')
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    dataApi.addData(newReservation)
-    dispatch(addDataAction(newReservation))
+    dataApi.addData(reservation)
+    dispatch(addDataAction(reservation))
+    close()
+  }
+
+  const handleChange = (e) => {
+    e.preventDefault()
+    dataApi.editReservation(data.id, reservation)
+    dispatch(editDataAction(reservation))
     close()
   }
 
   return (
     <StyledPaper className={'form-wrapper'}>
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}>
-        <div>NOWA REZERWACJA</div>
+        {type === 'new' ? <div>NOWA REZERWACJA</div> : <div>{data.title.toUpperCase()}</div>}
         <div>
+          {
+                type === 'edit'
+                  ? <IconButton onClick={() => removeReservation(data.id)}>
+                    <DeleteIcon />
+                    </IconButton>
+                  : null
+            }
           <IconButton
             onClick={close}
           ><CloseTwoToneIcon/>
@@ -89,7 +102,7 @@ export const ReservationForm = (props) => {
       <Divider variant={'middle'}/>
       <StyledForm
         className={'reservation'}
-        onSubmit={handleSubmit}
+        onSubmit={type === 'new' ? handleSubmit : handleChange}
       >
         <StyledInputWrapper style={{ width: '50%' }}>
           <h5>Rezerwacja</h5>
@@ -123,14 +136,35 @@ export const ReservationForm = (props) => {
               Numer pokoju:
 
             </label> <StyledSelect
+
+              defaultValue={room}
               name={'room'}
               onChange={(e) => setRoom(e.target.value)}
                      >{rooms.map(room => {
                        return (
                          <option
+                           required
                            key={room.id}
                            value={room.id}
                          >{room.id}
+                         </option>)
+                     })}
+            </StyledSelect>
+          </StyledInputWrapper>
+          <StyledInputWrapper>
+            <label htmlFor={'guests'}>
+              Ilość osób:
+
+            </label> <StyledSelect
+              defaultValue={guests}
+              name={'guests'}
+              onChange={(e) => setGuests(e.target.value)}
+                     >{numbers.map(num => {
+                       return (
+                         <option
+                           key={num}
+                           value={num}
+                         >{num}
                          </option>)
                      })}
             </StyledSelect>
@@ -168,8 +202,8 @@ export const ReservationForm = (props) => {
             <StyledInput
               type={'email'}
               name={'email'}
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
+              onChange={(e) => setGuestData({ ...guestData, email: e.target.value })}
+              value={guestData.email}
               placeholder={'nazwa@poczty.pl'}
             />
           </StyledInputWrapper>
@@ -179,8 +213,8 @@ export const ReservationForm = (props) => {
 
             </label> <StyledInput
               name={'phone'}
-              onChange={(e) => setPhone(e.target.value)}
-              value={phone}
+              onChange={(e) => setGuestData({ ...guestData, phone: e.target.value })}
+              value={guestData.phone}
               placeholder={'xxx-xxx-xxx'}
                      />
           </StyledInputWrapper>
@@ -199,6 +233,7 @@ export const ReservationForm = (props) => {
               <label htmlFor={'houseNum'}>
                 Numer domu:
               </label> <StyledInput
+                className={'input--short'}
                 name={'houseNum'}
                 onChange={(e) => setGuestData({ ...guestData, houseNum: e.target.value })}
                 value={guestData.houseNum}
@@ -210,6 +245,7 @@ export const ReservationForm = (props) => {
                 Numer lokalu:
               </label>
               <StyledInput
+                className={'input--short'}
                 name={'apartmentNum'}
                 onChange={(e) => setGuestData({ ...guestData, apartmentNum: e.target.value })}
                 value={guestData.apartmentNum}
@@ -221,6 +257,7 @@ export const ReservationForm = (props) => {
               <label htmlFor={'zipCode'}>
                 Kod pocztowy:
               </label> <StyledInput
+                className={'input--short'}
                 name={'zipCode'}
                 onChange={(e) => setGuestData({ ...guestData, zipCode: e.target.value })}
                 value={guestData.zipCode}
@@ -232,6 +269,7 @@ export const ReservationForm = (props) => {
                 Miasto:
               </label>
               <StyledInput
+                className={'input--short'}
                 name={'city'}
                 onChange={(e) => setGuestData({ ...guestData, city: e.target.value })}
                 value={guestData.city}
@@ -259,9 +297,19 @@ export const ReservationForm = (props) => {
 
         </StyledInputWrapper>
         <StyledButton
+          type={'submit'}
           className={'button-reservation--add'}
-        >DODAJ
+        >{type === 'new' ? 'DODAJ' : 'ZAPISZ'}
         </StyledButton>
+        {
+         type === 'edit' ?
+           <StyledButton
+             onClick={close}
+             className={'button-reservation--leave'}
+           >Cofnij zmiany
+           </StyledButton>
+           : null
+        }
 
       </StyledForm>
 
@@ -269,8 +317,10 @@ export const ReservationForm = (props) => {
   )
 }
 
-ReservationForm.propTypes = {
+ReservationView.propTypes = {
+  type: PropTypes.oneOf(['new', 'edit']),
+  data: PropTypes.object,
   close: PropTypes.func
 }
 
-export default ReservationForm
+export default ReservationView

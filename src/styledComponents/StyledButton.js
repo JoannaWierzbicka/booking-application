@@ -23,6 +23,10 @@ font-size: 10px;
     &.button-reservation--add{
         padding: 10px;
     }
+    &.button-reservation--leave{
+        padding: 5px;
+        background-color: #2196f342;
+    }
 `
 
 export default StyledButton

@@ -47,9 +47,13 @@ export class DataApi extends React.Component {
       })
   };
 
-  editReservation = (id) => {
+  editReservation = (id, newRes) => {
     fetch(`${this.apiUrl}/${id}`, {
-      method: 'PUT'
+      method: 'PUT',
+      body: JSON.stringify(newRes),
+      headers: {
+        'Content-Type': 'application/json'
+      }
     })
       .then((resp) => {
         if (resp.ok) {

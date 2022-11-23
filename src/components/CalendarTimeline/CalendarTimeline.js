@@ -2,16 +2,15 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadDataAction } from '../../actions/reservation'
 import DataApi from '../../api/DataApi'
-import ReservationForm from '../ReservationForm'
-import ReservationInfo from '../ReservationInfo'
 import { StyledTimeline, StyledButton } from '../../styledComponents'
 import itemsConverter from '../../helpers/itemsConverter'
 import { rooms } from '../../helpers/rooms'
+import ReservationView from '../ReservationView/ReservationView'
 
 export const CalendarTimeline = () => {
   const dispatch = useDispatch()
-  const [formOn, setFormVisible] = React.useState(false)
-  const [reservationOn, setReservationOn] = React.useState([])
+  const [addNew, setAddNew] = React.useState(false)
+  const [edited, setEdited] = React.useState([])
 
   const { date } = useSelector((state) => state.calendar)
   const { reservations } = useSelector((state) => state.reservations)
@@ -32,21 +31,27 @@ export const CalendarTimeline = () => {
         items={items}
         visibleTimeStart={date.start}
         visibleTimeEnd={date.end}
-        onItemClick={(id) => setReservationOn(items.filter((item) => item.id === id))}
+        onItemClick={(id) => setEdited(items.filter((item) => item.id === id))}
       />
       <StyledButton
         className={'button-reservation--new'}
-        onClick={() => setFormVisible(true)}
+        onClick={() => setAddNew(true)}
       >Dodaj rezerwację
       </StyledButton>
       {
-        formOn ? <ReservationForm close={() => setFormVisible(false)}/> : null
+        addNew
+          ? <ReservationView
+              type={'new'}
+              close={() => setAddNew(false)}
+            />
+          : null
       }
       {
-        reservationOn.length > 0
-          ? <ReservationInfo
-              close={() => setReservationOn([])}
-              data={reservationOn}
+        edited.length > 0
+          ? <ReservationView
+              type={'edit'}
+              close={() => setEdited([])}
+              data={Object.assign(edited[0])}
             />
           : null
       }

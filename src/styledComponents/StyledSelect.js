@@ -8,6 +8,9 @@ border-radius: 5px;
     margin: 5px;
     box-shadow: inset 1px 1px 1px 1px #00000045;
     width: 33%;
+    &.select-with-colors{
+        width: 55%;
+    }
 `
 
 export default StyledSelect

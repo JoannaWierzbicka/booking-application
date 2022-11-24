@@ -5,11 +5,6 @@ const initialState = {
   reservations: []
 }
 
-// const filtered = (array, id, add) => {
-//   const newArr = array.filter(el => el.id !== id)
-//   return newArr.concat(add)
-// }
-
 export const reservationsReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD :

@@ -1,3 +1,99 @@
 {
-  "reservations": []
+  "reservations": [
+    {
+      "id": "e0b4ff30-2518-4e8c-a67a-bb38976d05ad",
+      "group": "1",
+      "title": "Lolka",
+      "start_time": "2022-11-03",
+      "end_time": "2022-11-06",
+      "status": "pre-paid",
+      "guests": "4",
+      "guestData": {
+        "phone": "",
+        "email": "",
+        "street": "",
+        "houseNum": "",
+        "apartmentNum": "",
+        "city": "",
+        "zipCode": "",
+        "country": "Poland"
+      }
+    },
+    {
+      "id": "aa7e922b-8129-4f1e-a2e6-e658c7f25fcc",
+      "group": "2",
+      "title": "Kookoko",
+      "start_time": "2022-11-12",
+      "end_time": "2022-11-13",
+      "status": "cancelled",
+      "guests": "",
+      "guestData": {
+        "phone": "",
+        "email": "",
+        "street": "",
+        "houseNum": "",
+        "apartmentNum": "",
+        "city": "",
+        "zipCode": "",
+        "country": "Poland"
+      }
+    },
+    {
+      "id": "323b0542-885b-4397-abab-e682d4457059",
+      "group": "1",
+      "title": "Ola",
+      "start_time": "2022-11-25",
+      "end_time": "2022-11-27",
+      "status": "pre-booking",
+      "guests": "",
+      "guestData": {
+        "phone": "",
+        "email": "",
+        "street": "",
+        "houseNum": "",
+        "apartmentNum": "",
+        "city": "",
+        "zipCode": "",
+        "country": "Poland"
+      }
+    },
+    {
+      "id": "f31e4e87-6c34-4c47-897d-edcd91544d36",
+      "group": "4",
+      "title": "Bbbbbbbbbbbbbbbbbb",
+      "start_time": "2022-11-01",
+      "end_time": "2022-11-03",
+      "status": "cancelled",
+      "guests": "",
+      "guestData": {
+        "phone": "",
+        "email": "",
+        "street": "",
+        "houseNum": "",
+        "apartmentNum": "",
+        "city": "",
+        "zipCode": "",
+        "country": "Poland"
+      }
+    },
+    {
+      "id": "fc3f510b-3973-434e-b840-e79bd7608656",
+      "group": "4",
+      "title": "Krtytytyt",
+      "start_time": "2022-11-17",
+      "end_time": "2022-11-27",
+      "status": "paid-all",
+      "guests": "",
+      "guestData": {
+        "phone": "",
+        "email": "",
+        "street": "",
+        "houseNum": "",
+        "apartmentNum": "",
+        "city": "",
+        "zipCode": "",
+        "country": "Poland"
+      }
+    }
+  ]
 }

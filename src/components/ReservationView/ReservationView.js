@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -13,6 +14,28 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import { v4 as uuid } from 'uuid'
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const options = [
+  {
+    name: 'Rezerwacja wstępna',
+    status: 'pre-booking',
+    color: 'orange'
+  },
+  {
+    name: 'Zaliczka opłacona',
+    status: 'pre-paid',
+    color: 'blue'
+  },
+  {
+    name: 'Całość opłacona',
+    status: 'paid-all',
+    color: 'green'
+  },
+  {
+    name: 'Anulowana',
+    status: 'cancelled',
+    color: 'grey'
+  }
+]
 
 export const ReservationView = (props) => {
   const { type, data, close } = props
@@ -34,8 +57,9 @@ export const ReservationView = (props) => {
   const [guests, setGuests] = React.useState(type === 'new' ? '' : data.guests)
   const [start, setStart] = React.useState(type === 'new' ? '' : data.start_time._i)
   const [end, setEnd] = React.useState(type === 'new' ? '' : data.end_time._i)
-  const [room, setRoom] = React.useState(type === 'new' ? '' : data.group)
+  const [room, setRoom] = React.useState(type === 'new' ? '1' : data.group)
   const [guestData, setGuestData] = React.useState(type === 'new' ? initialGuestData : data.guestData)
+  const [status, setStatus] = React.useState(type === 'new' ? 'pre-booking' : data.status)
 
   const reservation = {
     id: type === 'new' ? uuid() : data.id,
@@ -43,7 +67,7 @@ export const ReservationView = (props) => {
     title: name,
     start_time: start,
     end_time: end,
-    status: '',
+    status: status,
     guests: guests,
     guestData: {
       phone: guestData.phone,
@@ -78,6 +102,7 @@ export const ReservationView = (props) => {
     e.preventDefault()
     dataApi.editReservation(data.id, reservation)
     dispatch(editDataAction(reservation))
+    console.log(reservation)
     close()
   }
 
@@ -174,9 +199,18 @@ export const ReservationView = (props) => {
               Status
 
             </label> <StyledSelect
+              className={'select-with-colors'}
+              defaultValue={status}
               name={'status'}
-              onChange={(e) => console.log(e)}
-                     >
+              onChange={(e) => setStatus(e.target.value)}
+                     >{options.map(stat => {
+                       return (
+                         <option
+                           key={stat.name}
+                           value={stat.status}
+                         >{stat.name}
+                         </option>)
+                     })}
                      </StyledSelect>
           </StyledInputWrapper>
         </StyledInputWrapper>

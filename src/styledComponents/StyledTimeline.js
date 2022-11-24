@@ -22,9 +22,7 @@ font-family: Montserrat, sans-serif;
 .rct-dateHeader {
     cursor: default;
 }
-.rct-item{
-    color: pink;
-}
+
 `
 
 export default StyledTimeline

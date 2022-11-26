@@ -1,4 +1,5 @@
 import StyledButton from './StyledButton'
+import StyledButtonGroup from './StyledButtonGroup'
 import StyledButtonsContainer from './StyledButtonsContainer'
 import StyledCalendarContainer from './StyledCalendarContainer'
 import StyledFooter from './StyledFooter'
@@ -18,6 +19,7 @@ import StyledInputWrapper from './StyleInputWrapper'
 
 export {
   StyledButton,
+  StyledButtonGroup,
   StyledButtonsContainer,
   StyledCalendarContainer,
   StyledFooter,

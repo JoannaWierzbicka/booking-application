@@ -1,5 +1,9 @@
 # Booking application
 
+### Projekt końcowy
+
+Aplikacja służąca do zarządzania rezerwacjami w obiekcie turystycznym.
+
 
 Uruchamianie:
 ```

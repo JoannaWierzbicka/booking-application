@@ -6,7 +6,7 @@ top: 0;
 left: 0;
 width: 100vw;
 height: 60px;
-background-color: #9e9e9e57;
+background-color: #dedfe1;
 display: flex;
 justify-content: space-between;
 align-items: center;

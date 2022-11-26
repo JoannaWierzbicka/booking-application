@@ -1,16 +1,16 @@
-export const LOAD = 'calendar/LOAD'
-export const ADD = 'calendar/ADD'
-export const REMOVE = 'calendar/REMOVE'
-export const EDIT = 'calendar/EDIT'
+export const LOAD = 'reservation/LOAD'
+export const ADD = 'reservation/ADD'
+export const REMOVE = 'reservation/REMOVE'
+export const EDIT = 'reservation/EDIT'
 
 const loadDataAction = (data) => ({
   type: LOAD,
   payload: data
 })
 
-const addDataAction = (newReservation) => ({
+const addDataAction = (newData) => ({
   type: ADD,
-  payload: newReservation
+  payload: newData
 })
 
 const removeDataAction = (id) => ({

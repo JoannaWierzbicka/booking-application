@@ -12,6 +12,9 @@ border-radius: 10px;
     background-color: white;
     flex-direction: row;
     align-items: flex-start;
+    @media only screen and (max-width: 650px) {
+    flex-direction: column;
+  }
 }
 `
 

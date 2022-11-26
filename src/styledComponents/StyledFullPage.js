@@ -12,14 +12,12 @@ justify-content: center;
 align-items: center;
 background-color: white;;
 
-/* background-image: url('');
-background-repeat: no-repeat;
-background-position: center;
-background-size: cover; */
-
 &.message {
     flex-direction: column;
-};
+}
+&.admin-page{
+    background-color:#EBEDEF;
+}
 
 `
 

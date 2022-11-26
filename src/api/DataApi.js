@@ -1,10 +1,10 @@
 import React from 'react'
 
 export class DataApi extends React.Component {
-  apiUrl = 'http://localhost:3005/reservations';
+  apiUrl = 'http://localhost:3005';
 
-  loadData = () => {
-    return fetch(this.apiUrl)
+  loadData = (db) => {
+    return fetch(`${this.apiUrl}/${db}`)
       .then((resp) => {
         if (resp.ok) {
           return resp.json()
@@ -15,8 +15,8 @@ export class DataApi extends React.Component {
       })
   };
 
-  addData = (data) => {
-    fetch(this.apiUrl, {
+  addData = (db, data) => {
+    fetch(`${this.apiUrl}/${db}`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -33,8 +33,8 @@ export class DataApi extends React.Component {
       })
   };
 
-  removeReservation = (id) => {
-    fetch(`${this.apiUrl}/${id}`, {
+  removeReservation = (db, id) => {
+    fetch(`${this.apiUrl}/${db}/${id}`, {
       method: 'DELETE'
     })
       .then((resp) => {
@@ -47,8 +47,8 @@ export class DataApi extends React.Component {
       })
   };
 
-  editReservation = (id, newRes) => {
-    fetch(`${this.apiUrl}/${id}`, {
+  editReservation = (db, id, newRes) => {
+    fetch(`${this.apiUrl}/${db}/${id}`, {
       method: 'PUT',
       body: JSON.stringify(newRes),
       headers: {

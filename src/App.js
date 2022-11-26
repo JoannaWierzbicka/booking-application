@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import CreateAccountPage from './components/CreateAccountPage'
 import Loader from './components/Loader'
@@ -144,7 +145,7 @@ export class App extends React.Component {
           }
         {
             isUserLoggedIn ?
-              <StyledFullPage>
+              <StyledFullPage className={'admin-page'}>
                 <AdminPageMain logOut={() => this.setState(() => ({ isUserLoggedIn: false }))}/>
               </StyledFullPage>
               : null

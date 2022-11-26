@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const StyledInput = styled.input`
-border-radius: 5px;
+    border-radius: 5px;
     border: none;
     background-color: #0000ff1f;
     padding: 5px;
@@ -11,6 +11,9 @@ border-radius: 5px;
     &.input--short{
         width: 60%;
     }
+    @media only screen and (max-width: 650px) {
+    
+  }
 `
 
 export default StyledInput

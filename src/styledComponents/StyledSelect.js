@@ -11,6 +11,7 @@ border-radius: 5px;
     &.select-with-colors{
         width: 55%;
     }
+
 `
 
 export default StyledSelect

@@ -37,7 +37,7 @@ const options = [
   }
 ]
 
-export const ReservationView = (props) => {
+export const ReservationForm = (props) => {
   const { type, data, close } = props
   const dispatch = useDispatch()
   const dataApi = new DataApi()
@@ -82,8 +82,8 @@ export const ReservationView = (props) => {
   }
 
   const removeReservation = (id) => {
-    if (window.confirm('You sure?')) {
-      dataApi.removeReservation(id)
+    if (window.confirm('Na pewno chcesz usunąć rezerwację?')) {
+      dataApi.removeReservation('reservations', id)
       dispatch(removeDataAction(id))
       close()
     } else {
@@ -93,28 +93,29 @@ export const ReservationView = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dataApi.addData(reservation)
+    dataApi.addData('reservations', reservation)
     dispatch(addDataAction(reservation))
     close()
   }
 
   const handleChange = (e) => {
     e.preventDefault()
-    dataApi.editReservation(data.id, reservation)
+    dataApi.editReservation('reservations', data.id, reservation)
     dispatch(editDataAction(reservation))
     console.log(reservation)
     close()
   }
 
   return (
-    <StyledPaper className={'form-wrapper'}>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}>
+    <StyledPaper>
+      <header className={'form-header'}>
         {type === 'new' ? <div>NOWA REZERWACJA</div> : <div>{data.title.toUpperCase()}</div>}
         <div>
           {
                 type === 'edit'
-                  ? <IconButton onClick={() => removeReservation(data.id)}>
-                    <DeleteIcon />
+                  ?
+                    <IconButton onClick={() => removeReservation(data.id)}>
+                      <DeleteIcon />
                     </IconButton>
                   : null
             }
@@ -129,7 +130,7 @@ export const ReservationView = (props) => {
         className={'reservation'}
         onSubmit={type === 'new' ? handleSubmit : handleChange}
       >
-        <StyledInputWrapper style={{ width: '50%' }}>
+        <StyledInputWrapper className={'row-wrapper'}>
           <h5>Rezerwacja</h5>
           <StyledInputWrapper>
             <label htmlFor={'start'}>
@@ -174,7 +175,7 @@ export const ReservationView = (props) => {
                          >{room.id}
                          </option>)
                      })}
-            </StyledSelect>
+                     </StyledSelect>
           </StyledInputWrapper>
           <StyledInputWrapper>
             <label htmlFor={'guests'}>
@@ -192,7 +193,7 @@ export const ReservationView = (props) => {
                          >{num}
                          </option>)
                      })}
-            </StyledSelect>
+                     </StyledSelect>
           </StyledInputWrapper>
           <StyledInputWrapper>
             <label htmlFor={'status'}>
@@ -211,12 +212,12 @@ export const ReservationView = (props) => {
                          >{stat.name}
                          </option>)
                      })}
-                     </StyledSelect>
+            </StyledSelect>
           </StyledInputWrapper>
         </StyledInputWrapper>
 
         <StyledInputWrapper
-          style={{ width: '50%' }}
+          className={'row-wrapper'}
         ><h5>Gość</h5>
           <StyledInputWrapper>
             <label htmlFor={'name'}>
@@ -326,21 +327,23 @@ export const ReservationView = (props) => {
                           >{country.label}
                           </option>)
                       })}
-            </StyledSelect>
+                      </StyledSelect>
           </StyledInputWrapper>
 
         </StyledInputWrapper>
         <StyledButton
+          className={'button-reservation--form'}
+          variant={'contained'}
           type={'submit'}
-          className={'button-reservation--add'}
         >{type === 'new' ? 'DODAJ' : 'ZAPISZ'}
         </StyledButton>
         {
          type === 'edit' ?
            <StyledButton
+             className={'button-reservation--form'}
+             variant={'outlined'}
              onClick={close}
-             className={'button-reservation--leave'}
-           >Cofnij zmiany
+           >ANULUJ
            </StyledButton>
            : null
         }
@@ -351,10 +354,10 @@ export const ReservationView = (props) => {
   )
 }
 
-ReservationView.propTypes = {
+ReservationForm.propTypes = {
   type: PropTypes.oneOf(['new', 'edit']),
   data: PropTypes.object,
   close: PropTypes.func
 }
 
-export default ReservationView
+export default ReservationForm

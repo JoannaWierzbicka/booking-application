@@ -10,9 +10,6 @@ font-family: Montserrat, sans-serif;
 .rct-calendar-header {
     border: none;
 }
-.rct-outer {
-
-}
 .rct-scroll {
     background: #8bc34a40;
 }
@@ -22,7 +19,12 @@ font-family: Montserrat, sans-serif;
 .rct-dateHeader {
     cursor: default;
 }
+.rct-scroll{
 
+}
+.rct-outer {
+   
+}
 `
 
 export default StyledTimeline

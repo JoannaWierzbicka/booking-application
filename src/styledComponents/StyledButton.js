@@ -13,7 +13,10 @@ font-size: 12px;
     &.button-reservation--form{
         padding: 3px;
         margin: 3px;
-    }
+        @media only screen and (max-width: 650px) {
+           margin-top: 20px;
+           padding: 10px 20px;
+}}  
     &.button-reservation--add{
         padding: 8px;
         margin: 10px;
@@ -36,6 +39,10 @@ font-size: 12px;
             display: flex;
             padding: 0px;
 }}   
+&.button-login{
+    width: 100%;
+    margin: 5px;
+}
 `
 
 export default StyledButton

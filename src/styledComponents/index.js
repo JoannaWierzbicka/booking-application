@@ -16,6 +16,7 @@ import StyledSelect from './StyledSelect'
 import StyledStartPage from './StyledStartPage'
 import StyledTimeline from './StyledTimeline'
 import StyledInputWrapper from './StyleInputWrapper'
+import StyledLabel from './StyledLabel'
 
 export {
   StyledButton,
@@ -35,5 +36,6 @@ export {
   StyledSelect,
   StyledStartPage,
   StyledTimeline,
-  StyledInputWrapper
+  StyledInputWrapper,
+  StyledLabel
 }

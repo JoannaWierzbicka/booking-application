@@ -6,7 +6,7 @@
       "title": "Karolina Leśniak",
       "start_time": "2022-11-13",
       "end_time": "2022-11-20",
-      "status": "pre-paid",
+      "status": "paid-all",
       "guests": "",
       "guestData": {
         "phone": "",
@@ -44,7 +44,7 @@
       "title": "Magdalena Pawlak",
       "start_time": "2022-11-17",
       "end_time": "2022-11-27",
-      "status": "pre-booking",
+      "status": "pre-paid",
       "guests": "10",
       "guestData": {
         "phone": "666-111-333",
@@ -63,7 +63,7 @@
       "title": "Piotr Małecki",
       "start_time": "2022-11-09",
       "end_time": "2022-11-13",
-      "status": "paid-all",
+      "status": "cancelled",
       "guests": "7",
       "guestData": {
         "phone": "661-123-434",

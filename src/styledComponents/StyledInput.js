@@ -1,18 +1,18 @@
 import styled from 'styled-components'
 
 export const StyledInput = styled.input`
-    border-radius: 5px;
     border: none;
-    background-color: #0000ff1f;
     padding: 5px;
     margin: 5px;
-    box-shadow: inset 1px 1px 1px 1px #00000045;
+    margin-bottom: 20px;
+    background-color: white;
+    border-bottom: 1px solid black;
     width: 80%;
     &.input--short{
         width: 60%;
     }
     @media only screen and (max-width: 650px) {
-    
+      width: 50%;
   }
 `
 

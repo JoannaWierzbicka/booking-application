@@ -1,17 +1,13 @@
 import styled from 'styled-components'
 
 export const StyledSelect = styled.select`
-border-radius: 5px;
-    border: none;
-    background-color: #0000ff1f;
+border: none;
     padding: 5px;
     margin: 5px;
-    box-shadow: inset 1px 1px 1px 1px #00000045;
-    width: 33%;
-    &.select-with-colors{
-        width: 55%;
-    }
-
+    margin-bottom: 20px;
+    background-color: white;
+    border-bottom: 1px solid black;
+    width: 35%;
 `
 
 export default StyledSelect

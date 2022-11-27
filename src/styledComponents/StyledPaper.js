@@ -7,8 +7,6 @@ export const StyledPaper = styled.div`
   position: fixed;
   top: 60px;
   left: 200px;
-  border-radius: 10px;
-  border: 5px solid green;
   height: fit-content;
   font-family: Montserrat, sans-serif;
   line-height: 1.15;
@@ -16,10 +14,15 @@ export const StyledPaper = styled.div`
     display: flex; 
     justify-content: space-between;
     align-items: center;
-    padding: 10px
+    padding: 10px;
+    background-color: #54a357;
+    position: sticky;
+    top: 0;
+    left: 0;
   }
   @media only screen and (max-width: 1050px) {
     left: 120px;
+
   }
   @media only screen and (max-width: 900px) {
     left: 80px;
@@ -30,8 +33,12 @@ export const StyledPaper = styled.div`
     width: auto;
   }
   @media only screen and (max-width: 650px) {
-    width: -webkit-fill-available;
-
+    overflow: scroll;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    border: none;
   }
 `
 

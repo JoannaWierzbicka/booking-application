@@ -35,6 +35,11 @@ export const CalendarTimeline = () => {
       .then(data => dispatch(loadDataAction(data)))
   }, []) 
 
+  const onClickAddRes = () => {
+    setAddNewRes(true)
+    setAddNewRoom(false)
+  }
+
   return (
     <>
       <StyledTimeline
@@ -52,7 +57,7 @@ export const CalendarTimeline = () => {
       <StyledButton
         variant={'contained'}
         className={'button-reservation--add'}
-        onClick={() => setAddNewRes(true)}
+        onClick={onClickAddRes}
       >Dodaj rezerwację
       </StyledButton>
       <StyledButton

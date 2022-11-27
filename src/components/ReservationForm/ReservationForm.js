@@ -2,7 +2,10 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
-import { StyledPaper, StyledForm, StyledInput, StyledButton, StyledSelect, StyledInputWrapper } from '../../styledComponents'
+import Radio from '@mui/material/Radio'
+import RadioGroup from '@mui/material/RadioGroup'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import { StyledPaper, StyledForm, StyledInput, StyledButton, StyledSelect, StyledInputWrapper, StyledLabel } from '../../styledComponents'
 import { rooms } from '../../helpers/rooms'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
@@ -125,7 +128,6 @@ export const ReservationForm = (props) => {
           </IconButton>
         </div>
       </header>
-      <Divider variant={'middle'}/>
       <StyledForm
         className={'reservation'}
         onSubmit={type === 'new' ? handleSubmit : handleChange}
@@ -133,22 +135,22 @@ export const ReservationForm = (props) => {
         <StyledInputWrapper className={'row-wrapper'}>
           <h5>Rezerwacja</h5>
           <StyledInputWrapper>
-            <label htmlFor={'start'}>
+            <StyledLabel htmlFor={'start'}>
               Data przyjazdu:
 
-            </label><StyledInput
+            </StyledLabel><StyledInput
               type={'date'}
               name={'start'}
               onChange={(e) => setStart(e.target.value)}
               value={start}
               required
-                    />
+                          />
           </StyledInputWrapper>
           <StyledInputWrapper>
-            <label htmlFor={'end'}>
+            <StyledLabel htmlFor={'end'}>
               Data wyjazdu:
 
-            </label>
+            </StyledLabel>
             <StyledInput
               type={'date'}
               name={'end'}
@@ -158,61 +160,70 @@ export const ReservationForm = (props) => {
             />
           </StyledInputWrapper>
           <StyledInputWrapper>
-            <label htmlFor={'room'}>
+            <StyledLabel htmlFor={'room'}>
               Numer pokoju:
 
-            </label> <StyledSelect
+            </StyledLabel> <StyledSelect
 
               defaultValue={room}
               name={'room'}
               onChange={(e) => setRoom(e.target.value)}
-                     >{rooms.map(room => {
-                       return (
-                         <option
-                           required
-                           key={room.id}
-                           value={room.id}
-                         >{room.id}
-                         </option>)
-                     })}
-                     </StyledSelect>
+                           >{rooms.map(room => {
+                             return (
+                               <option
+                                 required
+                                 key={room.id}
+                                 value={room.id}
+                               >{room.id}
+                               </option>)
+                           })}
+                           </StyledSelect>
           </StyledInputWrapper>
           <StyledInputWrapper>
-            <label htmlFor={'guests'}>
+            <StyledLabel htmlFor={'guests'}>
               Ilość osób:
 
-            </label> <StyledSelect
+            </StyledLabel> <StyledSelect
               defaultValue={guests}
               name={'guests'}
               onChange={(e) => setGuests(e.target.value)}
-                     >{numbers.map(num => {
-                       return (
-                         <option
-                           key={num}
-                           value={num}
-                         >{num}
-                         </option>)
-                     })}
-                     </StyledSelect>
+                           >{numbers.map(num => {
+                             return (
+                               <option
+                                 key={num}
+                                 value={num}
+                               >{num}
+                               </option>)
+                           })}
+                           </StyledSelect>
           </StyledInputWrapper>
           <StyledInputWrapper>
-            <label htmlFor={'status'}>
+            <StyledLabel htmlFor={'status'}>
               Status
 
-            </label> <StyledSelect
-              className={'select-with-colors'}
+            </StyledLabel>
+            <RadioGroup
               defaultValue={status}
               name={'status'}
               onChange={(e) => setStatus(e.target.value)}
-                     >{options.map(stat => {
-                       return (
-                         <option
-                           key={stat.name}
-                           value={stat.status}
-                         >{stat.name}
-                         </option>)
-                     })}
-            </StyledSelect>
+            >{options.map(stat => {
+              return (
+                <FormControlLabel
+                  key={stat.name}
+                  value={stat.status}
+                  control={<Radio
+                    sx={{
+                      color: stat.color,
+                      '&.Mui-checked': {
+                        color: stat.color
+                      }
+                    }}
+                           />}
+                  label={stat.name}
+                />
+              )
+            })}
+            </RadioGroup>
           </StyledInputWrapper>
         </StyledInputWrapper>
 
@@ -220,9 +231,9 @@ export const ReservationForm = (props) => {
           className={'row-wrapper'}
         ><h5>Gość</h5>
           <StyledInputWrapper>
-            <label htmlFor={'name'}>
+            <StyledLabel htmlFor={'name'}>
               Imię i nazwisko
-            </label>
+            </StyledLabel>
             <StyledInput
               name={'name'}
               onChange={(e) => setName(e.target.value)}
@@ -231,9 +242,9 @@ export const ReservationForm = (props) => {
             />
           </StyledInputWrapper>
           <StyledInputWrapper>
-            <label htmlFor={'email'}>
+            <StyledLabel htmlFor={'email'}>
               Email:
-            </label>
+            </StyledLabel>
             <StyledInput
               type={'email'}
               name={'email'}
@@ -243,42 +254,42 @@ export const ReservationForm = (props) => {
             />
           </StyledInputWrapper>
           <StyledInputWrapper>
-            <label htmlFor={'phone'}>
+            <StyledLabel htmlFor={'phone'}>
               Telefon:
 
-            </label> <StyledInput
+            </StyledLabel> <StyledInput
               name={'phone'}
               onChange={(e) => setGuestData({ ...guestData, phone: e.target.value })}
               value={guestData.phone}
               placeholder={'xxx-xxx-xxx'}
-                     />
+                           />
           </StyledInputWrapper>
           <StyledInputWrapper>
-            <label htmlFor={'street'}>
+            <StyledLabel htmlFor={'street'}>
               Ulica:
 
-            </label> <StyledInput
+            </StyledLabel> <StyledInput
               name={'street'}
               onChange={(e) => setGuestData({ ...guestData, street: e.target.value })}
               value={guestData.street}
-                     />
+                           />
           </StyledInputWrapper>
           <div style={{ display: 'flex' }}>
             <StyledInputWrapper>
-              <label htmlFor={'houseNum'}>
+              <StyledLabel htmlFor={'houseNum'}>
                 Numer domu:
-              </label> <StyledInput
+              </StyledLabel> <StyledInput
                 className={'input--short'}
                 name={'houseNum'}
                 onChange={(e) => setGuestData({ ...guestData, houseNum: e.target.value })}
                 value={guestData.houseNum}
-                       />
+                             />
 
             </StyledInputWrapper>
             <StyledInputWrapper>
-              <label htmlFor={'apartmentNum'}>
+              <StyledLabel htmlFor={'apartmentNum'}>
                 Numer lokalu:
-              </label>
+              </StyledLabel>
               <StyledInput
                 className={'input--short'}
                 name={'apartmentNum'}
@@ -289,20 +300,20 @@ export const ReservationForm = (props) => {
           </div>
           <div style={{ display: 'flex' }}>
             <StyledInputWrapper>
-              <label htmlFor={'zipCode'}>
+              <StyledLabel htmlFor={'zipCode'}>
                 Kod pocztowy:
-              </label> <StyledInput
+              </StyledLabel> <StyledInput
                 className={'input--short'}
                 name={'zipCode'}
                 onChange={(e) => setGuestData({ ...guestData, zipCode: e.target.value })}
                 value={guestData.zipCode}
-                       />
+                             />
 
             </StyledInputWrapper>
             <StyledInputWrapper>
-              <label htmlFor={'city'}>
+              <StyledLabel htmlFor={'city'}>
                 Miasto:
-              </label>
+              </StyledLabel>
               <StyledInput
                 className={'input--short'}
                 name={'city'}
@@ -312,22 +323,22 @@ export const ReservationForm = (props) => {
             </StyledInputWrapper>
           </div>
           <StyledInputWrapper>
-            <label htmlFor={'country'}>
+            <StyledLabel htmlFor={'country'}>
               Kraj:
 
-            </label>  <StyledSelect
+            </StyledLabel>  <StyledSelect
               defaultValue={guestData.country}
               name={'country'}
               onChange={(e) => setGuestData({ ...guestData, country: e.target.value })}
-                      >{countries.map(country => {
-                        return (
-                          <option
-                            key={country.code}
-                            value={country.label}
-                          >{country.label}
-                          </option>)
-                      })}
-                      </StyledSelect>
+                            >{countries.map(country => {
+                              return (
+                                <option
+                                  key={country.code}
+                                  value={country.StyledLabel}
+                                >{country.StyledLabel}
+                                </option>)
+                            })}
+                            </StyledSelect>
           </StyledInputWrapper>
 
         </StyledInputWrapper>

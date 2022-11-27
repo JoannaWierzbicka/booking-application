@@ -20,7 +20,20 @@ export const theme = createTheme({
     success: {
       main: '#4caf50'
     }
+  },
+  components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'Montserrat,sans-serif',
+          fontSize: '12px',
+          fontWeight: '600'
+        }
+      }
+
+    }
   }
+
 })
 
 export default theme

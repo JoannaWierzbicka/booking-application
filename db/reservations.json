@@ -20,31 +20,12 @@
       }
     },
     {
-      "id": "bf8611e7-567d-4613-8774-81cc0172a48b",
-      "group": "1",
-      "title": "Helena Nowak",
-      "start_time": "2022-11-02",
-      "end_time": "2022-11-13",
-      "status": "pre-booking",
-      "guests": "",
-      "guestData": {
-        "phone": "",
-        "email": "",
-        "street": "",
-        "houseNum": "",
-        "apartmentNum": "",
-        "city": "",
-        "zipCode": "",
-        "country": "Poland"
-      }
-    },
-    {
       "id": "c7389369-9d79-4e15-a7be-5fd3a0a1a388",
       "group": "4",
       "title": "Magdalena Pawlak",
       "start_time": "2022-11-17",
       "end_time": "2022-11-27",
-      "status": "pre-paid",
+      "status": "pre-booking",
       "guests": "10",
       "guestData": {
         "phone": "666-111-333",
@@ -73,6 +54,25 @@
         "apartmentNum": "10",
         "city": "Grono",
         "zipCode": "20-333",
+        "country": "Poland"
+      }
+    },
+    {
+      "id": "96e448d5-1d14-4191-a736-24ee0fb6118c",
+      "group": "1",
+      "title": "Helena Pietrzyk",
+      "start_time": "2022-11-02",
+      "end_time": "2022-11-26",
+      "status": "pre-paid",
+      "guests": "",
+      "guestData": {
+        "phone": "",
+        "email": "",
+        "street": "",
+        "houseNum": "",
+        "apartmentNum": "",
+        "city": "",
+        "zipCode": "",
         "country": "Poland"
       }
     }

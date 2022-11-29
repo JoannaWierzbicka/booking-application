@@ -1,22 +1,17 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyledStartPage, StyledHeader, StyledInfo, StyledMenu, StyledLink } from '../../styledComponents'
+import { StyledFullPage, StyledHeader, StyledInfo, StyledMenu, StyledLink } from '../../styledComponents'
 import Button from '@mui/material/Button'
 import Logo from '../Logo'
+import NavBar from '../NavBar'
 
 export const StartPage = (props) => {
-  const { onClickLogin } = props
+  const { logIn } = props
   return (
-    <StyledStartPage>
-      <StyledHeader>
-        <Logo style={{ marginLeft: '15px', width: '50px', height: '50px' }}/>
-        <StyledMenu>
-          <StyledLink>Info</StyledLink>
-          <StyledLink>Kontakt</StyledLink>
-          <StyledLink onClick={onClickLogin}>Logowanie</StyledLink>
-        </StyledMenu>
-      </StyledHeader>
+    <StyledFullPage>
+      <NavBar logIn={logIn}/>
       <StyledInfo>
         <h4>Witaj w BOOKING APP</h4>
         <p>Pomożemy Ci w zarządzaniu rezerwacjami w Twoim obiekcie turystycznym</p>
@@ -26,12 +21,12 @@ export const StartPage = (props) => {
         >ZOBACZ WIĘCEJ
         </Button>
       </StyledInfo>
-    </StyledStartPage>
+    </StyledFullPage>
   )
 }
 
 StartPage.propTypes = {
-  onClickLogin: PropTypes.func.isRequired
+  logIn: PropTypes.func.isRequired
 }
 
 export default StartPage

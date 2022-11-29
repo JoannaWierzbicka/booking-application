@@ -14,6 +14,7 @@ export const LoginPage = (props) => {
     onChangeEmail,
     onChangePassword,
     onClickBackToStartPage,
+    onClickRecoverPassword,
     errors
   } = props
 
@@ -63,6 +64,13 @@ export const LoginPage = (props) => {
         >UTWÓRZ KONTO
         </StyledButton>
         <StyledButton
+          className={'button-login'}
+          variant={'outlined'}
+          color={'secondary'}
+          onClick={onClickRecoverPassword}
+        >Przypomnij hasło
+        </StyledButton>
+        <StyledButton
           className={'button-login button-text--small'}
           variant={'text'}
           color={'secondary'}
@@ -88,6 +96,7 @@ LoginPage.propTypes = {
   onChangeEmail: PropTypes.func.isRequired,
   onChangePassword: PropTypes.func.isRequired,
   onClickBackToStartPage: PropTypes.func.isRequired,
+  onClickRecoverPassword: PropTypes.func,
   errors: PropTypes.array
 }
 

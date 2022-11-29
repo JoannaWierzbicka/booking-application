@@ -1,12 +1,14 @@
+import isEmail from 'validator/lib/isEmail'
+
 export const validateFormLogIn = (loginEmail, loginPassword) => {
   const errorsLogIn = []
 
-  if (!loginEmail.includes('@')) {
-    errorsLogIn.push('Email powinien zawierać @')
+  if (!isEmail(loginEmail)) {
+    errorsLogIn.push('Wpisz poprawny email')
   }
 
-  if (loginPassword.length < 3) {
-    errorsLogIn.push('Wpisz poprawne hasło')
+  if (loginPassword.length < 6) {
+    errorsLogIn.push('Hasło powinno zawierać co najmniej 6 znaków')
   }
 
   return errorsLogIn
@@ -15,8 +17,8 @@ export const validateFormLogIn = (loginEmail, loginPassword) => {
 export const validateFormCreate = (email, password, repeat) => {
   const errorsCreateAccount = []
 
-  if (!email.includes('@')) {
-    errorsCreateAccount.push('Email powinien zawierać @')
+  if (!isEmail(email)) {
+    errorsCreateAccount.push('Wpisz poprawny email')
   }
   if (password.length < 6) {
     errorsCreateAccount.push('Hasło powinno zawierać co najmniej 6 znaków')
@@ -27,4 +29,14 @@ export const validateFormCreate = (email, password, repeat) => {
   }
 
   return errorsCreateAccount
+}
+
+export const validateRecover = (email) => {
+  const errorsRecover = []
+
+  if (!isEmail(email)) {
+    errorsRecover.push('Wpisz poprawny email')
+  }
+
+  return errorsRecover
 }

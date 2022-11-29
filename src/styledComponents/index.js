@@ -1,41 +1,18 @@
-import StyledButton from './StyledButton'
-import StyledButtonGroup from './StyledButtonGroup'
-import StyledButtonsContainer from './StyledButtonsContainer'
-import StyledCalendarContainer from './StyledCalendarContainer'
-import StyledFooter from './StyledFooter'
-import StyledForm from './StyledForm'
-import StyledFullPage from './StyledFullPage'
-import StyledHeader from './StyledHeader'
-import StyledInfo from './StyledInfo'
-import StyledInput from './StyledInput'
-import StyledLink from './StyledLink'
-import StyledMenu from './StyledMenu'
-import StyledPaper from './StyledPaper'
-import StyledReservationInfo from './StyledReservationInfo'
-import StyledSelect from './StyledSelect'
-import StyledStartPage from './StyledStartPage'
-import StyledTimeline from './StyledTimeline'
-import StyledInputWrapper from './StyleInputWrapper'
-import StyledLabel from './StyledLabel'
-
-export {
-  StyledButton,
-  StyledButtonGroup,
-  StyledButtonsContainer,
-  StyledCalendarContainer,
-  StyledFooter,
-  StyledForm,
-  StyledFullPage,
-  StyledHeader,
-  StyledInfo,
-  StyledInput,
-  StyledLink,
-  StyledMenu,
-  StyledPaper,
-  StyledReservationInfo,
-  StyledSelect,
-  StyledStartPage,
-  StyledTimeline,
-  StyledInputWrapper,
-  StyledLabel
-}
+export * from './StyledInputWrapper'
+export * from './StyledButton'
+export * from './StyledButtonGroup'
+export * from './StyledButtonsContainer'
+export * from './StyledCalendarContainer'
+export * from './StyledFooter'
+export * from './StyledForm'
+export * from './StyledFullPage'
+export * from './StyledHeader'
+export * from './StyledInfo'
+export * from './StyledInput'
+export * from './StyledLabel'
+export * from './StyledLink'
+export * from './StyledMenu'
+export * from './StyledPaper'
+export * from './StyledReservationInfo'
+export * from './StyledSelect'
+export * from './StyledTimeline'

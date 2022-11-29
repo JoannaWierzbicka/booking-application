@@ -6,23 +6,23 @@ import { getIdToken } from './token'
 const DELETE_USER_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:delete?key=' + FIREBASE_APP_KEY
 
 export const deleteUser = () => {
-    const token = getIdToken()
+  const token = getIdToken()
 
-    if (!token) return Promise.reject('No token found')
-    return makeRequest(
-        DELETE_USER_URL,
+  if (!token) return Promise.reject(new Error('No token found'))
+  return makeRequest(
+    DELETE_USER_URL,
+    {
+      method: 'POST',
+      body: JSON.stringify(
         {
-            method: 'POST',
-            body: JSON.stringify(
-                {
-                    idToken: token
-                }
-            )
+          idToken: token
         }
-    )
+      )
+    }
+  )
     .then((data) => {
-        logOut()
-        return data
+      logOut()
+      return data
     })
 }
 

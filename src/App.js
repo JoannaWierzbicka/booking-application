@@ -1,25 +1,28 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import CreateAccountPage from './components/CreateAccountPage'
+import ForgotPasswordPage from './components/ForgotPassworPage'
+import NavBar from './components/NavBar'
 import Loader from './components/Loader'
 import LoginPage from './components/LoginPage'
 import Message from './components/Message'
 import StyledFullPage from './styledComponents/StyledFullPage'
 import StartPage from './components/StartPage'
-import { validateFormLogIn, validateFormCreate } from './helpers/validation'
+import { validateFormLogIn, validateFormCreate, validateRecover } from './helpers/validation'
 import AdminPageMain from './components/AdminPageMain'
 import Alert from '@mui/material/Alert'
+
+import { signIn, signUp, getUserData, checkIfUserIsLoggedIn, sendPasswordResetEmail, logOut } from './auth'
 
 export class App extends React.Component {
   state = {
     isLoading: false,
     hasError: false,
     isInfoDisplayed: false,
-    errorMessage: 'Error occurred',
-    infoMessage: 'Some information',
+    errorMessage: '',
+    infoMessage: '',
 
-    isUserLoggedIn: true,
-    newUserAlert: false,
+    isUserLoggedIn: false,
     userName: '',
     userEmail: '',
 
@@ -37,41 +40,138 @@ export class App extends React.Component {
     recoverPasswordEmail: '',
 
     errorsLogIn: [],
-    errorsCreateAccount: []
+    errorsCreateAccount: [],
+    errorsRecover: []
 
   }
 
-  onClickLogin = () => {
+  async componentDidMount () {
+    this.setState(() => ({ isLoading: true }))
+    const userIsLoggedIn = await checkIfUserIsLoggedIn()
+    this.setState(() => ({ isLoading: false }))
+    if (userIsLoggedIn) this.onUserLogin()
+  }
+
+  onClickLogin = async () => {
     const { loginEmail, loginPassword } = this.state
     const errors = validateFormLogIn(loginEmail, loginPassword)
 
-    this.setState({
+    this.setState(() => ({
+      isLoading: true,
       errorsLogIn: errors
-    })
+    }))
 
-    if (errors.length === 0) {
-      this.setState({
-        isUserLoggedIn: true,
-        newUserAlert: false
-      })
+    try {
+      if (errors.length === 0) {
+        await signIn(loginEmail, loginPassword)
+        this.setState({
+          isUserLoggedIn: true
+        })
+        this.onUserLogin()
+      }
+    } catch (error) {
+      this.setState(() => ({
+        hasError: true,
+        errorMessage: error.data.error.message
+      }))
+    } finally {
+      this.setState(() => ({
+        isLoading: false
+      }))
     }
   }
 
-  onClickCreateAccount = () => {
+  dismissError = () => {
+    this.setState(() => ({
+      hasError: false,
+      errorMessage: ''
+    }))
+  }
+
+  dismissMessage = () => {
+    this.setState(() => ({
+      isInfoDisplayed: false,
+      infoMessage: ''
+    }))
+  }
+
+  onUserLogin = () => {
+    getUserData().then(data => {
+      this.setState(() => ({
+        userEmail: data.email,
+        isUserLoggedIn: true
+      }))
+    })
+  }
+
+  onClickCreateAccount = async () => {
     const { createAccountEmail, createAccountPassword, createAccountPasswordRepeat } = this.state
     const errors = validateFormCreate(createAccountEmail, createAccountPassword, createAccountPasswordRepeat)
 
-    this.setState({
+    this.setState(() => ({
+      isLoading: true,
       errorsCreateAccount: errors
+    }))
+
+    try {
+      if (errors.length === 0) {
+        await signUp(createAccountEmail, createAccountPassword)
+        this.setState({
+          isUserLoggedIn: true,
+          isInfoDisplayed: true,
+          infoMessage: 'Konto utworzone pomyślnie, zostałeś zalogowany'
+        })
+        this.onUserLogin()
+      }
+    } catch (error) {
+      this.setState(() => ({
+        hasError: true,
+        errorMessage: error.data.error.message
+      }))
+    } finally {
+      this.setState(() => ({
+        isLoading: false
+      }))
+    }
+  }
+
+  onClickRecover = async () => {
+    const { recoverPasswordEmail } = this.state
+    const errors = validateRecover(recoverPasswordEmail)
+    this.setState({
+      isLoading: true,
+      errorsRecover: errors
     })
+    try {
+      if (errors.length === 0) {
+        await sendPasswordResetEmail(recoverPasswordEmail)
+        this.setState(() => ({
+          isInfoDisplayed: true,
+          infoMessage: 'E-mail został wysłany na podaną pocztę'
+        }))
+      }
+    } catch (error) {
+      this.setState(() => ({
+        hasError: true,
+        errorMessage: error.data.error.message
+      }))
+    } finally {
+      this.setState(() => ({
+        isLoading: false
+      }))
+    }
 
     if (errors.length === 0) {
       this.setState({
-        notLoginUserRoute: 'LOGIN',
-        newUserAlert: true
+        notLoginUserRoute: 'LOGIN'
       })
-      console.log('konto utworzone pomyślnie')
+      console.log('mail wysłany')
     }
+  }
+
+  onLogOut=() => {
+    logOut()
+    this.setState(() => ({ isUserLoggedIn: false }))
   }
 
   render () {
@@ -84,71 +184,75 @@ export class App extends React.Component {
       notLoginUserRoute,
       loginEmail,
       loginPassword,
+      recoverPasswordEmail,
       createAccountEmail,
       createAccountPassword,
       createAccountPasswordRepeat,
       errorsLogIn,
       errorsCreateAccount,
+      errorsRecover,
       isUserLoggedIn,
-      newUserAlert
+      userEmail
     } = this.state
     return (
       <div>
-        {notLoginUserRoute === 'START' ?
-          <StyledFullPage>
+        { isUserLoggedIn ?
+          <AdminPageMain
+            userLoggedIn={isUserLoggedIn}
+            logOut={this.onLogOut}
+            user={userEmail}
+          />
+          :
+          notLoginUserRoute === 'START' ?
             <StartPage
-              onClickLogin={() => this.setState(() =>
+              logIn={() => this.setState(() =>
                 ({
-                  notLoginUserRoute: 'LOGIN',
-                  newUserAlert: false
+                  notLoginUserRoute: 'LOGIN'
                 }))}
-            />
-          </StyledFullPage> :
-          notLoginUserRoute === 'LOGIN' ?
-            <StyledFullPage style={{ display: 'flex', flexDirection: 'column' }}>
-              {newUserAlert
-                ? <Alert
-                    severity={'success'}
-                    sx={{ position: 'fixed', top: '15px' }}
-                  >Dziękujemy za założenie konta <strong>możesz się zalogować</strong>
-                </Alert>
-                : null}
-              <LoginPage
-                errors={errorsLogIn}
-                email={loginEmail}
-                password={loginPassword}
-                onClickLogin={this.onClickLogin}
-                onClickCreateAccount={() => this.setState(() => ({ notLoginUserRoute: 'CREATE-ACCOUNT' }))}
-                onChangeEmail={(e) => this.setState(() => ({ loginEmail: e.target.value }))}
-                onClickBackToStartPage={() => this.setState(() => ({ notLoginUserRoute: 'START' }))}
-                onChangePassword={(e) => this.setState(() => ({ loginPassword: e.target.value }))}
-              />
-            </StyledFullPage>
-            :
-            notLoginUserRoute === 'CREATE-ACCOUNT' ?
-              <StyledFullPage>
-                <CreateAccountPage
-                  errors={errorsCreateAccount}
-                  email={createAccountEmail}
-                  password={createAccountPassword}
-                  repeatPassword={createAccountPasswordRepeat}
-                  onChangeEmail={(e) => this.setState(() => ({ createAccountEmail: e.target.value }))}
-                  onChangePassword={(e) => this.setState(() => ({ createAccountPassword: e.target.value }))}
-                  onChangeRepeatPassword={(e) => this.setState(() => ({ createAccountPasswordRepeat: e.target.value }))}
-                  onClickCreateAccount={this.onClickCreateAccount}
+            /> :
+            notLoginUserRoute === 'LOGIN' ?
+              <StyledFullPage style={{ display: 'flex', flexDirection: 'column' }}>
+                <LoginPage
+                  errors={errorsLogIn}
+                  email={loginEmail}
+                  password={loginPassword}
+                  onClickLogin={this.onClickLogin}
+                  onClickCreateAccount={() => this.setState(() => ({ notLoginUserRoute: 'CREATE-ACCOUNT' }))}
+                  onChangeEmail={(e) => this.setState(() => ({ loginEmail: e.target.value }))}
                   onClickBackToStartPage={() => this.setState(() => ({ notLoginUserRoute: 'START' }))}
-                  onClickBackToLogin={() => this.setState(() => ({ notLoginUserRoute: 'LOGIN' }))}
+                  onChangePassword={(e) => this.setState(() => ({ loginPassword: e.target.value }))}
+                  onClickRecoverPassword={() => this.setState(() => ({ notLoginUserRoute: 'FORGOT-PASSWORD' }))}
                 />
               </StyledFullPage>
+              :
+              notLoginUserRoute === 'CREATE-ACCOUNT' ?
+                <StyledFullPage>
+                  <CreateAccountPage
+                    errors={errorsCreateAccount}
+                    email={createAccountEmail}
+                    password={createAccountPassword}
+                    repeatPassword={createAccountPasswordRepeat}
+                    onChangeEmail={(e) => this.setState(() => ({ createAccountEmail: e.target.value }))}
+                    onChangePassword={(e) => this.setState(() => ({ createAccountPassword: e.target.value }))}
+                    onChangeRepeatPassword={(e) => this.setState(() => ({ createAccountPasswordRepeat: e.target.value }))}
+                    onClickCreateAccount={this.onClickCreateAccount}
+                    onClickBackToStartPage={() => this.setState(() => ({ notLoginUserRoute: 'START' }))}
+                    onClickBackToLogin={() => this.setState(() => ({ notLoginUserRoute: 'LOGIN' }))}
+                  />
+                </StyledFullPage>
+                :
+                notLoginUserRoute === 'FORGOT-PASSWORD' ?
+                  <StyledFullPage>
+                    <ForgotPasswordPage
+                      email={recoverPasswordEmail}
+                      onChangeEmail={(e) => this.setState(() => ({ recoverPasswordEmail: e.target.value }))}
+                      onClickRecover={this.onClickRecover}
+                      onClickBackToLogin={() => this.setState(() => ({ notLoginUserRoute: 'LOGIN' }))}
+                      errors={errorsRecover}
+                    />
+                  </StyledFullPage>
 
-              : null
-          }
-        {
-            isUserLoggedIn ?
-              <StyledFullPage className={'admin-page'}>
-                <AdminPageMain logOut={() => this.setState(() => ({ isUserLoggedIn: false }))}/>
-              </StyledFullPage>
-              : null
+                  : null
           }
         {
           isLoading ?
@@ -160,7 +264,7 @@ export class App extends React.Component {
               <Message
                 message={infoMessage}
                 icon={'info'}
-                onButtonClick={() => console.log('hello')}
+                onButtonClick={this.dismissMessage}
               />
               : null
           }
@@ -169,7 +273,7 @@ export class App extends React.Component {
                <Message
                  message={errorMessage}
                  icon={'error'}
-                 onButtonClick={() => console.log('hello')}
+                 onButtonClick={this.dismissError}
                />
                : null
           }

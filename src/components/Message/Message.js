@@ -30,7 +30,7 @@ export const Message = (props) => {
           variant={'contained'}
           color={'primary'}
           onClick={onButtonClick}
-        >GO BACK
+        >OK
         </Button>
       </StyledForm>
 

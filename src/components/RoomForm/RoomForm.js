@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -10,9 +12,15 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import { v4 as uuid } from 'uuid'
 
 export const RoomForm = (props) => {
-  const { close, type, data } = props
+  const { close, type, data, user } = props
   const dispatch = useDispatch()
   const dataApi = new DataApi()
+
+  const searched = '@'
+  const withNew = ''
+  const newEm = user.replace(searched, withNew)
+  const sear = '.'
+  const userIdAdded = newEm.replaceAll(sear, withNew)
 
   const [title, setTitle] = React.useState(type === 'new' ? '' : data.title)
   const [singleBeds, setSingleBeds] = React.useState(type === 'new' ? '' : data.roomData.singleBeds)
@@ -34,7 +42,7 @@ export const RoomForm = (props) => {
   const removeRoom = (id) => {
     console.log(id)
     if (window.confirm('Na pewno chcesz usunąć ten pokój?')) {
-      dataApi.removeData('rooms', id)
+      dataApi.removeData(userIdAdded, 'rooms', id)
       dispatch(removeRoomDataAction(id))
       close()
     }
@@ -42,7 +50,8 @@ export const RoomForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dataApi.addData('rooms', room)
+    dataApi.addData(userIdAdded, 'rooms', room)
+    // dataApi.addData('rooms', room)
     dispatch(addRoomDataAction(room))
     close()
   }
@@ -51,7 +60,7 @@ export const RoomForm = (props) => {
     e.preventDefault()
     console.log('change')
     e.preventDefault()
-    dataApi.editData('rooms', data.id, room)
+    dataApi.editData(userIdAdded, 'rooms', data.id, room)
     dispatch(editRoomDataAction(room))
     close()
   }

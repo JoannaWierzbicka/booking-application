@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable no-unused-vars */
 import React from 'react'
@@ -11,7 +12,15 @@ import ReservationForm from '../ReservationForm/ReservationForm'
 import itemRenderer from '../../helpers/itemRenderer'
 import RoomForm from '../../components/RoomForm'
 
-export const CalendarTimeline = () => {
+export const CalendarTimeline = (props) => {
+  const { user } = props
+
+  const searched = '@'
+  const withNew = ''
+  const newEm = user.replace(searched, withNew)
+  const sear = '.'
+  const userIdAdded = newEm.replaceAll(sear, withNew)
+
   const dispatch = useDispatch()
   const [addNewRes, setAddNewRes] = React.useState(false)
   const [addNewRoom, setAddNewRoom] = React.useState(false)
@@ -27,17 +36,15 @@ export const CalendarTimeline = () => {
   const dataApi = new DataApi()
   
   React.useEffect(() => {
-    dataApi.loadData('rooms')
+    dataApi.loadData(userIdAdded, 'rooms')
       .then((data) => {
-        console.log(data)
         dispatch(loadRoomsDataAction(data)) 
       })
   }, [])
 
   React.useEffect(() => {
-    dataApi.loadData('reservations')
+    dataApi.loadData(userIdAdded, 'reservations')
       .then(data => {
-        console.log(data)
         dispatch(loadDataAction(data)) 
       })
   }, []) 
@@ -82,6 +89,7 @@ export const CalendarTimeline = () => {
       {
         addNewRes
           ? <ReservationForm
+              user={user}
               type={'new'}
               close={() => setAddNewRes(false)}
             />
@@ -90,6 +98,7 @@ export const CalendarTimeline = () => {
       {
         addNewRoom
           ? <RoomForm
+              user={user}
               type={'new'}
               close={() => setAddNewRoom(false)}
             />
@@ -98,6 +107,7 @@ export const CalendarTimeline = () => {
       {
         edited.length > 0
           ? <ReservationForm
+              user={user}
               type={'edit'}
               close={() => setEdited([])}
               data={Object.assign(edited[0])}
@@ -107,6 +117,7 @@ export const CalendarTimeline = () => {
       {
         editedRoom.length > 0
           ? <RoomForm
+              user={user}
               type={'edit'}
               close={() => setEditedRoom([])}
               data={Object.assign(editedRoom[0])}

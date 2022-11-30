@@ -22,7 +22,7 @@ export const AdminPageMain = (props) => {
         <DateButtons/>
       </StyledButtonsContainer>
       <StyledCalendarContainer>
-        <CalendarTimeline/>
+        <CalendarTimeline user={user}/>
       </StyledCalendarContainer>
 
     </StyledFullPage>

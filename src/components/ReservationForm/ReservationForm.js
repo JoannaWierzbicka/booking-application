@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -38,10 +40,16 @@ const options = [
 ]
 
 export const ReservationForm = (props) => {
-  const { type, data, close } = props
+  const { type, data, close, user } = props
   const dispatch = useDispatch()
   const dataApi = new DataApi()
   const { rooms } = useSelector((state) => state.rooms)
+
+  const searched = '@'
+  const withNew = ''
+  const newEm = user.replace(searched, withNew)
+  const sear = '.'
+  const userIdAdded = newEm.replaceAll(sear, withNew)
 
   const initialGuestData = {
     phone: '',
@@ -83,9 +91,8 @@ export const ReservationForm = (props) => {
   }
 
   const removeReservation = (id) => {
-    console.log(id)
     if (window.confirm('Na pewno chcesz usunąć rezerwację?')) {
-      dataApi.removeData('reservations', id)
+      dataApi.removeData(userIdAdded, 'reservations', id)
       dispatch(removeDataAction(id))
       close()
     }
@@ -93,16 +100,15 @@ export const ReservationForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dataApi.addData('reservations', reservation)
+    dataApi.addData(userIdAdded, 'reservations', reservation)
     dispatch(addDataAction(reservation))
     close()
   }
 
   const handleChange = (e) => {
     e.preventDefault()
-    dataApi.editData('reservations', data.id, reservation)
+    dataApi.editData(userIdAdded, 'reservations', data.id, reservation)
     dispatch(editDataAction(reservation))
-    console.log(reservation)
     close()
   }
 

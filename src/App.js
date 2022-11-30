@@ -2,7 +2,6 @@
 import React from 'react'
 import CreateAccountPage from './components/CreateAccountPage'
 import ForgotPasswordPage from './components/ForgotPassworPage'
-import NavBar from './components/NavBar'
 import Loader from './components/Loader'
 import LoginPage from './components/LoginPage'
 import Message from './components/Message'
@@ -10,11 +9,12 @@ import StyledFullPage from './styledComponents/StyledFullPage'
 import StartPage from './components/StartPage'
 import { validateFormLogIn, validateFormCreate, validateRecover } from './helpers/validation'
 import AdminPageMain from './components/AdminPageMain'
-import Alert from '@mui/material/Alert'
+import DataApi from './api/DataApi'
 
 import { signIn, signUp, getUserData, checkIfUserIsLoggedIn, sendPasswordResetEmail, logOut } from './auth'
 
 export class App extends React.Component {
+  data = new DataApi()
   state = {
     isLoading: false,
     hasError: false,
@@ -28,11 +28,9 @@ export class App extends React.Component {
 
     notLoginUserRoute: 'START', // 'START', 'LOGIN', 'CREATE-ACCOUNT'
 
-    // login page
     loginEmail: '',
     loginPassword: '',
 
-    // create account page
     createAccountEmail: '',
     createAccountPassword: '',
     createAccountPasswordRepeat: '',
@@ -42,7 +40,6 @@ export class App extends React.Component {
     errorsLogIn: [],
     errorsCreateAccount: [],
     errorsRecover: []
-
   }
 
   async componentDidMount () {
@@ -76,7 +73,9 @@ export class App extends React.Component {
       }))
     } finally {
       this.setState(() => ({
-        isLoading: false
+        isLoading: false,
+        loginEmail: '',
+        loginPassword: ''
       }))
     }
   }
@@ -121,6 +120,15 @@ export class App extends React.Component {
           isInfoDisplayed: true,
           infoMessage: 'Konto utworzone pomyślnie, zostałeś zalogowany'
         })
+
+        const searched = '@'
+        const withNew = ''
+        const newEm = createAccountEmail.replace(searched, withNew)
+        const sear = '.'
+        const userIdAdded = newEm.replaceAll(sear, withNew)
+
+        this.data.addNewUser(userIdAdded)
+
         this.onUserLogin()
       }
     } catch (error) {
@@ -130,7 +138,10 @@ export class App extends React.Component {
       }))
     } finally {
       this.setState(() => ({
-        isLoading: false
+        isLoading: false,
+        createAccountEmail: '',
+        createAccountPassword: '',
+        createAccountPasswordRepeat: ''
       }))
     }
   }

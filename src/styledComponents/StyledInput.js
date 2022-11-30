@@ -11,6 +11,9 @@ export const StyledInput = styled.input`
     &.input--short{
         width: 60%;
     }
+    &.input--number{
+        width: 15%;
+    }
     @media only screen and (max-width: 650px) {
       width: 50%;
   }

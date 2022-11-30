@@ -1,22 +1,24 @@
 import React from 'react'
+import objectToArray from './objectToArray'
 
 export class DataApi extends React.Component {
-  apiUrl = 'http://localhost:3005';
+  apiUrl = 'https://booking-app-jw-default-rtdb.firebaseio.com/dataBase';
 
-  loadData = (db) => {
-    return fetch(`${this.apiUrl}/${db}`)
+  loadData = (key) => {
+    return fetch(`${this.apiUrl}/${key}.json`)
       .then((resp) => {
         if (resp.ok) {
           return resp.json()
         }
       })
+      .then((data) => objectToArray(data))
       .catch((error) => {
         console.error(error)
       })
   };
 
-  addData = (db, data) => {
-    fetch(`${this.apiUrl}/${db}`, {
+  addData = (key, data) => {
+    fetch(`${this.apiUrl}/${key}.json`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -28,13 +30,14 @@ export class DataApi extends React.Component {
           return resp.json()
         }
       })
+      .then((data) => objectToArray(data))
       .catch((error) => {
         console.error(error)
       })
   };
 
-  removeReservation = (db, id) => {
-    fetch(`${this.apiUrl}/${db}/${id}`, {
+  removeData = (key, id) => {
+    fetch(`${this.apiUrl}/${key}/${id}.json`, {
       method: 'DELETE'
     })
       .then((resp) => {
@@ -42,15 +45,16 @@ export class DataApi extends React.Component {
           return resp.json()
         }
       })
+      .then((data) => objectToArray(data))
       .catch((error) => {
         console.error(error)
       })
   };
 
-  editReservation = (db, id, newRes) => {
-    fetch(`${this.apiUrl}/${db}/${id}`, {
+  editData = (key, id, newData) => {
+    fetch(`${this.apiUrl}/${key}/${id}.json`, {
       method: 'PUT',
-      body: JSON.stringify(newRes),
+      body: JSON.stringify(newData),
       headers: {
         'Content-Type': 'application/json'
       }
@@ -60,6 +64,7 @@ export class DataApi extends React.Component {
           return resp.json()
         }
       })
+      .then((data) => objectToArray(data))
       .catch((error) => {
         console.error(error)
       })

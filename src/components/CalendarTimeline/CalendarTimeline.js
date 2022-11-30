@@ -16,23 +16,30 @@ export const CalendarTimeline = () => {
   const [addNewRes, setAddNewRes] = React.useState(false)
   const [addNewRoom, setAddNewRoom] = React.useState(false)
   const [edited, setEdited] = React.useState([])
+  const [editedRoom, setEditedRoom] = React.useState([])
 
   const { date } = useSelector((state) => state.calendar)
   const { reservations } = useSelector((state) => state.reservations)
   const { rooms } = useSelector((state) => state.rooms)
 
-  const items = itemsConverter(reservations)
+  const items = Array.isArray(reservations) ? itemsConverter(reservations) : []
   
   const dataApi = new DataApi()
-
+  
   React.useEffect(() => {
     dataApi.loadData('rooms')
-      .then(data => dispatch(loadRoomsDataAction(data)))
+      .then((data) => {
+        console.log(data)
+        dispatch(loadRoomsDataAction(data)) 
+      })
   }, [])
 
   React.useEffect(() => {
     dataApi.loadData('reservations')
-      .then(data => dispatch(loadDataAction(data)))
+      .then(data => {
+        console.log(data)
+        dispatch(loadDataAction(data)) 
+      })
   }, []) 
 
   const onClickAddRes = () => {
@@ -40,10 +47,15 @@ export const CalendarTimeline = () => {
     setAddNewRoom(false)
   }
 
+  const editGroup = (id) => {
+    const editedRoom = rooms.filter((data) => data.id === id) 
+    setEditedRoom(editedRoom)
+  }
+
   return (
     <>
       <StyledTimeline
-        groups={rooms}
+        groups={Array.isArray(rooms) ? rooms : []}
         items={items}
         visibleTimeStart={date.start}
         visibleTimeEnd={date.end}
@@ -51,6 +63,7 @@ export const CalendarTimeline = () => {
         itemRenderer={itemRenderer}
         buffer={1}
         canMove={false}
+        onCanvasDoubleClick={editGroup}
         // onItemMove={onItemMove(itemId, dragTime, newGroupOrder)}
         // onTimeChange={onTimeChange(visibleTimeStart, visibleTimeEnd, updateScrollCanvas, unit)}
       />
@@ -88,6 +101,15 @@ export const CalendarTimeline = () => {
               type={'edit'}
               close={() => setEdited([])}
               data={Object.assign(edited[0])}
+            />
+          : null
+      }
+      {
+        editedRoom.length > 0
+          ? <RoomForm
+              type={'edit'}
+              close={() => setEditedRoom([])}
+              data={Object.assign(editedRoom[0])}
             />
           : null
       }

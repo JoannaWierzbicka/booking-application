@@ -1,13 +1,10 @@
-/* eslint-disable no-unused-vars */
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import { StyledPaper, StyledForm, StyledInput, StyledButton, StyledSelect, StyledInputWrapper, StyledLabel } from '../../styledComponents'
-import { rooms } from '../../helpers/rooms'
-import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone'
 import { countries } from '../../helpers/countries'
@@ -44,6 +41,7 @@ export const ReservationForm = (props) => {
   const { type, data, close } = props
   const dispatch = useDispatch()
   const dataApi = new DataApi()
+  const { rooms } = useSelector((state) => state.rooms)
 
   const initialGuestData = {
     phone: '',
@@ -60,7 +58,7 @@ export const ReservationForm = (props) => {
   const [guests, setGuests] = React.useState(type === 'new' ? '' : data.guests)
   const [start, setStart] = React.useState(type === 'new' ? '' : data.start_time._i)
   const [end, setEnd] = React.useState(type === 'new' ? '' : data.end_time._i)
-  const [room, setRoom] = React.useState(type === 'new' ? '1' : data.group)
+  const [room, setRoom] = React.useState(type === 'new' ? rooms[0].id : data.group)
   const [guestData, setGuestData] = React.useState(type === 'new' ? initialGuestData : data.guestData)
   const [status, setStatus] = React.useState(type === 'new' ? 'pre-booking' : data.status)
 
@@ -85,12 +83,11 @@ export const ReservationForm = (props) => {
   }
 
   const removeReservation = (id) => {
+    console.log(id)
     if (window.confirm('Na pewno chcesz usunąć rezerwację?')) {
-      dataApi.removeReservation('reservations', id)
+      dataApi.removeData('reservations', id)
       dispatch(removeDataAction(id))
       close()
-    } else {
-      console.log('no')
     }
   }
 
@@ -103,7 +100,7 @@ export const ReservationForm = (props) => {
 
   const handleChange = (e) => {
     e.preventDefault()
-    dataApi.editReservation('reservations', data.id, reservation)
+    dataApi.editData('reservations', data.id, reservation)
     dispatch(editDataAction(reservation))
     console.log(reservation)
     close()
@@ -161,7 +158,7 @@ export const ReservationForm = (props) => {
           </StyledInputWrapper>
           <StyledInputWrapper>
             <StyledLabel htmlFor={'room'}>
-              Numer pokoju:
+              Nazwa pokoju:
 
             </StyledLabel> <StyledSelect
 
@@ -174,7 +171,7 @@ export const ReservationForm = (props) => {
                                  required
                                  key={room.id}
                                  value={room.id}
-                               >{room.id}
+                               >{room.title}
                                </option>)
                            })}
                            </StyledSelect>
@@ -203,7 +200,6 @@ export const ReservationForm = (props) => {
 
             </StyledLabel>
             <RadioGroup
-              defaultValue={status}
               name={'status'}
               onChange={(e) => setStatus(e.target.value)}
             >{options.map(stat => {
@@ -334,8 +330,8 @@ export const ReservationForm = (props) => {
                               return (
                                 <option
                                   key={country.code}
-                                  value={country.StyledLabel}
-                                >{country.StyledLabel}
+                                  value={country.label}
+                                >{country.label}
                                 </option>)
                             })}
                             </StyledSelect>

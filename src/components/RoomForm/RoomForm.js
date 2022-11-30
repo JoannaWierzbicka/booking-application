@@ -1,66 +1,74 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
-import Radio from '@mui/material/Radio'
-import RadioGroup from '@mui/material/RadioGroup'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import { StyledPaper, StyledForm, StyledInput, StyledButton, StyledSelect, StyledInputWrapper, StyledLabel } from '../../styledComponents'
-import { rooms } from '../../helpers/rooms'
-import Divider from '@mui/material/Divider'
+import { StyledPaper, StyledForm, StyledInput, StyledButton, StyledInputWrapper, StyledLabel } from '../../styledComponents'
 import IconButton from '@mui/material/IconButton'
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone'
-import { countries } from '../../helpers/countries'
-import { addDataAction, removeDataAction, editDataAction } from '../../actions/reservation'
+import { addRoomDataAction, removeRoomDataAction, editRoomDataAction } from '../../actions/rooms'
 import DataApi from '../../api/DataApi'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { v4 as uuid } from 'uuid'
 
 export const RoomForm = (props) => {
-  const { close } = props
+  const { close, type, data } = props
   const dispatch = useDispatch()
   const dataApi = new DataApi()
 
-  const [id, setId] = React.useState('')
-  const [title, setTitle] = React.useState('')
+  const [title, setTitle] = React.useState(type === 'new' ? '' : data.title)
+  const [singleBeds, setSingleBeds] = React.useState(type === 'new' ? '' : data.roomData.singleBeds)
+  const [doubleBeds, setDoubleBeds] = React.useState(type === 'new' ? '' : data.roomData.doubleBeds)
+  // const [desc, setDesc] = React.useState(type === 'new' ? '' : data.roomData.desc)
 
   const room = {
-    id: id,
+    id: type === 'new' ? uuid() : data.id,
     title: title,
     height: 30,
-    stackItems: false
+    stackItems: false,
+    roomData: {
+      singleBeds: singleBeds,
+      doubleBeds: doubleBeds
+      // desc: desc
+    }
   }
 
-  // const removeReservation = (id) => {
-  //   if (window.confirm('Na pewno chcesz usunąć rezerwację?')) {
-  //     dataApi.removeReservation('reservations', id)
-  //     dispatch(removeDataAction(id))
-  //     close()
-  //   } else {
-  //     console.log('no')
-  //   }
-  // }
+  const removeRoom = (id) => {
+    console.log(id)
+    if (window.confirm('Na pewno chcesz usunąć ten pokój?')) {
+      dataApi.removeData('rooms', id)
+      dispatch(removeRoomDataAction(id))
+      close()
+    }
+  }
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault()
-  //   dataApi.addData('reservations', reservation)
-  //   dispatch(addDataAction(reservation))
-  //   close()
-  // }
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dataApi.addData('rooms', room)
+    dispatch(addRoomDataAction(room))
+    close()
+  }
 
-  // const handleChange = (e) => {
-  //   e.preventDefault()
-  //   dataApi.editReservation('reservations', data.id, reservation)
-  //   dispatch(editDataAction(reservation))
-  //   console.log(reservation)
-  //   close()
-  // }
+  const handleChange = (e) => {
+    e.preventDefault()
+    console.log('change')
+    e.preventDefault()
+    dataApi.editData('rooms', data.id, room)
+    dispatch(editRoomDataAction(room))
+    close()
+  }
 
   return (
     <StyledPaper>
       <header className={'form-header'}>
-        <div>DODAJ POKÓJ
+        {type === 'new' ? <div>DODAJ POKÓJ</div> : <div>EDYCJA POKOJU</div>}
+        <div>
+          {
+                type === 'edit'
+                  ?
+                    <IconButton onClick={() => removeRoom(data.id)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  : null
+            }
           <IconButton
             onClick={close}
           ><CloseTwoToneIcon/>
@@ -69,8 +77,7 @@ export const RoomForm = (props) => {
       </header>
       <StyledForm
         className={'reservation'}
-        onSubmit={console.log()}
-        // onSubmit={type === 'new' ? handleSubmit : handleChange}
+        onSubmit={type === 'new' ? handleSubmit : handleChange}
       >
         <StyledInputWrapper className={'row-wrapper'}>
           <h5>Dane na temat pokoju</h5>
@@ -78,31 +85,55 @@ export const RoomForm = (props) => {
             <StyledLabel htmlFor={'title'}>
               Nazwa:
 
-            </StyledLabel><StyledInput
+            </StyledLabel>
+            <StyledInput
               name={'title'}
               onChange={(e) => setTitle(e.target.value)}
               value={title}
               required
-                          />
-          </StyledInputWrapper>
-          <StyledInputWrapper>
-            <StyledLabel htmlFor={'beds'}>
-              Ilość osób:
-
-            </StyledLabel>
-            <StyledInput
-              name={'beds'}
-              onChange={console.log()}
-              value={'beds'}
-              required
             />
           </StyledInputWrapper>
+          <StyledInputWrapper>
+            <StyledLabel htmlFor={'singleBeds'}>
+              Ilość łóżek pojedynczych
+            </StyledLabel>
+            <StyledInput
+              className={'input--number'}
+              name={'singleBeds'}
+              onChange={(e) => setSingleBeds(e.target.value)}
+              value={singleBeds}
+            />
+          </StyledInputWrapper>
+          <StyledInputWrapper>
+            <StyledLabel htmlFor={'doubleBeds'}>
+              Ilość łóżek pojedynczych
+            </StyledLabel>
+            <StyledInput
+              className={'input--number'}
+              name={'doubleBeds'}
+              onChange={(e) => setDoubleBeds(e.target.value)}
+              value={doubleBeds}
+            />
+          </StyledInputWrapper>
+          {/* <StyledInputWrapper>
+            <StyledLabel htmlFor={'desc'}>
+              Opis pokoju
+            </StyledLabel>
+            <TextField
+              variant={'standard'}
+              name={'desc'}
+              label="Opis pokoju"
+              onChange={(e) => setDesc(e.target.value)}
+              value={desc}
+            />
+          </StyledInputWrapper> */}
+
         </StyledInputWrapper>
         <StyledButton
           className={'button-reservation--form'}
           variant={'contained'}
           type={'submit'}
-        >DODAJ
+        >{type === 'new' ? 'DODAJ' : 'ZMIEŃ'}
         </StyledButton>
         <StyledButton
           className={'button-reservation--form'}
@@ -118,7 +149,9 @@ export const RoomForm = (props) => {
 }
 
 RoomForm.propTypes = {
-
+  close: PropTypes.func,
+  type: PropTypes.oneOf(['new', 'edit']),
+  data: PropTypes.object
 }
 
 export default RoomForm

@@ -1,0 +1,35 @@
+{
+  "reservations": [
+    {
+      "id": "088e29e5-2704-419d-97ab-461d52344283",
+      "group": "20711b83-4791-4954-a53d-0fd1cef2cb64",
+      "title": "TEST",
+      "start_time": "2022-12-01",
+      "end_time": "2022-12-05",
+      "status": "pre-booking",
+      "guests": "",
+      "guestData": {
+        "phone": "",
+        "email": "",
+        "street": "",
+        "houseNum": "",
+        "apartmentNum": "",
+        "city": "",
+        "zipCode": "",
+        "country": "Poland"
+      }
+    }
+  ],
+  "rooms": [
+    {
+      "id": "20711b83-4791-4954-a53d-0fd1cef2cb64",
+      "title": "Pokój nr 1",
+      "height": 30,
+      "stackItems": false,
+      "roomData": {
+        "singleBeds": "",
+        "doubleBeds": ""
+      }
+    }
+  ]
+}

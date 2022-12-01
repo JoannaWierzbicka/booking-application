@@ -14,6 +14,8 @@ import { addDataAction, removeDataAction, editDataAction } from '../../actions/r
 import DataApi from '../../api/DataApi'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { v4 as uuid } from 'uuid'
+import objectToArray from '../../api/objectToArray'
+import moment from 'moment'
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const options = [
@@ -64,8 +66,8 @@ export const ReservationForm = (props) => {
 
   const [name, setName] = React.useState(type === 'new' ? '' : data.title)
   const [guests, setGuests] = React.useState(type === 'new' ? '' : data.guests)
-  const [start, setStart] = React.useState(type === 'new' ? '' : data.start_time._i)
-  const [end, setEnd] = React.useState(type === 'new' ? '' : data.end_time._i)
+  const [start, setStart] = React.useState(type === 'new' ? '' : moment(data.start_time._i).format('YYYY-MM-DD'))
+  const [end, setEnd] = React.useState(type === 'new' ? '' : moment(data.end_time._i).format('YYYY-MM-DD'))
   const [room, setRoom] = React.useState(type === 'new' ? rooms[0].id : data.group)
   const [guestData, setGuestData] = React.useState(type === 'new' ? initialGuestData : data.guestData)
   const [status, setStatus] = React.useState(type === 'new' ? 'pre-booking' : data.status)
@@ -74,8 +76,8 @@ export const ReservationForm = (props) => {
     id: type === 'new' ? uuid() : data.id,
     group: room,
     title: name,
-    start_time: start,
-    end_time: end,
+    start_time: moment(start),
+    end_time: moment(end),
     status: status,
     guests: guests,
     guestData: {

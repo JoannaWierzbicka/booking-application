@@ -1,11 +1,9 @@
 import DataApi from '../api/DataApi'
 
-export const handleIdChange = async (user, id, dataAA) => {
-  const newData = { ...dataAA, id }
-  console.log(dataAA)
-  console.log(user, id)
+export const handleIdChange = async (user, key, id, dataReceived) => {
+  const newData = { ...dataReceived, id }
   const data = new DataApi()
-  await data.editData(user, 'rooms', id, newData)
+  await data.editData(user, key, id, newData)
 }
 
 export default handleIdChange

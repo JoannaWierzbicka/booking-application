@@ -14,7 +14,7 @@ import RoomForm from '../../components/RoomForm'
 
 export const CalendarTimeline = (props) => {
   const { user } = props
-
+ 
   const searched = '@'
   const withNew = ''
   const newEm = user.replace(searched, withNew)
@@ -33,21 +33,21 @@ export const CalendarTimeline = (props) => {
 
   const items = Array.isArray(reservations) ? itemsConverter(reservations) : []
   
-  const dataApi = new DataApi()
+  // const dataApi = new DataApi()
   
-  React.useEffect(() => {
-    dataApi.loadData(userIdAdded, 'rooms')
-      .then((data) => {
-        dispatch(loadRoomsDataAction(data)) 
-      })
-  }, [])
+  // React.useEffect(() => {
+  //   dataApi.loadData(userIdAdded, 'rooms')
+  //     .then((data) => {
+  //       dispatch(loadRoomsDataAction(data)) 
+  //     })
+  // }, [])
 
-  React.useEffect(() => {
-    dataApi.loadData(userIdAdded, 'reservations')
-      .then(data => {
-        dispatch(loadDataAction(data)) 
-      })
-  }, []) 
+  // React.useEffect(() => {
+  //   dataApi.loadData(userIdAdded, 'reservations')
+  //     .then(data => {
+  //       dispatch(loadDataAction(data)) 
+  //     })
+  // }, []) 
 
   const onClickAddRes = () => {
     setAddNewRes(true)

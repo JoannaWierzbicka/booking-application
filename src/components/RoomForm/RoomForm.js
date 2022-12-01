@@ -49,14 +49,14 @@ export const RoomForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dataApi.addRoomData(userIdAdded, 'rooms', room)
+    dataApi.addData(userIdAdded, 'rooms', room)
     dispatch(addRoomDataAction(room))
     close()
   }
 
   const handleChange = (e) => {
     e.preventDefault()
-    dataApi.editData(userIdAdded, 'rooms', data.name, room)
+    dataApi.editData(userIdAdded, 'rooms', data.id, room)
     dispatch(editRoomDataAction(room))
     close()
   }

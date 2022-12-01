@@ -182,7 +182,10 @@ export class App extends React.Component {
 
   onLogOut=() => {
     logOut()
-    this.setState(() => ({ isUserLoggedIn: false }))
+    this.setState(() => ({
+      isUserLoggedIn: false,
+      userEmail: ''
+    }))
   }
 
   render () {

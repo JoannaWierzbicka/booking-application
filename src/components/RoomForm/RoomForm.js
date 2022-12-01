@@ -40,7 +40,6 @@ export const RoomForm = (props) => {
   }
 
   const removeRoom = (id) => {
-    console.log(id)
     if (window.confirm('Na pewno chcesz usunąć ten pokój?')) {
       dataApi.removeData(userIdAdded, 'rooms', id)
       dispatch(removeRoomDataAction(id))
@@ -50,17 +49,14 @@ export const RoomForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dataApi.addData(userIdAdded, 'rooms', room)
-    // dataApi.addData('rooms', room)
+    dataApi.addRoomData(userIdAdded, 'rooms', room)
     dispatch(addRoomDataAction(room))
     close()
   }
 
   const handleChange = (e) => {
     e.preventDefault()
-    console.log('change')
-    e.preventDefault()
-    dataApi.editData(userIdAdded, 'rooms', data.id, room)
+    dataApi.editData(userIdAdded, 'rooms', data.name, room)
     dispatch(editRoomDataAction(room))
     close()
   }

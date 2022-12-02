@@ -11,6 +11,7 @@ border-radius: 10px;
     background-color: white;
     flex-direction: row;
     align-items: flex-start;
+    box-shadow: 8px 8px 24px 0px rgb(66 68 90/51%);
     @media only screen and (max-width: 650px) {
     flex-direction: column;
   }

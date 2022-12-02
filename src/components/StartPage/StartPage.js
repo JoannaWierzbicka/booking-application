@@ -13,7 +13,7 @@ export const StartPage = (props) => {
   const { logIn, signUp } = props
   return (
     <StyledFullPage className={'start-page'}>
-      {/* <Stars> */}
+      <Stars>
       <NavBar
         logIn={logIn}
         signUp={signUp}
@@ -47,7 +47,7 @@ export const StartPage = (props) => {
         </div>
 
       </StyledInfo>
-      {/* </Stars> */}
+      </Stars>
     </StyledFullPage>
   )
 }

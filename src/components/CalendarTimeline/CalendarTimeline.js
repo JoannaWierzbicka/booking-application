@@ -7,21 +7,15 @@ import { loadDataAction } from '../../actions/reservation'
 import { loadRoomsDataAction } from '../../actions/rooms'
 import DataApi from '../../api/DataApi'
 import { StyledTimeline, StyledButton } from '../../styledComponents'
-import itemsConverter from '../../helpers/itemsConverter'
+import { itemsConverter, itemRenderer, createUserId } from '../../helpers'
 import ReservationForm from '../ReservationForm/ReservationForm'
-import itemRenderer from '../../helpers/itemRenderer'
 import RoomForm from '../../components/RoomForm'
 
 export const CalendarTimeline = (props) => {
   const { user } = props
- 
-  const searched = '@'
-  const withNew = ''
-  const newEm = user.replace(searched, withNew)
-  const sear = '.'
-  const userIdAdded = newEm.replaceAll(sear, withNew)
-
+  const userIdAdded = createUserId(user)
   const dispatch = useDispatch()
+  
   const [addNewRes, setAddNewRes] = React.useState(false)
   const [addNewRoom, setAddNewRoom] = React.useState(false)
   const [edited, setEdited] = React.useState([])
@@ -33,21 +27,21 @@ export const CalendarTimeline = (props) => {
 
   const items = Array.isArray(reservations) ? itemsConverter(reservations) : []
   
-  // const dataApi = new DataApi()
+  const dataApi = new DataApi()
   
-  // React.useEffect(() => {
-  //   dataApi.loadData(userIdAdded, 'rooms')
-  //     .then((data) => {
-  //       dispatch(loadRoomsDataAction(data)) 
-  //     })
-  // }, [])
+  React.useEffect(() => {
+    dataApi.loadData(userIdAdded, 'rooms')
+      .then((data) => {
+        dispatch(loadRoomsDataAction(data)) 
+      })
+  }, [user])
 
-  // React.useEffect(() => {
-  //   dataApi.loadData(userIdAdded, 'reservations')
-  //     .then(data => {
-  //       dispatch(loadDataAction(data)) 
-  //     })
-  // }, []) 
+  React.useEffect(() => {
+    dataApi.loadData(userIdAdded, 'reservations')
+      .then(data => {
+        dispatch(loadDataAction(data)) 
+      })
+  }, [user]) 
 
   const onClickAddRes = () => {
     setAddNewRes(true)

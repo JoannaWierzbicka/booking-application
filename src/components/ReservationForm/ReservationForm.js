@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -9,49 +7,22 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import { StyledPaper, StyledForm, StyledInput, StyledButton, StyledSelect, StyledInputWrapper, StyledLabel } from '../../styledComponents'
 import IconButton from '@mui/material/IconButton'
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone'
-import { countries } from '../../helpers/countries'
+import { countries, createUserId, statusOptions } from '../../helpers'
 import { addDataAction, removeDataAction, editDataAction } from '../../actions/reservation'
 import DataApi from '../../api/DataApi'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { v4 as uuid } from 'uuid'
-import objectToArray from '../../api/objectToArray'
 import moment from 'moment'
-
-const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-const options = [
-  {
-    name: 'Rezerwacja wstępna',
-    status: 'pre-booking',
-    color: 'orange'
-  },
-  {
-    name: 'Zaliczka opłacona',
-    status: 'pre-paid',
-    color: 'blue'
-  },
-  {
-    name: 'Całość opłacona',
-    status: 'paid-all',
-    color: 'green'
-  },
-  {
-    name: 'Anulowana',
-    status: 'cancelled',
-    color: 'grey'
-  }
-]
 
 export const ReservationForm = (props) => {
   const { type, data, close, user } = props
+  const userIdAdded = createUserId(user)
   const dispatch = useDispatch()
+
   const dataApi = new DataApi()
   const { rooms } = useSelector((state) => state.rooms)
 
-  const searched = '@'
-  const withNew = ''
-  const newEm = user.replace(searched, withNew)
-  const sear = '.'
-  const userIdAdded = newEm.replaceAll(sear, withNew)
+  const userId = createUserId(user)
 
   const initialGuestData = {
     phone: '',
@@ -94,7 +65,7 @@ export const ReservationForm = (props) => {
 
   const removeReservation = (id) => {
     if (window.confirm('Na pewno chcesz usunąć rezerwację?')) {
-      dataApi.removeData(userIdAdded, 'reservations', id)
+      dataApi.removeData(userId, 'reservations', id)
       dispatch(removeDataAction(id))
       close()
     }
@@ -103,13 +74,18 @@ export const ReservationForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     dataApi.addData(userIdAdded, 'reservations', reservation)
-    dispatch(addDataAction(reservation))
+      .then((resp) => {
+        const newID = resp.name
+        const newData = { ...reservation, id: newID }
+        dataApi.editData(userIdAdded, 'reservations', newID, newData)
+        dispatch(addDataAction(newData))
+      })
     close()
   }
 
   const handleChange = (e) => {
     e.preventDefault()
-    dataApi.editData(userIdAdded, 'reservations', data.id, reservation)
+    dataApi.editData(userId, 'reservations', data.id, reservation)
     dispatch(editDataAction(reservation))
     close()
   }
@@ -192,7 +168,7 @@ export const ReservationForm = (props) => {
               defaultValue={guests}
               name={'guests'}
               onChange={(e) => setGuests(e.target.value)}
-                           >{numbers.map(num => {
+                           >{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => {
                              return (
                                <option
                                  key={num}
@@ -210,7 +186,7 @@ export const ReservationForm = (props) => {
             <RadioGroup
               name={'status'}
               onChange={(e) => setStatus(e.target.value)}
-            >{options.map(stat => {
+            >{statusOptions.map(stat => {
               return (
                 <FormControlLabel
                   key={stat.name}
@@ -372,7 +348,8 @@ export const ReservationForm = (props) => {
 ReservationForm.propTypes = {
   type: PropTypes.oneOf(['new', 'edit']),
   data: PropTypes.object,
-  close: PropTypes.func
+  close: PropTypes.func,
+  user: PropTypes.string
 }
 
 export default ReservationForm

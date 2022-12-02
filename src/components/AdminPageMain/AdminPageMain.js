@@ -14,29 +14,8 @@ import DataApi from '../../api/DataApi'
 import { StyledButtonsContainer, StyledFullPage, StyledCalendarContainer, StyledHeader } from '../../styledComponents'
 
 export const AdminPageMain = (props) => {
-  const dispatch = useDispatch()
   const { logOut, user, userLoggedIn } = props
-  const searched = '@'
-  const withNew = ''
-  const newEm = user.replace(searched, withNew)
-  const sear = '.'
-  const userIdAdded = newEm.replaceAll(sear, withNew)
 
-  const dataApi = new DataApi()
-
-  React.useEffect(() => {
-    dataApi.loadData(userIdAdded, 'rooms')
-      .then((data) => {
-        dispatch(loadRoomsDataAction(data))
-      })
-  }, [])
-
-  React.useEffect(() => {
-    dataApi.loadData(userIdAdded, 'reservations')
-      .then(data => {
-        dispatch(loadDataAction(data))
-      })
-  }, [])
   return (
     <StyledFullPage>
       <NavBar

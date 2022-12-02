@@ -2,8 +2,7 @@ import React from 'react'
 import { StyledButton, StyledButtonGroup } from '../../styledComponents'
 import { useDispatch } from 'react-redux'
 import { changeMonthAction, changeYearAction } from '../../actions/calendar'
-import { years } from '../../helpers/years'
-import { months } from '../../helpers/months'
+import { years, months } from '../../helpers'
 
 export const DateButtons = () => {
   const dispatch = useDispatch()

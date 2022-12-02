@@ -6,21 +6,21 @@ import PropTypes from 'prop-types'
 import { StyledPaper, StyledForm, StyledInput, StyledButton, StyledInputWrapper, StyledLabel } from '../../styledComponents'
 import IconButton from '@mui/material/IconButton'
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone'
-import { addRoomDataAction, removeRoomDataAction, editRoomDataAction } from '../../actions/rooms'
+import { addRoomDataAction, removeRoomDataAction, editRoomDataAction, loadRoomsDataAction } from '../../actions/rooms'
 import DataApi from '../../api/DataApi'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { v4 as uuid } from 'uuid'
+import { createUserId } from '../../helpers'
 
 export const RoomForm = (props) => {
   const { close, type, data, user } = props
   const dispatch = useDispatch()
   const dataApi = new DataApi()
 
-  const searched = '@'
-  const withNew = ''
-  const newEm = user.replace(searched, withNew)
-  const sear = '.'
-  const userIdAdded = newEm.replaceAll(sear, withNew)
+  if (data) {
+    console.log(data)
+  }
+  const userIdAdded = createUserId(user)
 
   const [title, setTitle] = React.useState(type === 'new' ? '' : data.title)
   const [singleBeds, setSingleBeds] = React.useState(type === 'new' ? '' : data.roomData.singleBeds)
@@ -50,7 +50,13 @@ export const RoomForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     dataApi.addData(userIdAdded, 'rooms', room)
-    dispatch(addRoomDataAction(room))
+      .then((resp) => {
+        const newID = resp.name
+        const newData = { ...room, id: newID }
+        dataApi.editData(userIdAdded, 'rooms', newID, newData)
+        dispatch(addRoomDataAction(newData))
+      })
+
     close()
   }
 

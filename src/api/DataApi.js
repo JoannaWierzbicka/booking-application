@@ -1,11 +1,9 @@
 import React from 'react'
 import objectToArray from './objectToArray'
 import { makeAuthorizedRequest } from '../auth'
-import handleIdChange from '../helpers/handleIdChange'
 
 export class DataApi extends React.Component {
   apiUrl = 'https://booking-app-jw-default-rtdb.firebaseio.com/dataBase';
-  // apiUrl = 'http://localhost:3005/dataBase'
 
   loadData = (user, key) => {
     return makeAuthorizedRequest(`${this.apiUrl}/${user}/${key}.json`)
@@ -13,7 +11,7 @@ export class DataApi extends React.Component {
       .catch((error) => {
         console.error(error)
       })
-  };
+  }
 
   addNewUser = (user) => {
     fetch(`${this.apiUrl}/${user}.json`, {
@@ -30,16 +28,13 @@ export class DataApi extends React.Component {
   };
 
   addData = (user, key, data) => {
-    makeAuthorizedRequest(`${this.apiUrl}/${user}/${key}.json`, {
+    return makeAuthorizedRequest(`${this.apiUrl}/${user}/${key}.json`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json'
       }
     })
-      .then((resp) => {
-        handleIdChange(user, key, resp.name, data)
-      })
       .catch((error) => {
         console.error(error)
       })

@@ -12,3 +12,7 @@ export const months = [
   { name: 'LIS', id: '11' },
   { name: 'GRU', id: '12' }
 ]
+
+export const years = [
+  '2022', '2023', '2024', '2025', '2026', '2027', '2028'
+]

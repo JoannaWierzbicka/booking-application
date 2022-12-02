@@ -1,16 +1,14 @@
-/* eslint-disable no-unused-vars */
 import React from 'react'
 import CreateAccountPage from './components/CreateAccountPage'
 import ForgotPasswordPage from './components/ForgotPassworPage'
 import Loader from './components/Loader'
 import LoginPage from './components/LoginPage'
 import Message from './components/Message'
-import StyledFullPage from './styledComponents/StyledFullPage'
 import StartPage from './components/StartPage'
-import { validateFormLogIn, validateFormCreate, validateRecover } from './helpers/validation'
 import AdminPageMain from './components/AdminPageMain'
+import { StyledFullPage } from './styledComponents'
+import { validateFormLogIn, validateFormCreate, validateRecover, createUserId } from './helpers'
 import DataApi from './api/DataApi'
-
 import { signIn, signUp, getUserData, checkIfUserIsLoggedIn, sendPasswordResetEmail, logOut } from './auth'
 
 export class App extends React.Component {
@@ -47,6 +45,15 @@ export class App extends React.Component {
     const userIsLoggedIn = await checkIfUserIsLoggedIn()
     this.setState(() => ({ isLoading: false }))
     if (userIsLoggedIn) this.onUserLogin()
+  }
+
+  onUserLogin = () => {
+    getUserData().then(data => {
+      this.setState(() => ({
+        userEmail: data.email,
+        isUserLoggedIn: true
+      }))
+    })
   }
 
   onClickLogin = async () => {
@@ -94,15 +101,6 @@ export class App extends React.Component {
     }))
   }
 
-  onUserLogin = () => {
-    getUserData().then(data => {
-      this.setState(() => ({
-        userEmail: data.email,
-        isUserLoggedIn: true
-      }))
-    })
-  }
-
   onClickCreateAccount = async () => {
     const { createAccountEmail, createAccountPassword, createAccountPasswordRepeat } = this.state
     const errors = validateFormCreate(createAccountEmail, createAccountPassword, createAccountPasswordRepeat)
@@ -121,12 +119,7 @@ export class App extends React.Component {
           infoMessage: 'Konto utworzone pomyślnie, zostałeś zalogowany'
         })
 
-        const searched = '@'
-        const withNew = ''
-        const newEm = createAccountEmail.replace(searched, withNew)
-        const sear = '.'
-        const userIdAdded = newEm.replaceAll(sear, withNew)
-
+        const userIdAdded = createUserId(createAccountEmail)
         this.data.addNewUser(userIdAdded)
 
         this.onUserLogin()

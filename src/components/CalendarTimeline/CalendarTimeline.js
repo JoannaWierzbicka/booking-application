@@ -10,6 +10,7 @@ import { StyledTimeline, StyledButton } from '../../styledComponents'
 import { itemsConverter, itemRenderer, createUserId } from '../../helpers'
 import ReservationForm from '../ReservationForm/ReservationForm'
 import RoomForm from '../../components/RoomForm'
+import Stars from '../../components/Stars/Stars'
 
 export const CalendarTimeline = (props) => {
   const { user } = props
@@ -71,14 +72,14 @@ export const CalendarTimeline = (props) => {
       <StyledButton
         variant={'contained'}
         className={'button-reservation--add'}
-        onClick={onClickAddRes}
-      >Dodaj rezerwację
+        onClick={() => setAddNewRoom(true)}
+      >Dodaj pokój
       </StyledButton>
       <StyledButton
         variant={'contained'}
         className={'button-reservation--add'}
-        onClick={() => setAddNewRoom(true)}
-      >Dodaj pokój
+        onClick={onClickAddRes}
+      >Dodaj rezerwację
       </StyledButton>
       {
         addNewRes

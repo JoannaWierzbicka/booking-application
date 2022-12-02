@@ -18,8 +18,11 @@ background-color: white;;
 &.admin-page{
     background-color:#EBEDEF;
 }
-&.login-page{
-    background-color: #E7E6E9;
+&.login-page{ 
+    background-color: #EBEDEF;
+}
+&.start-page{
+    background-color: #2D3047;
 }
 
 `

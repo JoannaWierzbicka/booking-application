@@ -17,7 +17,7 @@ export const AdminPageMain = (props) => {
   const { logOut, user, userLoggedIn } = props
 
   return (
-    <StyledFullPage>
+    <StyledFullPage className={'admin-page'}>
       <NavBar
         user={user}
         logOut={logOut}

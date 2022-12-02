@@ -29,77 +29,58 @@ export const CreateAccountPage = (props) => {
 
   return (
     <StyledFullPage className={'login-page'}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          height: '80vh',
-          border: '1px solid black',
-          boxShadow:
-    '5px 5px 5px 4px #cecdd0',
-          borderRadius: '15px',
-          backgroundColor: 'white'
-        }}
-      >
-        <StyledForm>
-          <Logo style={{ width: '120px' }}/>
-          {renderErrors()}
-          <TextField
-            size={'small'}
-            margin={'dense'}
-            label={'E-mail'}
-            variant={'outlined'}
-            value={email}
-            onChange={onChangeEmail}
-          />
-          <TextField
-            size={'small'}
-            margin={'dense'}
-            type={'password'}
-            label={'Hasło'}
-            variant={'outlined'}
-            value={password}
-            onChange={onChangePassword}
-          />
-          <TextField
-            size={'small'}
-            margin={'dense'}
-            type={'password'}
-            label={'Powtórz hasło'}
-            variant={'outlined'}
-            value={repeatPassword}
-            onChange={onChangeRepeatPassword}
-          />
-          <StyledButton
-            className={'button-login'}
-            color={'primary'}
-            variant={'contained'}
-            onClick={onClickCreateAccount}
-          >UTWÓRZ KONTO
-          </StyledButton>
-          <StyledButton
-            className={'button-login'}
-            variant={'outlined'}
-            color={'secondary'}
-            onClick={onClickBackToLogin}
-          >
-            Zaloguj się
-          </StyledButton>
-          <StyledButton
-            className={'button-login'}
-            variant={'text'}
-            color={'secondary'}
-            onClick={onClickBackToStartPage}
-          >Powrót na stronę główną
-          </StyledButton>
-        </StyledForm>
-        <img
-          src={'https://cdn.dribbble.com/users/449553/screenshots/6233437/calendar.jpg'}
-          alt={'zdj'}
-          style={{ width: '50%' }}
+      <StyledForm className={'login-form'}>
+        <Logo style={{ width: '120px' }}/>
+        {renderErrors()}
+        <TextField
+          size={'small'}
+          margin={'dense'}
+          label={'E-mail'}
+          variant={'outlined'}
+          value={email}
+          onChange={onChangeEmail}
         />
-      </div>
+        <TextField
+          size={'small'}
+          margin={'dense'}
+          type={'password'}
+          label={'Hasło'}
+          variant={'outlined'}
+          value={password}
+          onChange={onChangePassword}
+        />
+        <TextField
+          size={'small'}
+          margin={'dense'}
+          type={'password'}
+          label={'Powtórz hasło'}
+          variant={'outlined'}
+          value={repeatPassword}
+          onChange={onChangeRepeatPassword}
+        />
+        <StyledButton
+          className={'button-login'}
+          color={'primary'}
+          variant={'contained'}
+          onClick={onClickCreateAccount}
+        >UTWÓRZ KONTO
+        </StyledButton>
+        <StyledButton
+          className={'button-login'}
+          variant={'outlined'}
+          color={'secondary'}
+          onClick={onClickBackToLogin}
+        >
+          Zaloguj się
+        </StyledButton>
+        <StyledButton
+          className={'button-login'}
+          variant={'text'}
+          color={'secondary'}
+          onClick={onClickBackToStartPage}
+        >Powrót na stronę główną
+        </StyledButton>
+      </StyledForm>
     </StyledFullPage>
 
   )

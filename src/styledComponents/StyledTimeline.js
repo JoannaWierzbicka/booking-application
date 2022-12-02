@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 export const StyledTimeline = styled(Timeline)`
 font-family: Montserrat, sans-serif;
+z-index: 999999;
 .rct-header-root {
     background: #51A018;;
 }

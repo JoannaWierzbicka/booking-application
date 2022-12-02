@@ -18,6 +18,9 @@ background-color: white;;
 &.admin-page{
     background-color:#EBEDEF;
 }
+&.login-page{
+    background-color: #E7E6E9;
+}
 
 `
 

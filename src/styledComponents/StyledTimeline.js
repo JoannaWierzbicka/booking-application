@@ -5,16 +5,16 @@ import styled from 'styled-components'
 export const StyledTimeline = styled(Timeline)`
 font-family: Montserrat, sans-serif;
 .rct-header-root {
-    background: #673ab794;;
+    background: #51A018;;
 }
 .rct-calendar-header {
     border: none;
 }
 .rct-scroll {
-    background: #8bc34a40;
+    background: #51a0185c;;
 }
 .rct-sidebar {
-    background: #ffc0cb87
+    background: #f2b03e73;
 }
 .rct-dateHeader {
     cursor: default;

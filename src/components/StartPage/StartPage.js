@@ -8,18 +8,32 @@ import Logo from '../Logo'
 import NavBar from '../NavBar'
 
 export const StartPage = (props) => {
-  const { logIn } = props
+  const { logIn, signUp } = props
   return (
     <StyledFullPage>
-      <NavBar logIn={logIn}/>
+      <NavBar
+        logIn={logIn}
+        signUp={signUp}
+      />
       <StyledInfo>
         <h4>Witaj w BOOKING APP</h4>
         <p>Pomożemy Ci w zarządzaniu rezerwacjami w Twoim obiekcie turystycznym</p>
-        <Button
-          variant={'contained'}
-          color={'primary'}
-        >ZOBACZ WIĘCEJ
-        </Button>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Button
+            sx={{ margin: '10px' }}
+            variant={'contained'}
+            color={'primary'}
+          >ZOBACZ WIĘCEJ
+          </Button>
+          <Button
+            sx={{ margin: '10px' }}
+            variant={'contained'}
+            color={'primary'}
+            onClick={signUp}
+          >Załóż konto
+          </Button>
+        </div>
+
       </StyledInfo>
     </StyledFullPage>
   )

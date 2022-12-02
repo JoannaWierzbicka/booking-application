@@ -6,7 +6,6 @@ import LoginPage from './components/LoginPage'
 import Message from './components/Message'
 import StartPage from './components/StartPage'
 import AdminPageMain from './components/AdminPageMain'
-import { StyledFullPage } from './styledComponents'
 import { validateFormLogIn, validateFormCreate, validateRecover, createUserId } from './helpers'
 import DataApi from './api/DataApi'
 import { signIn, signUp, getUserData, checkIfUserIsLoggedIn, sendPasswordResetEmail, logOut } from './auth'
@@ -212,52 +211,49 @@ export class App extends React.Component {
           :
           notLoginUserRoute === 'START' ?
             <StartPage
+              signUp={() => this.setState(() => ({
+                notLoginUserRoute: 'CREATE-ACCOUNT'
+              }))}
               logIn={() => this.setState(() =>
                 ({
                   notLoginUserRoute: 'LOGIN'
                 }))}
             /> :
             notLoginUserRoute === 'LOGIN' ?
-              <StyledFullPage style={{ display: 'flex', flexDirection: 'column' }}>
-                <LoginPage
-                  errors={errorsLogIn}
-                  email={loginEmail}
-                  password={loginPassword}
-                  onClickLogin={this.onClickLogin}
-                  onClickCreateAccount={() => this.setState(() => ({ notLoginUserRoute: 'CREATE-ACCOUNT' }))}
-                  onChangeEmail={(e) => this.setState(() => ({ loginEmail: e.target.value }))}
-                  onClickBackToStartPage={() => this.setState(() => ({ notLoginUserRoute: 'START' }))}
-                  onChangePassword={(e) => this.setState(() => ({ loginPassword: e.target.value }))}
-                  onClickRecoverPassword={() => this.setState(() => ({ notLoginUserRoute: 'FORGOT-PASSWORD' }))}
-                />
-              </StyledFullPage>
+              <LoginPage
+                errors={errorsLogIn}
+                email={loginEmail}
+                password={loginPassword}
+                onClickLogin={this.onClickLogin}
+                onClickCreateAccount={() => this.setState(() => ({ notLoginUserRoute: 'CREATE-ACCOUNT' }))}
+                onChangeEmail={(e) => this.setState(() => ({ loginEmail: e.target.value }))}
+                onClickBackToStartPage={() => this.setState(() => ({ notLoginUserRoute: 'START' }))}
+                onChangePassword={(e) => this.setState(() => ({ loginPassword: e.target.value }))}
+                onClickRecoverPassword={() => this.setState(() => ({ notLoginUserRoute: 'FORGOT-PASSWORD' }))}
+              />
               :
               notLoginUserRoute === 'CREATE-ACCOUNT' ?
-                <StyledFullPage>
-                  <CreateAccountPage
-                    errors={errorsCreateAccount}
-                    email={createAccountEmail}
-                    password={createAccountPassword}
-                    repeatPassword={createAccountPasswordRepeat}
-                    onChangeEmail={(e) => this.setState(() => ({ createAccountEmail: e.target.value }))}
-                    onChangePassword={(e) => this.setState(() => ({ createAccountPassword: e.target.value }))}
-                    onChangeRepeatPassword={(e) => this.setState(() => ({ createAccountPasswordRepeat: e.target.value }))}
-                    onClickCreateAccount={this.onClickCreateAccount}
-                    onClickBackToStartPage={() => this.setState(() => ({ notLoginUserRoute: 'START' }))}
-                    onClickBackToLogin={() => this.setState(() => ({ notLoginUserRoute: 'LOGIN' }))}
-                  />
-                </StyledFullPage>
+                <CreateAccountPage
+                  errors={errorsCreateAccount}
+                  email={createAccountEmail}
+                  password={createAccountPassword}
+                  repeatPassword={createAccountPasswordRepeat}
+                  onChangeEmail={(e) => this.setState(() => ({ createAccountEmail: e.target.value }))}
+                  onChangePassword={(e) => this.setState(() => ({ createAccountPassword: e.target.value }))}
+                  onChangeRepeatPassword={(e) => this.setState(() => ({ createAccountPasswordRepeat: e.target.value }))}
+                  onClickCreateAccount={this.onClickCreateAccount}
+                  onClickBackToStartPage={() => this.setState(() => ({ notLoginUserRoute: 'START' }))}
+                  onClickBackToLogin={() => this.setState(() => ({ notLoginUserRoute: 'LOGIN' }))}
+                />
                 :
                 notLoginUserRoute === 'FORGOT-PASSWORD' ?
-                  <StyledFullPage>
-                    <ForgotPasswordPage
-                      email={recoverPasswordEmail}
-                      onChangeEmail={(e) => this.setState(() => ({ recoverPasswordEmail: e.target.value }))}
-                      onClickRecover={this.onClickRecover}
-                      onClickBackToLogin={() => this.setState(() => ({ notLoginUserRoute: 'LOGIN' }))}
-                      errors={errorsRecover}
-                    />
-                  </StyledFullPage>
+                  <ForgotPasswordPage
+                    email={recoverPasswordEmail}
+                    onChangeEmail={(e) => this.setState(() => ({ recoverPasswordEmail: e.target.value }))}
+                    onClickRecover={this.onClickRecover}
+                    onClickBackToLogin={() => this.setState(() => ({ notLoginUserRoute: 'LOGIN' }))}
+                    errors={errorsRecover}
+                  />
 
                   : null
           }

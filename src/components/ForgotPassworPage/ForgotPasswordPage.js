@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import TextField from '@mui/material/TextField'
-import HelpIcon from '@mui/icons-material/Help'
-import StyledButton from '../../styledComponents/StyledButton'
-import StyledForm from '../../styledComponents/StyledForm'
+import Logo from '../Logo'
+import { StyledButton, StyledForm, StyledFullPage } from '../../styledComponents'
 
 export const ForgotPasswordPage = (props) => {
   const {
@@ -24,32 +23,56 @@ export const ForgotPasswordPage = (props) => {
   }
 
   return (
-    <StyledForm>
-      <HelpIcon fontSize={'large'}/>
-      {renderErrors()}
-      <p>Odzyskiwanie hasła</p>
-      <TextField
-        size={'small'}
-        margin={'dense'}
-        label={'E-mail'}
-        variant={'outlined'}
-        value={email}
-        onChange={onChangeEmail}
-      />
-      <StyledButton
-        className={'login-page-button'}
-        color={'primary'}
-        variant={'contained'}
-        onClick={onClickRecover}
-      >PRZYPOMNIJ HASŁO
-      </StyledButton>
-      <StyledButton
-        className={'login-page-button'}
-        variant={'text'}
-        onClick={onClickBackToLogin}
-      >Zaloguj się
-      </StyledButton>
-    </StyledForm>
+    <StyledFullPage>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          height: '80vh',
+          border: '1px solid black',
+          boxShadow:
+    '5px 5px 5px 4px #cecdd0',
+          borderRadius: '15px',
+          backgroundColor: 'white'
+        }}
+      >
+        <StyledForm>
+          <Logo style={{ width: '120px' }}/>
+          {renderErrors()}
+          <p>Odzyskiwanie hasła</p>
+          <TextField
+            size={'small'}
+            margin={'dense'}
+            label={'E-mail'}
+            variant={'outlined'}
+            value={email}
+            onChange={onChangeEmail}
+          />
+          <StyledButton
+            className={'button-login'}
+            color={'primary'}
+            variant={'contained'}
+            onClick={onClickRecover}
+          >PRZYPOMNIJ HASŁO
+          </StyledButton>
+          <StyledButton
+            className={'button-login'}
+            variant={'outlined'}
+            color={'secondary'}
+            onClick={onClickBackToLogin}
+          >Zaloguj się
+          </StyledButton>
+        </StyledForm>
+        <img
+          src={'https://cdn.dribbble.com/users/449553/screenshots/6233437/calendar.jpg'}
+          alt={'zdj'}
+          style={{ width: '50%' }}
+        />
+      </div>
+
+    </StyledFullPage>
+
   )
 }
 

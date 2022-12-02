@@ -14,6 +14,10 @@ border-radius: 10px;
     @media only screen and (max-width: 650px) {
     flex-direction: column;
   }
+&.login-form{
+  width: 50%;
+  margin: 20px;
+}
 }
 `
 

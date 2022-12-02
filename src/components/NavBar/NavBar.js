@@ -21,7 +21,8 @@ export const NavBar = (props) => {
     user,
     logOut,
     userLoggedIn,
-    logIn
+    logIn,
+    signUp
   } = props
   const [anchorEl, setAnchorEl] = React.useState(null)
 
@@ -68,7 +69,9 @@ export const NavBar = (props) => {
                   <MenuItem onClick={logOut}>Wyloguj</MenuItem>
                 </div>
 
-                : <MenuItem onClick={logIn}>ZALOGUJ SIĘ</MenuItem>}
+                : <div><MenuItem onClick={logIn}>ZALOGUJ SIĘ</MenuItem>
+                  <MenuItem onClick={signUp}>Zarejestruj się</MenuItem>
+                </div>}
             </Menu>
           </div>
         </Toolbar>

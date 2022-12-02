@@ -19,6 +19,9 @@ border-radius: 10px;
 &.login-form{
   background-color: white;
   box-shadow: 5px 5px 5px 4px #cecdd0; 
+  @media only screen and (max-width: 450px) {
+    margin-top: 100px;
+  }
 }
 `
 

@@ -20,6 +20,9 @@ background-color: white;;
 }
 &.login-page{ 
     background-color: #EBEDEF;
+    @media only screen and (max-width: 450px) {
+    align-items: flex-start;
+  }
 }
 &.start-page{
     background-color: #2D3047;

@@ -15,7 +15,7 @@ export const StyledPaper = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background-color: #54a357;
+    background-color: #C2A878;
     position: sticky;
     top: 0;
     left: 0;

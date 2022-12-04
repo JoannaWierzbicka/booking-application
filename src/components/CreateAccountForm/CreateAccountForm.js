@@ -1,19 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import TextField from '@mui/material/TextField'
-import Logo from '../Logo'
 import { StyledForm, StyledButton, StyledFullPage } from '../../styledComponents'
+import Logo from '../Logo'
 
-export const LoginPage = (props) => {
+export const CreateAccountForm = (props) => {
   const {
     email,
-    password,
-    onClickLogin,
-    onClickCreateAccount,
     onChangeEmail,
+    password,
     onChangePassword,
+    repeatPassword,
+    onChangeRepeatPassword,
+    onClickCreateAccount,
+    onClickBackToLogin,
     onClickBackToStartPage,
-    onClickRecoverPassword,
     errors
   } = props
 
@@ -48,50 +49,60 @@ export const LoginPage = (props) => {
           value={password}
           onChange={onChangePassword}
         />
+        <TextField
+          size={'small'}
+          margin={'dense'}
+          type={'password'}
+          label={'Powtórz hasło'}
+          variant={'outlined'}
+          value={repeatPassword}
+          onChange={onChangeRepeatPassword}
+        />
+        {/* <StyledNavLink to={'/'}> */}
         <StyledButton
           className={'button-login'}
           color={'primary'}
           variant={'contained'}
-          onClick={onClickLogin}
-        >ZALOGUJ SIĘ
-        </StyledButton>
-        <StyledButton
-          className={'button-login'}
-          variant={'outlined'}
-          color={'secondary'}
           onClick={onClickCreateAccount}
         >UTWÓRZ KONTO
         </StyledButton>
+        {/* </StyledNavLink>
+        <StyledNavLink to={'/login'}> */}
         <StyledButton
           className={'button-login'}
           variant={'outlined'}
           color={'secondary'}
-          onClick={onClickRecoverPassword}
-        >Przypomnij hasło
+          onClick={onClickBackToLogin}
+        >
+          Zaloguj się
         </StyledButton>
+        {/* </StyledNavLink>
+        <StyledNavLink to={'/'}> */}
         <StyledButton
-          className={'button-login button-text--small'}
+          className={'button-login'}
           variant={'text'}
           color={'secondary'}
           onClick={onClickBackToStartPage}
         >Powrót na stronę główną
         </StyledButton>
+        {/* </StyledNavLink> */}
       </StyledForm>
     </StyledFullPage>
 
   )
 }
 
-LoginPage.propTypes = {
+CreateAccountForm.propTypes = {
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
-  onClickLogin: PropTypes.func.isRequired,
-  onClickCreateAccount: PropTypes.func.isRequired,
+  repeatPassword: PropTypes.string.isRequired,
   onChangeEmail: PropTypes.func.isRequired,
   onChangePassword: PropTypes.func.isRequired,
+  onClickCreateAccount: PropTypes.func.isRequired,
+  onClickBackToLogin: PropTypes.func.isRequired,
+  onChangeRepeatPassword: PropTypes.func.isRequired,
   onClickBackToStartPage: PropTypes.func.isRequired,
-  onClickRecoverPassword: PropTypes.func,
   errors: PropTypes.array
 }
 
-export default LoginPage
+export default CreateAccountForm

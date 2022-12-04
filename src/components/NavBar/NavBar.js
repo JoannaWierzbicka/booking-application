@@ -15,6 +15,7 @@ import FormGroup from '@mui/material/FormGroup'
 import MenuItem from '@mui/material/MenuItem'
 import Menu from '@mui/material/Menu'
 import Logo from '../Logo'
+import { StyledNavLink } from '../../styledComponents'
 
 export const NavBar = (props) => {
   const {
@@ -66,12 +67,19 @@ export const NavBar = (props) => {
               userLoggedIn ?
                 <div>
                   <MenuItem>{user}</MenuItem>
+                  {/* <StyledNavLink to={'/'}> */}
                   <MenuItem onClick={logOut}>Wyloguj</MenuItem>
+                  {/* </StyledNavLink> */}
                 </div>
 
-                : <div><MenuItem onClick={logIn}>ZALOGUJ SIĘ</MenuItem>
+                : <div>
+                  {/* <StyledNavLink to={'/login'}> */}
+                  <MenuItem onClick={logIn}>ZALOGUJ SIĘ</MenuItem>
+                  {/* </StyledNavLink>
+                  <StyledNavLink to={'/create-account'}> */}
                   <MenuItem onClick={signUp}>Zarejestruj się</MenuItem>
-                </div>}
+                  {/* </StyledNavLink> */}
+                  </div>}
             </Menu>
           </div>
         </Toolbar>

@@ -1,15 +1,13 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyledFullPage, StyledHeader, StyledInfo, StyledMenu, StyledLink } from '../../styledComponents'
+// import { NavLink } from 'react-router-dom'
+import { StyledFullPage, StyledInfo } from '../../styledComponents'
 import Button from '@mui/material/Button'
-import Logo from '../Logo'
-import NavBar from '../NavBar'
-import Stars from '../Stars/Stars'
+import NavBar from '../../components/NavBar'
+import Stars from '../../components/Stars'
 import Typography from '@mui/material/Typography'
 
-export const StartPage = (props) => {
+export const PageMain = (props) => {
   const { logIn, signUp } = props
   return (
     <StyledFullPage className={'start-page'}>
@@ -31,12 +29,18 @@ export const StartPage = (props) => {
           </Typography>
 
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            {/* <StyledNavLink
+              to={'/info'}
+            > */}
             <Button
               className={'start-page-button'}
               variant={'contained'}
               color={'primary'}
-            >ZOBACZ WIĘCEJ
+            >
+              ZOBACZ WIĘCEJ
             </Button>
+            {/* </StyledNavLink>
+            <StyledNavLink to={'/create-account'}> */}
             <Button
               className={'start-page-button'}
               variant={'contained'}
@@ -44,6 +48,7 @@ export const StartPage = (props) => {
               onClick={signUp}
             >Załóż konto
             </Button>
+            {/* </StyledNavLink> */}
           </div>
 
         </StyledInfo>
@@ -52,8 +57,9 @@ export const StartPage = (props) => {
   )
 }
 
-StartPage.propTypes = {
-  logIn: PropTypes.func.isRequired
+PageMain.propTypes = {
+  logIn: PropTypes.func,
+  signUp: PropTypes.func
 }
 
-export default StartPage
+export default PageMain

@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField'
 import Logo from '../Logo'
 import { StyledButton, StyledForm, StyledFullPage } from '../../styledComponents'
 
-export const ForgotPasswordPage = (props) => {
+export const ForgotPasswordForm = (props) => {
   const {
     email,
     onChangeEmail,
@@ -36,6 +36,7 @@ export const ForgotPasswordPage = (props) => {
           value={email}
           onChange={onChangeEmail}
         />
+        {/* <StyledNavLink to={'/recover-password'}> */}
         <StyledButton
           className={'button-login'}
           color={'primary'}
@@ -43,6 +44,8 @@ export const ForgotPasswordPage = (props) => {
           onClick={onClickRecover}
         >PRZYPOMNIJ HASŁO
         </StyledButton>
+        {/* </StyledNavLink>
+        <StyledNavLink to={'/login'}> */}
         <StyledButton
           className={'button-login'}
           variant={'outlined'}
@@ -50,13 +53,14 @@ export const ForgotPasswordPage = (props) => {
           onClick={onClickBackToLogin}
         >Zaloguj się
         </StyledButton>
+        {/* </StyledNavLink> */}
       </StyledForm>
     </StyledFullPage>
 
   )
 }
 
-ForgotPasswordPage.propTypes = {
+ForgotPasswordForm.propTypes = {
   email: PropTypes.string.isRequired,
   onChangeEmail: PropTypes.func.isRequired,
   onClickRecover: PropTypes.func.isRequired,
@@ -64,4 +68,4 @@ ForgotPasswordPage.propTypes = {
   errors: PropTypes.array
 }
 
-export default ForgotPasswordPage
+export default ForgotPasswordForm

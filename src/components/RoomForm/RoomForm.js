@@ -1,12 +1,10 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { StyledPaper, StyledForm, StyledInput, StyledButton, StyledInputWrapper, StyledLabel } from '../../styledComponents'
 import IconButton from '@mui/material/IconButton'
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone'
-import { addRoomDataAction, removeRoomDataAction, editRoomDataAction, loadRoomsDataAction } from '../../actions/rooms'
+import { addRoomDataAction, removeRoomDataAction, editRoomDataAction } from '../../actions/rooms'
 import DataApi from '../../api/DataApi'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { v4 as uuid } from 'uuid'
@@ -17,9 +15,6 @@ export const RoomForm = (props) => {
   const dispatch = useDispatch()
   const dataApi = new DataApi()
 
-  if (data) {
-    console.log(data)
-  }
   const userIdAdded = createUserId(user)
 
   const [title, setTitle] = React.useState(type === 'new' ? '' : data.title)
@@ -162,7 +157,8 @@ export const RoomForm = (props) => {
 RoomForm.propTypes = {
   close: PropTypes.func,
   type: PropTypes.oneOf(['new', 'edit']),
-  data: PropTypes.object
+  data: PropTypes.object,
+  user: PropTypes.string
 }
 
 export default RoomForm

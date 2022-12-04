@@ -6,16 +6,16 @@ export const StyledTimeline = styled(Timeline)`
 font-family: Montserrat, sans-serif;
 z-index: 999999;
 .rct-header-root {
-    background: #51A018;;
+    background: #1d3557;;
 }
 .rct-calendar-header {
     border: none;
 }
 .rct-scroll {
-    background: #51a0185c;;
+    background: #457b9d3d;;
 }
 .rct-sidebar {
-    background: #f2b03e73;
+    background: #457b9db8;
 }
 .rct-dateHeader {
     cursor: default;

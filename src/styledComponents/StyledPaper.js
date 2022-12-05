@@ -20,9 +20,9 @@ export const StyledPaper = styled.div`
     top: 0;
     left: 0;
   }
-  @media only screen and (max-width: 1050px) {
+  &.paper-reservation{
+   @media only screen and (max-width: 1050px) {
     left: 120px;
-
   }
   @media only screen and (max-width: 900px) {
     left: 80px;
@@ -40,6 +40,35 @@ export const StyledPaper = styled.div`
     left: 0;
     border: none;
   }
+
+
+}
+
+&.paper-room{
+  @media only screen and (max-width: 1050px) {
+    left: 120px;
+  }
+  @media only screen and (max-width: 900px) {
+    left: 120px;
+    width: 60%;
+  }
+  @media only screen and (max-width: 730px) {
+    left: 80px;
+    width: 60%;
+  }
+  @media only screen and (max-width: 650px) {
+    overflow: scroll;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    border: none;
+  }
+
+}
+
+ 
+
 `
 
 export default StyledPaper

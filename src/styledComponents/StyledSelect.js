@@ -8,6 +8,9 @@ border: none;
     background-color: white;
     border-bottom: 1px solid black;
     width: 35%;
+    &.select--short{
+        width: 100%;
+    }
 `
 
 export default StyledSelect

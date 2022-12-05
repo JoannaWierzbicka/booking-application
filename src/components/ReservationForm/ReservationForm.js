@@ -16,13 +16,12 @@ import moment from 'moment'
 
 export const ReservationForm = (props) => {
   const { type, data, close, user } = props
-  const userIdAdded = createUserId(user)
   const dispatch = useDispatch()
+  const userIdAdded = createUserId(user)
+  const userId = createUserId(user)
 
   const dataApi = new DataApi()
   const { rooms } = useSelector((state) => state.rooms)
-
-  const userId = createUserId(user)
 
   const initialGuestData = {
     phone: '',
@@ -40,8 +39,11 @@ export const ReservationForm = (props) => {
   const [start, setStart] = React.useState(type === 'new' ? '' : moment(data.start_time._i).format('YYYY-MM-DD'))
   const [end, setEnd] = React.useState(type === 'new' ? '' : moment(data.end_time._i).format('YYYY-MM-DD'))
   const [room, setRoom] = React.useState(type === 'new' ? rooms[0].id : data.group)
+  const [price, setPrice] = React.useState(type === 'new' ? '' : data.price)
   const [guestData, setGuestData] = React.useState(type === 'new' ? initialGuestData : data.guestData)
   const [status, setStatus] = React.useState(type === 'new' ? 'pre-booking' : data.status)
+
+  const totalPrice = ((moment(end).valueOf() - moment(start).valueOf()) / 86400000) * price
 
   const reservation = {
     id: type === 'new' ? uuid() : data.id,
@@ -49,6 +51,8 @@ export const ReservationForm = (props) => {
     title: name,
     start_time: moment(start),
     end_time: moment(end),
+    price: price,
+    totalPrice: totalPrice,
     status: status,
     guests: guests,
     guestData: {
@@ -91,7 +95,7 @@ export const ReservationForm = (props) => {
   }
 
   return (
-    <StyledPaper>
+    <StyledPaper className={'paper-reservation'}>
       <header className={'form-header'}>
         {type === 'new' ? <div>NOWA REZERWACJA</div> : <div>{data.title.toUpperCase()}</div>}
         <div>
@@ -120,6 +124,7 @@ export const ReservationForm = (props) => {
               Data przyjazdu:
 
             </StyledLabel><StyledInput
+              min={moment()}
               type={'date'}
               name={'start'}
               onChange={(e) => setStart(e.target.value)}
@@ -140,43 +145,74 @@ export const ReservationForm = (props) => {
               required
             />
           </StyledInputWrapper>
-          <StyledInputWrapper>
-            <StyledLabel htmlFor={'room'}>
-              Nazwa pokoju:
+          <StyledInputWrapper className={'reservation-layout'}>
+            <StyledInputWrapper>
+              <StyledInputWrapper>
+                <StyledLabel htmlFor={'room'}>
+                  Nazwa pokoju:
 
-            </StyledLabel> <StyledSelect
+                </StyledLabel>
+                <StyledSelect
+                  className={'select--short'}
+                  defaultValue={room}
+                  name={'room'}
+                  onChange={(e) => setRoom(e.target.value)}
+                >{rooms.map(room => {
+                  return (
+                    <option
+                      required
+                      key={room.id}
+                      value={room.id}
+                    >{room.title}
+                    </option>)
+                })}
+                </StyledSelect>
+              </StyledInputWrapper>
+              <StyledInputWrapper>
+                <StyledLabel htmlFor={'guests'}>
+                  Ilość osób:
 
-              defaultValue={room}
-              name={'room'}
-              onChange={(e) => setRoom(e.target.value)}
-                           >{rooms.map(room => {
-                             return (
-                               <option
-                                 required
-                                 key={room.id}
-                                 value={room.id}
-                               >{room.title}
-                               </option>)
-                           })}
-                           </StyledSelect>
-          </StyledInputWrapper>
-          <StyledInputWrapper>
-            <StyledLabel htmlFor={'guests'}>
-              Ilość osób:
+                </StyledLabel> <StyledSelect
+                  className={'select--short'}
+                  defaultValue={guests}
+                  name={'guests'}
+                  onChange={(e) => setGuests(e.target.value)}
+                               >{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => {
+                                 return (
+                                   <option
+                                     key={num}
+                                     value={num}
+                                   >{num}
+                                   </option>)
+                               })}
+                               </StyledSelect>
+              </StyledInputWrapper>
+            </StyledInputWrapper>
+            <StyledInputWrapper className={'reservation-layout-prices'}>
+              <StyledInputWrapper>
+                <StyledLabel htmlFor={'price'}>
+                  Cena za dobę:
+                </StyledLabel> <StyledInput
+                  className={'input-price'}
+                  type={'number'}
+                  name={'price'}
+                  onChange={(e) => setPrice(e.target.value)}
+                  value={price}
+                               />
 
-            </StyledLabel> <StyledSelect
-              defaultValue={guests}
-              name={'guests'}
-              onChange={(e) => setGuests(e.target.value)}
-                           >{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => {
-                             return (
-                               <option
-                                 key={num}
-                                 value={num}
-                               >{num}
-                               </option>)
-                           })}
-                           </StyledSelect>
+              </StyledInputWrapper>
+              <StyledInputWrapper>
+                <StyledLabel htmlFor={'price'}>
+                  Cena za cały pobyt*:
+                </StyledLabel> <StyledInput
+                  readOnly
+                  className={'input-price-read'}
+                  type={'number'}
+                  name={'price'}
+                  value={totalPrice || 0}
+                               />
+              </StyledInputWrapper>
+            </StyledInputWrapper>
           </StyledInputWrapper>
           <StyledInputWrapper>
             <StyledLabel htmlFor={'status'}>
@@ -318,7 +354,7 @@ export const ReservationForm = (props) => {
                                 >{country.label}
                                 </option>)
                             })}
-                            </StyledSelect>
+            </StyledSelect>
           </StyledInputWrapper>
 
         </StyledInputWrapper>
@@ -338,7 +374,7 @@ export const ReservationForm = (props) => {
            </StyledButton>
            : null
         }
-
+        <span style={{ position: 'absolute', bottom: '2px', left: '2px', fontSize: '8px' }}>*Cena całkowita: ilość nocy x cena za dobę</span>
       </StyledForm>
 
     </StyledPaper>

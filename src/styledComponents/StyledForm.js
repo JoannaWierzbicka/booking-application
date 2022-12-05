@@ -23,6 +23,12 @@ border-radius: 10px;
     margin-top: 100px;
   }
 }
+&.room-form{
+  position: relative;
+  @media only screen and (max-width: 730px) {
+    align-items: flex-start;
+  }
+}
 `
 
 export default StyledForm

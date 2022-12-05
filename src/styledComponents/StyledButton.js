@@ -43,6 +43,22 @@ font-size: 12px;
     width: 100%;
     margin: 5px;
 }
+&.add-room1{
+    position: absolute;
+    top: 20px;
+    right: 90px;
+      @media only screen and (max-width: 650px) {
+   position: static;
+  }
+}
+&.add-room2{
+    position: absolute;
+    top: 20px;
+    right: 15px;
+      @media only screen and (max-width: 650px) {
+       position: static;
+  }
+}
 `
 
 export default StyledButton

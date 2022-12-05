@@ -17,6 +17,12 @@ export const StyledInput = styled.input`
     @media only screen and (max-width: 650px) {
       width: 50%;
   }
+  &.input-price{
+    width: 60%;
+  }
+  &.input-price-read{
+    border: none;
+  }
 `
 
 export default StyledInput

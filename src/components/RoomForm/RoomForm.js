@@ -1,14 +1,18 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
-import { StyledPaper, StyledForm, StyledInput, StyledButton, StyledInputWrapper, StyledLabel } from '../../styledComponents'
+import { v4 as uuid } from 'uuid'
+import DeleteIcon from '@mui/icons-material/Delete'
+import Checkbox from '@mui/material/Checkbox'
 import IconButton from '@mui/material/IconButton'
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import FormGroup from '@mui/material/FormGroup'
 import { addRoomDataAction, removeRoomDataAction, editRoomDataAction } from '../../actions/rooms'
+import { StyledPaper, StyledForm, StyledInput, StyledButton, StyledInputWrapper, StyledLabel, StyledTextField } from '../../styledComponents'
 import DataApi from '../../api/DataApi'
-import DeleteIcon from '@mui/icons-material/Delete'
-import { v4 as uuid } from 'uuid'
-import { createUserId } from '../../helpers'
+import { createUserId, roomEquipment } from '../../helpers'
 
 export const RoomForm = (props) => {
   const { close, type, data, user } = props
@@ -20,7 +24,9 @@ export const RoomForm = (props) => {
   const [title, setTitle] = React.useState(type === 'new' ? '' : data.title)
   const [singleBeds, setSingleBeds] = React.useState(type === 'new' ? '' : data.roomData.singleBeds)
   const [doubleBeds, setDoubleBeds] = React.useState(type === 'new' ? '' : data.roomData.doubleBeds)
-  // const [desc, setDesc] = React.useState(type === 'new' ? '' : data.roomData.desc)
+  const [desc, setDesc] = React.useState(type === 'new' ? '' : data.roomData.desc)
+  const [people, setPeople] = React.useState(type === 'new' ? '' : data.roomData.people)
+  // const [roomEquip, setRoomEquip] = React.useState(type === 'new' ? [] : data.roomData.roomEquip)
 
   const room = {
     id: type === 'new' ? uuid() : data.id,
@@ -29,8 +35,10 @@ export const RoomForm = (props) => {
     stackItems: false,
     roomData: {
       singleBeds: singleBeds,
-      doubleBeds: doubleBeds
-      // desc: desc
+      doubleBeds: doubleBeds,
+      desc: desc,
+      people: people
+      // roomEquip: roomEquip
     }
   }
 
@@ -63,7 +71,7 @@ export const RoomForm = (props) => {
   }
 
   return (
-    <StyledPaper>
+    <StyledPaper className={'paper-room'}>
       <header className={'form-header'}>
         {type === 'new' ? <div>DODAJ POKÓJ</div> : <div>EDYCJA POKOJU</div>}
         <div>
@@ -82,10 +90,10 @@ export const RoomForm = (props) => {
         </div>
       </header>
       <StyledForm
-        className={'reservation'}
+        className={'room-form'}
         onSubmit={type === 'new' ? handleSubmit : handleChange}
       >
-        <StyledInputWrapper className={'row-wrapper'}>
+        <StyledInputWrapper className={'room-form--wrapper'}>
           <h5>Dane na temat pokoju</h5>
           <StyledInputWrapper>
             <StyledLabel htmlFor={'title'}>
@@ -101,9 +109,10 @@ export const RoomForm = (props) => {
           </StyledInputWrapper>
           <StyledInputWrapper>
             <StyledLabel htmlFor={'singleBeds'}>
-              Ilość łóżek pojedynczych
+              Ilość łóżek pojedynczych:
             </StyledLabel>
             <StyledInput
+              type={'number'}
               className={'input--number'}
               name={'singleBeds'}
               onChange={(e) => setSingleBeds(e.target.value)}
@@ -112,41 +121,84 @@ export const RoomForm = (props) => {
           </StyledInputWrapper>
           <StyledInputWrapper>
             <StyledLabel htmlFor={'doubleBeds'}>
-              Ilość łóżek pojedynczych
+              Ilość łóżek podwójnych:
             </StyledLabel>
             <StyledInput
+              type={'number'}
               className={'input--number'}
               name={'doubleBeds'}
               onChange={(e) => setDoubleBeds(e.target.value)}
               value={doubleBeds}
             />
           </StyledInputWrapper>
-          {/* <StyledInputWrapper>
-            <StyledLabel htmlFor={'desc'}>
-              Opis pokoju
+          <StyledInputWrapper>
+            <StyledLabel htmlFor={'people'}>
+              Maksymalna ilość osób:
             </StyledLabel>
-            <TextField
-              variant={'standard'}
+            <StyledInput
+              type={'number'}
+              className={'input--number'}
+              name={'people'}
+              onChange={(e) => setPeople(e.target.value)}
+              value={people}
+            />
+          </StyledInputWrapper>
+          {/* <StyledInputWrapper>
+            <StyledLabel htmlFor={'roomEquipment'}>
+              Wyposażenie:
+
+            </StyledLabel>
+            <FormGroup
+              row
+              name={'roomEquipment'}
+            >{roomEquipment.map(equip => {
+              return (
+                <FormControlLabel
+                  key={equip.name}
+                  control={<Checkbox
+                    value={equip.name}
+                    defaultValue={roomEquip.map(item => item)}
+                    onChange={(e) => roomEquip.push(e.target.value)}
+                    sx={{
+                      color: equip.color,
+                      '&.Mui-checked': {
+                        color: equip.color
+                      }
+                    }}
+                           />}
+                  label={equip.name}
+                />
+              )
+            })}
+            </FormGroup>
+          </StyledInputWrapper> */}
+          <StyledInputWrapper>
+            <StyledLabel htmlFor={'desc'}>
+              Informacje dodatkowe:
+            </StyledLabel>
+            <StyledTextField
               name={'desc'}
-              label="Opis pokoju"
+              label={'Informacje dodatkowe:'}
               onChange={(e) => setDesc(e.target.value)}
               value={desc}
             />
-          </StyledInputWrapper> */}
+          </StyledInputWrapper>
 
         </StyledInputWrapper>
-        <StyledButton
-          className={'button-reservation--form'}
-          variant={'contained'}
-          type={'submit'}
-        >{type === 'new' ? 'DODAJ' : 'ZMIEŃ'}
-        </StyledButton>
-        <StyledButton
-          className={'button-reservation--form'}
-          variant={'outlined'}
-          onClick={close}
-        >ANULUJ
-        </StyledButton>
+        <div>
+          <StyledButton
+            className={'button-reservation--form add-room1'}
+            variant={'contained'}
+            type={'submit'}
+          >{type === 'new' ? 'DODAJ' : 'ZMIEŃ'}
+          </StyledButton>
+          <StyledButton
+            className={'button-reservation--form add-room2'}
+            variant={'outlined'}
+            onClick={close}
+          >ANULUJ
+          </StyledButton>
+        </div>
 
       </StyledForm>
 

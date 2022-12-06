@@ -5,15 +5,15 @@ export const roomEquipment = [
   },
   {
     name: 'Lodówka',
-    color: 'grey'
+    color: 'purple'
   },
   {
     name: 'Telewizor',
-    color: 'grey'
+    color: 'green'
   },
   {
     name: 'Radio',
-    color: 'grey'
+    color: 'red'
   },
   {
     name: 'Ręczniki',
@@ -21,15 +21,15 @@ export const roomEquipment = [
   },
   {
     name: 'Zestaw kosmetyków',
-    color: 'blue'
+    color: 'pink'
   },
   {
     name: 'Łóżeczko dla dziecka',
-    color: 'grey'
+    color: 'yellow'
   },
   {
     name: 'Możliwość dostawki',
-    color: 'green'
+    color: 'khaki'
   }
 ]
 

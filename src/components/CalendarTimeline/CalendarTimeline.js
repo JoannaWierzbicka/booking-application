@@ -1,7 +1,5 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable no-unused-vars */
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadDataAction } from '../../actions/reservation'
 import { loadRoomsDataAction } from '../../actions/rooms'
@@ -10,47 +8,49 @@ import { StyledTimeline, StyledButton } from '../../styledComponents'
 import { itemsConverter, itemRenderer, createUserId } from '../../helpers'
 import ReservationForm from '../ReservationForm/ReservationForm'
 import RoomForm from '../../components/RoomForm'
-import Stars from '../../components/Stars/Stars'
 
 export const CalendarTimeline = (props) => {
   const { user } = props
   const userIdAdded = createUserId(user)
   const dispatch = useDispatch()
-  
-  const [addNewRes, setAddNewRes] = React.useState(false)
-  const [addNewRoom, setAddNewRoom] = React.useState(false)
-  const [edited, setEdited] = React.useState([])
-  const [editedRoom, setEditedRoom] = React.useState([])
 
   const { date } = useSelector((state) => state.calendar)
   const { reservations } = useSelector((state) => state.reservations)
   const { rooms } = useSelector((state) => state.rooms)
 
+  const [addNewRes, setAddNewRes] = React.useState(false)
+  const [addNewRoom, setAddNewRoom] = React.useState(false)
+  const [edited, setEdited] = React.useState([])
+  const [editedRoom, setEditedRoom] = React.useState([])
+
   const items = Array.isArray(reservations) ? itemsConverter(reservations) : []
-  
   const dataApi = new DataApi()
-  
+
   React.useEffect(() => {
     dataApi.loadData(userIdAdded, 'rooms')
       .then((data) => {
-        dispatch(loadRoomsDataAction(data)) 
+        dispatch(loadRoomsDataAction(data))
       })
   }, [user])
 
   React.useEffect(() => {
     dataApi.loadData(userIdAdded, 'reservations')
       .then(data => {
-        dispatch(loadDataAction(data)) 
+        dispatch(loadDataAction(data))
       })
-  }, [user]) 
+  }, [user])
 
   const onClickAddRes = () => {
-    setAddNewRes(true)
-    setAddNewRoom(false)
+    if (rooms.length > 0) {
+      setAddNewRes(true)
+      setAddNewRoom(false)
+    } else {
+      alert('Najpierw dodaj pokój!')
+    }
   }
 
   const editGroup = (id) => {
-    const editedRoom = rooms.filter((data) => data.id === id) 
+    const editedRoom = rooms.filter((data) => data.id === id)
     setEditedRoom(editedRoom)
   }
 
@@ -66,8 +66,6 @@ export const CalendarTimeline = (props) => {
         buffer={1}
         canMove={false}
         onCanvasDoubleClick={editGroup}
-        // onItemMove={onItemMove(itemId, dragTime, newGroupOrder)}
-        // onTimeChange={onTimeChange(visibleTimeStart, visibleTimeEnd, updateScrollCanvas, unit)}
       />
       <StyledButton
         variant={'contained'}
@@ -122,6 +120,10 @@ export const CalendarTimeline = (props) => {
     </>
 
   )
+}
+
+CalendarTimeline.propTypes = {
+  user: PropTypes.string
 }
 
 export default CalendarTimeline

@@ -43,7 +43,13 @@ export const ReservationForm = (props) => {
   const [guestData, setGuestData] = React.useState(type === 'new' ? initialGuestData : data.guestData)
   const [status, setStatus] = React.useState(type === 'new' ? 'pre-booking' : data.status)
 
-  const totalPrice = ((moment(end).valueOf() - moment(start).valueOf()) / 86400000) * price
+  const getTotalPrice = () => {
+    const arrival = moment(start).valueOf()
+    const departure = moment(end).valueOf()
+    if (departure > arrival) {
+      return ((departure - arrival) / 86400000) * price
+    }
+  }
 
   const reservation = {
     id: type === 'new' ? uuid() : data.id,
@@ -52,7 +58,7 @@ export const ReservationForm = (props) => {
     start_time: moment(start),
     end_time: moment(end),
     price: price,
-    totalPrice: totalPrice,
+    totalPrice: getTotalPrice(),
     status: status,
     guests: guests,
     guestData: {
@@ -123,8 +129,8 @@ export const ReservationForm = (props) => {
             <StyledLabel htmlFor={'start'}>
               Data przyjazdu:
 
-            </StyledLabel><StyledInput
-              min={moment()}
+            </StyledLabel>
+            <StyledInput
               type={'date'}
               name={'start'}
               onChange={(e) => setStart(e.target.value)}
@@ -185,7 +191,7 @@ export const ReservationForm = (props) => {
                                    >{num}
                                    </option>)
                                })}
-                               </StyledSelect>
+                </StyledSelect>
               </StyledInputWrapper>
             </StyledInputWrapper>
             <StyledInputWrapper className={'reservation-layout-prices'}>
@@ -209,7 +215,7 @@ export const ReservationForm = (props) => {
                   className={'input-price-read'}
                   type={'number'}
                   name={'price'}
-                  value={totalPrice || 0}
+                  value={getTotalPrice() || 0}
                                />
               </StyledInputWrapper>
             </StyledInputWrapper>
@@ -354,7 +360,7 @@ export const ReservationForm = (props) => {
                                 >{country.label}
                                 </option>)
                             })}
-            </StyledSelect>
+                            </StyledSelect>
           </StyledInputWrapper>
 
         </StyledInputWrapper>

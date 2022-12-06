@@ -28,6 +28,20 @@ export const RoomForm = (props) => {
   const [people, setPeople] = React.useState(type === 'new' ? '' : data.roomData.people)
   // const [roomEquip, setRoomEquip] = React.useState(type === 'new' ? [] : data.roomData.roomEquip)
 
+  // const handleChangeCheckbox = (e) => {
+  //   if (roomEquip && !roomEquip.includes(e.target.value)) {
+  //     setRoomEquip([...roomEquip, e.target.value])
+  //   } else if (roomEquip.length > 0) {
+  //     const indexToRemove = roomEquip.indexOf(e.target.value)
+  //     roomEquip.splice(indexToRemove)
+  //   }
+  // }
+
+  // const check = (item) => {
+  //   if (roomEquip.length > 0 && roomEquip.includes(item)) return true
+  //   return false
+  // }
+
   const room = {
     id: type === 'new' ? uuid() : data.id,
     title: title,
@@ -155,10 +169,11 @@ export const RoomForm = (props) => {
               return (
                 <FormControlLabel
                   key={equip.name}
+                  value={equip.name}
                   control={<Checkbox
-                    value={equip.name}
-                    defaultValue={roomEquip.map(item => item)}
-                    onChange={(e) => roomEquip.push(e.target.value)}
+                    checked={check(equip.name)}
+
+                    onChange={handleChangeCheckbox}
                     sx={{
                       color: equip.color,
                       '&.Mui-checked': {

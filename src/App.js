@@ -143,10 +143,16 @@ export class App extends React.Component {
               path={'/'}
               element={<PageMain
                 userLoggedIn={isUserLoggedIn}
-                goToAdmin={() => console.log('admin')}
                 logOut={this.onLogOut}
                        />
                 }
+            />
+            <Route
+              path={'/info'}
+              element={<PageInfo
+                userLoggedIn={isUserLoggedIn}
+                logOut={this.onLogOut}
+                       />}
             />
 
           </Routes>
@@ -154,7 +160,16 @@ export class App extends React.Component {
           <Routes>
             <Route
               path={'/info'}
-              element={<PageInfo/>}
+              element={<PageInfo
+                userLoggedIn={isUserLoggedIn}
+                signUp={() => this.setState(() => ({
+                  notLoginUserRoute: 'CREATE-ACCOUNT'
+                }))}
+                logIn={() => this.setState(() =>
+                  ({
+                    notLoginUserRoute: 'LOGIN'
+                  }))}
+                       />}
             />
             <Route
               path={'/'}

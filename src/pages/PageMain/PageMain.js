@@ -8,7 +8,7 @@ import Stars from '../../components/Stars'
 import Typography from '@mui/material/Typography'
 
 export const PageMain = (props) => {
-  const { logIn, signUp, goToAdminPage, logOut, userLoggedIn } = props
+  const { logIn, signUp, logOut, userLoggedIn } = props
   return (
     <StyledFullPage className={'start-page'}>
       <Stars>
@@ -16,7 +16,6 @@ export const PageMain = (props) => {
           logIn={logIn}
           signUp={signUp}
           logOut={logOut}
-          goToAdminPage={goToAdminPage}
           userLoggedIn={userLoggedIn}
         />
         <StyledInfo>
@@ -43,15 +42,27 @@ export const PageMain = (props) => {
                 ZOBACZ WIĘCEJ
               </StyledButton>
             </StyledNavLink>
-            <StyledNavLink to={'/create-account'}>
-              <StyledButton
-                className={'button-start-page'}
-                variant={'contained'}
-                color={'primary'}
-                onClick={signUp}
-              >Załóż konto
-              </StyledButton>
-            </StyledNavLink>
+            {userLoggedIn
+              ?
+                <StyledNavLink to={'/admin'}>
+                  <StyledButton
+                    className={'button-start-page'}
+                    variant={'contained'}
+                    color={'primary'}
+                    onClick={() => console.log('kalendarz')}
+                  >Mój kalendarz
+
+                  </StyledButton>
+                </StyledNavLink> :
+                <StyledNavLink to={'/create-account'}>
+                  <StyledButton
+                    className={'button-start-page'}
+                    variant={'contained'}
+                    color={'primary'}
+                    onClick={signUp}
+                  >Załóż konto
+                  </StyledButton>
+                </StyledNavLink>}
           </StyledInputWrapper>
         </StyledInfo>
       </Stars>

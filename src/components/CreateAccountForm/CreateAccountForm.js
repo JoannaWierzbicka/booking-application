@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import TextField from '@mui/material/TextField'
-import { StyledForm, StyledButton, StyledFullPage } from '../../styledComponents'
+import { StyledForm, StyledButton, StyledFullPage, StyledNavLink } from '../../styledComponents'
 import Logo from '../Logo'
 
 export const CreateAccountForm = (props) => {
@@ -58,7 +58,6 @@ export const CreateAccountForm = (props) => {
           value={repeatPassword}
           onChange={onChangeRepeatPassword}
         />
-        {/* <StyledNavLink to={'/'}> */}
         <StyledButton
           className={'button-login'}
           color={'primary'}
@@ -66,8 +65,7 @@ export const CreateAccountForm = (props) => {
           onClick={onClickCreateAccount}
         >UTWÓRZ KONTO
         </StyledButton>
-        {/* </StyledNavLink>
-        <StyledNavLink to={'/login'}> */}
+        <StyledNavLink to={'/login'}>
         <StyledButton
           className={'button-login'}
           variant={'outlined'}
@@ -76,8 +74,8 @@ export const CreateAccountForm = (props) => {
         >
           Zaloguj się
         </StyledButton>
-        {/* </StyledNavLink>
-        <StyledNavLink to={'/'}> */}
+        </StyledNavLink>
+        <StyledNavLink to={'/'}>
         <StyledButton
           className={'button-login'}
           variant={'text'}
@@ -85,7 +83,7 @@ export const CreateAccountForm = (props) => {
           onClick={onClickBackToStartPage}
         >Powrót na stronę główną
         </StyledButton>
-        {/* </StyledNavLink> */}
+        </StyledNavLink>
       </StyledForm>
     </StyledFullPage>
 

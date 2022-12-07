@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import TextField from '@mui/material/TextField'
 import Logo from '../Logo'
-import { StyledButton, StyledForm, StyledFullPage } from '../../styledComponents'
+import { StyledButton, StyledForm, StyledFullPage, StyledNavLink } from '../../styledComponents'
 
 export const ForgotPasswordForm = (props) => {
   const {
@@ -36,7 +36,6 @@ export const ForgotPasswordForm = (props) => {
           value={email}
           onChange={onChangeEmail}
         />
-        {/* <StyledNavLink to={'/recover-password'}> */}
         <StyledButton
           className={'button-login'}
           color={'primary'}
@@ -44,16 +43,15 @@ export const ForgotPasswordForm = (props) => {
           onClick={onClickRecover}
         >PRZYPOMNIJ HASŁO
         </StyledButton>
-        {/* </StyledNavLink>
-        <StyledNavLink to={'/login'}> */}
-        <StyledButton
-          className={'button-login'}
-          variant={'outlined'}
-          color={'secondary'}
-          onClick={onClickBackToLogin}
-        >Zaloguj się
-        </StyledButton>
-        {/* </StyledNavLink> */}
+        <StyledNavLink to={'/login'}>
+          <StyledButton
+            className={'button-login'}
+            variant={'outlined'}
+            color={'secondary'}
+            onClick={onClickBackToLogin}
+          >Zaloguj się
+          </StyledButton>
+        </StyledNavLink>
       </StyledForm>
     </StyledFullPage>
 

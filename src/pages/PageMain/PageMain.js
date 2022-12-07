@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-// import { NavLink } from 'react-router-dom'
-import { StyledFullPage, StyledInfo } from '../../styledComponents'
+import { StyledFullPage, StyledInfo, StyledNavLink } from '../../styledComponents'
 import Button from '@mui/material/Button'
 import NavBar from '../../components/NavBar'
 import Stars from '../../components/Stars'
@@ -29,26 +28,26 @@ export const PageMain = (props) => {
           </Typography>
 
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            {/* <StyledNavLink
+            <StyledNavLink
               to={'/info'}
-            > */}
-            <Button
-              className={'start-page-button'}
-              variant={'contained'}
-              color={'primary'}
             >
-              ZOBACZ WIĘCEJ
-            </Button>
-            {/* </StyledNavLink>
-            <StyledNavLink to={'/create-account'}> */}
-            <Button
-              className={'start-page-button'}
-              variant={'contained'}
-              color={'primary'}
-              onClick={signUp}
-            >Załóż konto
-            </Button>
-            {/* </StyledNavLink> */}
+              <Button
+                className={'start-page-button'}
+                variant={'contained'}
+                color={'primary'}
+              >
+                ZOBACZ WIĘCEJ
+              </Button>
+            </StyledNavLink>
+            <StyledNavLink to={'/create-account'}>
+              <Button
+                className={'start-page-button'}
+                variant={'contained'}
+                color={'primary'}
+                onClick={signUp}
+              >Załóż konto
+              </Button>
+            </StyledNavLink>
           </div>
 
         </StyledInfo>

@@ -67,19 +67,19 @@ export const NavBar = (props) => {
               userLoggedIn ?
                 <div>
                   <MenuItem>{user}</MenuItem>
-                  {/* <StyledNavLink to={'/'}> */}
-                  <MenuItem onClick={logOut}>Wyloguj</MenuItem>
-                  {/* </StyledNavLink> */}
+                  <StyledNavLink to={'/'}>
+                    <MenuItem onClick={logOut}>Wyloguj</MenuItem>
+                  </StyledNavLink>
                 </div>
 
                 : <div>
-                  {/* <StyledNavLink to={'/login'}> */}
-                  <MenuItem onClick={logIn}>ZALOGUJ SIĘ</MenuItem>
-                  {/* </StyledNavLink>
-                  <StyledNavLink to={'/create-account'}> */}
-                  <MenuItem onClick={signUp}>Zarejestruj się</MenuItem>
-                  {/* </StyledNavLink> */}
-                  </div>}
+                  <StyledNavLink to={'/login'}>
+                    <MenuItem onClick={logIn}>ZALOGUJ SIĘ</MenuItem>
+                  </StyledNavLink>
+                  <StyledNavLink to={'/create-account'}>
+                    <MenuItem onClick={signUp}>Zarejestruj się</MenuItem>
+                  </StyledNavLink>
+                </div>}
             </Menu>
           </div>
         </Toolbar>

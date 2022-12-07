@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import LoginForm from '../../components/LoginForm'
 import { validateFormLogIn } from '../../helpers'
 import PropTypes from 'prop-types'
@@ -11,6 +12,8 @@ export const PageLogin = (props) => {
     onClickRecoverPassword
   } = props
 
+  const navigate = useNavigate()
+
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [errors, setErrors] = React.useState([])
@@ -21,6 +24,7 @@ export const PageLogin = (props) => {
 
     if (errors.length === 0) {
       onClickLogin(email, password)
+      navigate('/admin')
     }
   }
 

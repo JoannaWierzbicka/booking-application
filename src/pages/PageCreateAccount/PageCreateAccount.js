@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import CreateAccountForm from '../../components/CreateAccountForm'
 import PropTypes from 'prop-types'
 import { validateFormCreate } from '../../helpers'
@@ -14,12 +15,15 @@ export const PageCreateAccount = (props) => {
   const [passwordRepeat, setPasswordRepeat] = React.useState('')
   const [errors, setErrors] = React.useState([])
 
+  const navigate = useNavigate()
+
   const onClickCreateAccountFunc = async () => {
     const errors = validateFormCreate(email, password, passwordRepeat)
     setErrors(errors)
 
     if (errors.length === 0) {
       onClickCreateAccount(email, password)
+      navigate('/admin')
     }
   }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyledFullPage, StyledForm } from '../../styledComponents'
+import { StyledFullPage, StyledForm, StyledNavLink } from '../../styledComponents'
 import Button from '@mui/material/Button'
 import { PropTypes } from 'prop-types'
 import ErrorIcon from '@mui/icons-material/Error'
@@ -26,12 +26,23 @@ export const Message = (props) => {
       }
         <p>{message}
         </p>
-        <Button
-          variant={'contained'}
-          color={'primary'}
-          onClick={onButtonClick}
-        >OK
-        </Button>
+        {icon === 'info'
+          ? <StyledNavLink to={'/admin'}><Button
+              variant={'contained'}
+              color={'primary'}
+              onClick={onButtonClick}
+                                         >OK
+          </Button>
+          </StyledNavLink> :
+          <StyledNavLink to={'/'}>
+            <Button
+              variant={'contained'}
+              color={'primary'}
+              onClick={onButtonClick}
+            >WRÓĆ
+            </Button>
+          </StyledNavLink>}
+
       </StyledForm>
 
     </StyledFullPage>

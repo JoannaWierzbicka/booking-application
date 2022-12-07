@@ -8,6 +8,10 @@ import { StyledTimeline, StyledButton } from '../../styledComponents'
 import { itemsConverter, itemRenderer, createUserId } from '../../helpers'
 import ReservationForm from '../ReservationForm/ReservationForm'
 import RoomForm from '../../components/RoomForm'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
 
 export const CalendarTimeline = (props) => {
   const { user } = props
@@ -22,6 +26,7 @@ export const CalendarTimeline = (props) => {
   const [addNewRoom, setAddNewRoom] = React.useState(false)
   const [edited, setEdited] = React.useState([])
   const [editedRoom, setEditedRoom] = React.useState([])
+  const [clickedEditRoom, setClickedEditRoom] = React.useState(false)
 
   const items = Array.isArray(reservations) ? itemsConverter(reservations) : []
   const dataApi = new DataApi()
@@ -49,7 +54,7 @@ export const CalendarTimeline = (props) => {
     }
   }
 
-  const editGroup = (id) => {
+  const editRooms = (id) => {
     const editedRoom = rooms.filter((data) => data.id === id)
     setEditedRoom(editedRoom)
   }
@@ -65,7 +70,8 @@ export const CalendarTimeline = (props) => {
         itemRenderer={itemRenderer}
         buffer={1}
         canMove={false}
-        onCanvasDoubleClick={editGroup}
+        onCanvasDoubleClick={() => console.log('add res')}
+        sidebarWidth={70}
       />
       <StyledButton
         variant={'contained'}
@@ -78,6 +84,12 @@ export const CalendarTimeline = (props) => {
         className={'button-reservation--add'}
         onClick={onClickAddRes}
       >Dodaj rezerwację
+      </StyledButton>
+      <StyledButton
+        variant={'contained'}
+        className={'button-reservation--add'}
+        onClick={() => setClickedEditRoom(!clickedEditRoom)}
+      >Edytuj pokój
       </StyledButton>
       {
         addNewRes
@@ -115,6 +127,30 @@ export const CalendarTimeline = (props) => {
               close={() => setEditedRoom([])}
               data={Object.assign(editedRoom[0])}
             />
+          : null
+      }
+      {
+        clickedEditRoom ?
+          <FormControl
+            size={'small'}
+            sx={{ width: '200px', margin: '10px' }}
+          >
+            <InputLabel>Wybierz pokój</InputLabel>
+            <Select
+              label={'pokój'}
+              value={editedRoom}
+              onChange={(e) => editRooms(e.target.value)}
+            >{rooms.map(room => {
+              return (
+                <MenuItem
+                  key={room.id}
+                  value={room.id}
+                >{room.title}
+                </MenuItem>)
+            })}
+
+            </Select>
+          </FormControl>
           : null
       }
     </>

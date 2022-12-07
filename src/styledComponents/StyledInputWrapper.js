@@ -21,6 +21,12 @@ display: flex;
  &.room-form--wrapper{
     width: 70%;
  }
+ &.start-page-buttons-wrapper{
+    flex-direction: row;
+    @media only screen and (max-width: 480px) {
+    flex-direction: column;
+}
+ }
 `
 
 export default StyledInputWrapper

@@ -1,4 +1,4 @@
-import { CHANGE_MONTH, CHANGE_YEAR } from '../actions/calendar'
+import { CHANGE_MONTH, CHANGE_YEAR, NEXT_PREV_MONTH, SET_TODAY } from '../actions/calendar'
 import moment from 'moment'
 
 const initialState = {
@@ -30,7 +30,24 @@ export const calendarReducer = (state = initialState, action) => {
           end: moment(`${action.payload}${state.month}`).endOf('month').valueOf()
         }
       }
+    case NEXT_PREV_MONTH :
+      return {
+        ...state,
+        date: {
+          start: Number(action.payload.start),
+          end: Number(action.payload.end)
+        }
 
+      }
+    case SET_TODAY:
+      return {
+        ...state,
+        date: {
+          start: moment().startOf('month').valueOf(),
+          end: moment().endOf('month').valueOf()
+        }
+
+      }
     default:
       return state
   }

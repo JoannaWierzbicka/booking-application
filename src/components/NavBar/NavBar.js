@@ -22,6 +22,7 @@ export const NavBar = (props) => {
     user,
     logOut,
     userLoggedIn,
+    goToAdminPage,
     logIn,
     signUp
   } = props
@@ -66,7 +67,12 @@ export const NavBar = (props) => {
             >{
               userLoggedIn ?
                 <div>
-                  <MenuItem>{user}</MenuItem>
+                  {!user
+                    ? <StyledNavLink to={'/admin'}>
+                      <MenuItem onClick={goToAdminPage}>Zobacz swój kalendarz</MenuItem>
+                    </StyledNavLink>
+                    : <MenuItem>{user}</MenuItem>}
+
                   <StyledNavLink to={'/'}>
                     <MenuItem onClick={logOut}>Wyloguj</MenuItem>
                   </StyledNavLink>
@@ -79,7 +85,7 @@ export const NavBar = (props) => {
                   <StyledNavLink to={'/create-account'}>
                     <MenuItem onClick={signUp}>Zarejestruj się</MenuItem>
                   </StyledNavLink>
-                </div>}
+                  </div>}
             </Menu>
           </div>
         </Toolbar>

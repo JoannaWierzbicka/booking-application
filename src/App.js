@@ -23,9 +23,7 @@ export class App extends React.Component {
 
     isUserLoggedIn: false,
     userName: '',
-    userEmail: '',
-
-    notLoginUserRoute: 'START'
+    userEmail: ''
   }
 
   async componentDidMount () {
@@ -111,8 +109,8 @@ export class App extends React.Component {
     logOut()
     this.setState(() => ({
       isUserLoggedIn: false,
-      userEmail: '',
-      notLoginUserRoute: 'START'
+      userEmail: ''
+      // notLoginUserRoute: 'START'
     }))
   }
 
@@ -123,7 +121,7 @@ export class App extends React.Component {
       errorMessage,
       isInfoDisplayed,
       infoMessage,
-      // notLoginUserRoute,
+
       isUserLoggedIn,
       userEmail
     } = this.state
@@ -140,6 +138,16 @@ export class App extends React.Component {
                 user={userEmail}
                        />}
             />
+            <Route
+              exact
+              path={'/'}
+              element={<PageMain
+                userLoggedIn={isUserLoggedIn}
+                goToAdmin={() => console.log('admin')}
+                logOut={this.onLogOut}
+                       />
+                }
+            />
 
           </Routes>
           :
@@ -151,6 +159,7 @@ export class App extends React.Component {
             <Route
               path={'/'}
               element={<PageMain
+                userLoggedIn={isUserLoggedIn}
                 signUp={() => this.setState(() => ({
                   notLoginUserRoute: 'CREATE-ACCOUNT'
                 }))}

@@ -10,9 +10,6 @@ height: 100vh;
 line-height: 12;
 position:absolute;
 top: -120px;
-@media only screen and (max-width: 430px) {
-   
-}
 .info-header{
     font-size: 36px;
     color: white;

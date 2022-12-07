@@ -4,6 +4,17 @@ import styled from '@emotion/styled'
 export const StyledButton = styled(Button)`
 font-family: Montserrat, sans-serif;
 font-size: 12px;
+&.button-start-page{
+    font-size: 16px;
+    margin: 20px;
+    padding: 10px;
+    width: 200px;
+}
+&.button-today{
+    font-weight: 600;
+    @media only screen and (max-width: 1000px) {
+padding: 2px 8px;
+}}  
 
     &.button--close{
         position: absolute; 
@@ -43,6 +54,7 @@ font-size: 12px;
     width: 100%;
     margin: 5px;
 }
+
 &.add-room1{
     position: absolute;
     top: 20px;

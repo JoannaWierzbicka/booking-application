@@ -8,7 +8,7 @@ justify-content: space-around;
 position: fixed;
 top: 60px;
 left: 0; 
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 1000px) {
     flex-direction: column;
     align-items: center;
 }

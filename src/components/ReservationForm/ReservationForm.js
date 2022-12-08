@@ -136,7 +136,7 @@ export const ReservationForm = (props) => {
               onChange={(e) => setStart(e.target.value)}
               value={start}
               required
-                          />
+            />
           </StyledInputWrapper>
           <StyledInputWrapper>
             <StyledLabel htmlFor={'end'}>
@@ -191,7 +191,7 @@ export const ReservationForm = (props) => {
                                    >{num}
                                    </option>)
                                })}
-                </StyledSelect>
+                               </StyledSelect>
               </StyledInputWrapper>
             </StyledInputWrapper>
             <StyledInputWrapper className={'reservation-layout-prices'}>
@@ -199,6 +199,7 @@ export const ReservationForm = (props) => {
                 <StyledLabel htmlFor={'price'}>
                   Cena za dobę:
                 </StyledLabel> <StyledInput
+                  min={0}
                   className={'input-price'}
                   type={'number'}
                   name={'price'}
@@ -360,7 +361,7 @@ export const ReservationForm = (props) => {
                                 >{country.label}
                                 </option>)
                             })}
-                            </StyledSelect>
+            </StyledSelect>
           </StyledInputWrapper>
 
         </StyledInputWrapper>

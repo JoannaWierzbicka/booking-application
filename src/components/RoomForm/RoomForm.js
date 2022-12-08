@@ -25,22 +25,7 @@ export const RoomForm = (props) => {
   const [singleBeds, setSingleBeds] = React.useState(type === 'new' ? '' : data.roomData.singleBeds)
   const [doubleBeds, setDoubleBeds] = React.useState(type === 'new' ? '' : data.roomData.doubleBeds)
   const [desc, setDesc] = React.useState(type === 'new' ? '' : data.roomData.desc)
-  const [people, setPeople] = React.useState(type === 'new' ? '' : data.roomData.people)
-  // const [roomEquip, setRoomEquip] = React.useState(type === 'new' ? [] : data.roomData.roomEquip)
-
-  // const handleChangeCheckbox = (e) => {
-  //   if (roomEquip && !roomEquip.includes(e.target.value)) {
-  //     setRoomEquip([...roomEquip, e.target.value])
-  //   } else if (roomEquip.length > 0) {
-  //     const indexToRemove = roomEquip.indexOf(e.target.value)
-  //     roomEquip.splice(indexToRemove)
-  //   }
-  // }
-
-  // const check = (item) => {
-  //   if (roomEquip.length > 0 && roomEquip.includes(item)) return true
-  //   return false
-  // }
+  // const [roomEquip, setRoomEquip] = React.useState(type === 'new' ? roomEquipment : data.roomData.roomEquip)
 
   const room = {
     id: type === 'new' ? uuid() : data.id,
@@ -50,8 +35,7 @@ export const RoomForm = (props) => {
     roomData: {
       singleBeds: singleBeds,
       doubleBeds: doubleBeds,
-      desc: desc,
-      people: people
+      desc: desc
       // roomEquip: roomEquip
     }
   }
@@ -73,7 +57,6 @@ export const RoomForm = (props) => {
         dataApi.editData(userIdAdded, 'rooms', newID, newData)
         dispatch(addRoomDataAction(newData))
       })
-
     close()
   }
 
@@ -83,6 +66,19 @@ export const RoomForm = (props) => {
     dispatch(editRoomDataAction(room))
     close()
   }
+
+  // const handleChangeCheckbox = (e) => {
+  //   const copyRoomEquip = [...roomEquip]
+  //   const equipment = copyRoomEquip.map(item => {
+  //     if (e.target.value === item.name) {
+  //       item.checked = !item.checked
+  //     }
+
+  //     return item
+  //   })
+
+  //   setRoomEquip(equipment)
+  // }
 
   return (
     <StyledPaper className={'paper-room'}>
@@ -126,6 +122,7 @@ export const RoomForm = (props) => {
               Ilość łóżek pojedynczych:
             </StyledLabel>
             <StyledInput
+              min={0}
               type={'number'}
               className={'input--number'}
               name={'singleBeds'}
@@ -138,23 +135,12 @@ export const RoomForm = (props) => {
               Ilość łóżek podwójnych:
             </StyledLabel>
             <StyledInput
+              min={0}
               type={'number'}
               className={'input--number'}
               name={'doubleBeds'}
               onChange={(e) => setDoubleBeds(e.target.value)}
               value={doubleBeds}
-            />
-          </StyledInputWrapper>
-          <StyledInputWrapper>
-            <StyledLabel htmlFor={'people'}>
-              Maksymalna ilość osób:
-            </StyledLabel>
-            <StyledInput
-              type={'number'}
-              className={'input--number'}
-              name={'people'}
-              onChange={(e) => setPeople(e.target.value)}
-              value={people}
             />
           </StyledInputWrapper>
           {/* <StyledInputWrapper>
@@ -165,23 +151,22 @@ export const RoomForm = (props) => {
             <FormGroup
               row
               name={'roomEquipment'}
-            >{roomEquipment.map(equip => {
+            >{roomEquip.map(item => {
               return (
                 <FormControlLabel
-                  key={equip.name}
-                  value={equip.name}
+                  key={item.name}
                   control={<Checkbox
-                    checked={check(equip.name)}
-
+                    value={item.name}
+                    checked={item.checked}
                     onChange={handleChangeCheckbox}
                     sx={{
-                      color: equip.color,
+                      color: item.color,
                       '&.Mui-checked': {
-                        color: equip.color
+                        color: item.color
                       }
                     }}
                            />}
-                  label={equip.name}
+                  label={item.name}
                 />
               )
             })}

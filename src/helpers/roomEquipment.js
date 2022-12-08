@@ -1,35 +1,43 @@
 export const roomEquipment = [
   {
     name: 'Czajnik',
-    color: 'orange'
+    color: 'orange',
+    checked: false
   },
   {
     name: 'Lodówka',
-    color: 'purple'
+    color: 'purple',
+    checked: false
   },
   {
     name: 'Telewizor',
-    color: 'green'
+    color: 'green',
+    checked: false
   },
   {
     name: 'Radio',
-    color: 'red'
+    color: 'red',
+    checked: false
   },
   {
     name: 'Ręczniki',
-    color: 'blue'
+    color: 'blue',
+    checked: false
   },
   {
     name: 'Zestaw kosmetyków',
-    color: 'pink'
+    color: 'pink',
+    checked: false
   },
   {
     name: 'Łóżeczko dla dziecka',
-    color: 'yellow'
+    color: 'yellow',
+    checked: false
   },
   {
     name: 'Możliwość dostawki',
-    color: 'khaki'
+    color: 'khaki',
+    checked: false
   }
 ]
 

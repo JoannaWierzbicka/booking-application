@@ -15,7 +15,7 @@ export const StyledPaper = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background-color: #C2A878;
+    background-color: #c1b8a7;
     position: sticky;
     top: 0;
     left: 0;
@@ -51,12 +51,9 @@ export const StyledPaper = styled.div`
   @media only screen and (max-width: 900px) {
     left: 120px;
     width: 60%;
-  }
+  } 
+  
   @media only screen and (max-width: 730px) {
-    left: 80px;
-    width: 60%;
-  }
-  @media only screen and (max-width: 650px) {
     overflow: scroll;
     width: 100vw;
     height: 100vh;

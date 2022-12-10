@@ -30,7 +30,7 @@ export const CreateAccountForm = (props) => {
   return (
     <StyledFullPage className={'login-page'}>
       <StyledForm className={'login-form'}>
-        <Logo style={{ width: '120px' }}/>
+        <Logo width={120}/>
         {renderErrors()}
         <TextField
           size={'small'}
@@ -66,23 +66,23 @@ export const CreateAccountForm = (props) => {
         >UTWÓRZ KONTO
         </StyledButton>
         <StyledNavLink to={'/login'}>
-        <StyledButton
-          className={'button-login'}
-          variant={'outlined'}
-          color={'secondary'}
-          onClick={onClickBackToLogin}
-        >
-          Zaloguj się
-        </StyledButton>
+          <StyledButton
+            className={'button-login'}
+            variant={'outlined'}
+            color={'secondary'}
+            onClick={onClickBackToLogin}
+          >
+            Zaloguj się
+          </StyledButton>
         </StyledNavLink>
         <StyledNavLink to={'/'}>
-        <StyledButton
-          className={'button-login'}
-          variant={'text'}
-          color={'secondary'}
-          onClick={onClickBackToStartPage}
-        >Powrót na stronę główną
-        </StyledButton>
+          <StyledButton
+            className={'button-login'}
+            variant={'text'}
+            color={'secondary'}
+            onClick={onClickBackToStartPage}
+          >Powrót na stronę główną
+          </StyledButton>
         </StyledNavLink>
       </StyledForm>
     </StyledFullPage>

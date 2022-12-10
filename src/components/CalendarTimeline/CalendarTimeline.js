@@ -24,6 +24,8 @@ export const CalendarTimeline = (props) => {
 
   const [addNewRes, setAddNewRes] = React.useState(false)
   const [addNewRoom, setAddNewRoom] = React.useState(false)
+  const [params, setParams] = React.useState([])
+  const [addNewResWithParams, setAddResWithParams] = React.useState(false)
   const [edited, setEdited] = React.useState([])
   const [editedRoom, setEditedRoom] = React.useState([])
   const [clickedEditRoom, setClickedEditRoom] = React.useState(false)
@@ -45,9 +47,10 @@ export const CalendarTimeline = (props) => {
       })
   }, [user])
 
-  const onClickAddRes = () => {
+  const onClickAddRes = (id, time) => {
     if (rooms.length > 0) {
-      setAddNewRes(true)
+      time ? setAddResWithParams(true) : setAddNewRes(true)
+      setParams([id, time])
       setAddNewRoom(false)
     } else {
       alert('Najpierw dodaj pokój!')
@@ -70,7 +73,7 @@ export const CalendarTimeline = (props) => {
         itemRenderer={itemRenderer}
         buffer={1}
         canMove={false}
-        onCanvasDoubleClick={() => console.log('add res')}
+        onCanvasDoubleClick={(id, time) => onClickAddRes(id, time)}
         sidebarWidth={70}
       />
       <StyledButton
@@ -106,6 +109,16 @@ export const CalendarTimeline = (props) => {
               user={user}
               type={'new'}
               close={() => setAddNewRoom(false)}
+            />
+          : null
+      }
+      {
+        addNewResWithParams
+          ? <ReservationForm
+              user={user}
+              type={'newPar'}
+              params={params}
+              close={() => setAddResWithParams(false)}
             />
           : null
       }

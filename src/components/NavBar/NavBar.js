@@ -40,8 +40,10 @@ export const NavBar = (props) => {
     <Box sx={{ position: 'fixed', top: 0, left: 0, width: '100vw' }}>
       <AppBar position={'static'}>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Logo style={{ width: '50px', height: '50px' }}/>
-
+          <Logo
+            width={50}
+            type={'nav'}
+          />
           <div>
             <IconButton
               size={'large'}

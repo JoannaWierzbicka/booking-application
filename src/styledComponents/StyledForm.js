@@ -25,9 +25,14 @@ border-radius: 10px;
 }
 &.room-form{
   position: relative;
-  @media only screen and (max-width: 730px) {
+  @media only screen and (max-width: 900px) {
     align-items: flex-start;
   }
+}
+.checkbox-grid{
+  display: grid;
+  grid-template-columns: 150px 150px 150px;
+  padding: 10px;
 }
 `
 

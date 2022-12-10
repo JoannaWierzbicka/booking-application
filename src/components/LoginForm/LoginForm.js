@@ -29,7 +29,7 @@ export const LoginForm = (props) => {
   return (
     <StyledFullPage className={'login-page'}>
       <StyledForm className={'login-form'}>
-        <Logo style={{ width: '120px' }}/>
+        <Logo width={120}/>
         {renderErrors()}
         <TextField
           size={'small'}

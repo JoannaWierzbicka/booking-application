@@ -4,10 +4,12 @@ import PropTypes from 'prop-types'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import { StyledPaper, StyledForm, StyledInput, StyledButton, StyledSelect, StyledInputWrapper, StyledLabel } from '../../styledComponents'
+import FormElement from '../../components/FormElement'
+import FormElementWithSelect from '../../components/FormElementWithSelect'
+import { StyledPaper, StyledForm, StyledButton, StyledInputWrapper, StyledLabel } from '../../styledComponents'
 import IconButton from '@mui/material/IconButton'
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone'
-import { countries, createUserId, statusOptions } from '../../helpers'
+import { countries, createUserId, statusOptions, initialGuestData } from '../../helpers'
 import { addDataAction, removeDataAction, editDataAction } from '../../actions/reservation'
 import DataApi from '../../api/DataApi'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -15,33 +17,21 @@ import { v4 as uuid } from 'uuid'
 import moment from 'moment'
 
 export const ReservationForm = (props) => {
-  const { type, data, close, user } = props
+  const { type, data, close, user, params } = props
   const dispatch = useDispatch()
-  const userIdAdded = createUserId(user)
   const userId = createUserId(user)
 
   const dataApi = new DataApi()
   const { rooms } = useSelector((state) => state.rooms)
 
-  const initialGuestData = {
-    phone: '',
-    email: '',
-    street: '',
-    houseNum: '',
-    apartmentNum: '',
-    city: '',
-    zipCode: '',
-    country: 'Poland'
-  }
-
-  const [name, setName] = React.useState(type === 'new' ? '' : data.title)
-  const [guests, setGuests] = React.useState(type === 'new' ? '' : data.guests)
-  const [start, setStart] = React.useState(type === 'new' ? '' : moment(data.start_time._i).format('YYYY-MM-DD'))
-  const [end, setEnd] = React.useState(type === 'new' ? '' : moment(data.end_time._i).format('YYYY-MM-DD'))
-  const [room, setRoom] = React.useState(type === 'new' ? rooms[0].id : data.group)
-  const [price, setPrice] = React.useState(type === 'new' ? '' : data.price)
-  const [guestData, setGuestData] = React.useState(type === 'new' ? initialGuestData : data.guestData)
-  const [status, setStatus] = React.useState(type === 'new' ? 'pre-booking' : data.status)
+  const [name, setName] = React.useState(type === 'edit' ? data.title : '')
+  const [guests, setGuests] = React.useState(type === 'edit' ? data.guests : '')
+  const [start, setStart] = React.useState(type === 'new' ? '' : type === 'newPar' ? moment(params[1]).format('YYYY-MM-DD') : moment(data.start_time._i).format('YYYY-MM-DD'))
+  const [end, setEnd] = React.useState(type === 'edit' ? moment(data.end_time._i).format('YYYY-MM-DD') : '')
+  const [room, setRoom] = React.useState(type === 'new' ? rooms[0].id : type === 'newPar' ? params[0] : data.group)
+  const [price, setPrice] = React.useState(type === 'edit' ? data.price : '')
+  const [guestData, setGuestData] = React.useState(type === 'edit' ? data.guestData : initialGuestData)
+  const [status, setStatus] = React.useState(type === 'edit' ? data.status : 'pre-booking')
 
   const getTotalPrice = () => {
     const arrival = moment(start).valueOf()
@@ -52,7 +42,7 @@ export const ReservationForm = (props) => {
   }
 
   const reservation = {
-    id: type === 'new' ? uuid() : data.id,
+    id: type === 'edit' ? data.id : uuid(),
     group: room,
     title: name,
     start_time: moment(start),
@@ -83,11 +73,11 @@ export const ReservationForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dataApi.addData(userIdAdded, 'reservations', reservation)
+    dataApi.addData(userId, 'reservations', reservation)
       .then((resp) => {
         const newID = resp.name
         const newData = { ...reservation, id: newID }
-        dataApi.editData(userIdAdded, 'reservations', newID, newData)
+        dataApi.editData(userId, 'reservations', newID, newData)
         dispatch(addDataAction(newData))
       })
     close()
@@ -103,7 +93,7 @@ export const ReservationForm = (props) => {
   return (
     <StyledPaper className={'paper-reservation'}>
       <header className={'form-header'}>
-        {type === 'new' ? <div>NOWA REZERWACJA</div> : <div>{data.title.toUpperCase()}</div>}
+        {type === 'edit' ? <div>{data.title.toUpperCase()}</div> : <div>NOWA REZERWACJA</div>}
         <div>
           {
                 type === 'edit'
@@ -121,110 +111,70 @@ export const ReservationForm = (props) => {
       </header>
       <StyledForm
         className={'reservation'}
-        onSubmit={type === 'new' ? handleSubmit : handleChange}
+        onSubmit={type === 'edit' ? handleChange : handleSubmit}
       >
         <StyledInputWrapper className={'row-wrapper'}>
           <h5>Rezerwacja</h5>
-          <StyledInputWrapper>
-            <StyledLabel htmlFor={'start'}>
-              Data przyjazdu:
+          <FormElement
+            title = {'Data przyjazdu'}
+            name={'start'}
+            type={'date'}
+            onChange={(e) => setStart(e.target.value)}
+            value={start}
+            required
+          />
+          <FormElement
+            title = {'Data wyjazdu'}
+            name={'end'}
+            type={'date'}
+            onChange={(e) => setEnd(e.target.value)}
+            value={end}
+            required
+          />
 
-            </StyledLabel>
-            <StyledInput
-              type={'date'}
-              name={'start'}
-              onChange={(e) => setStart(e.target.value)}
-              value={start}
-              required
-            />
-          </StyledInputWrapper>
-          <StyledInputWrapper>
-            <StyledLabel htmlFor={'end'}>
-              Data wyjazdu:
-
-            </StyledLabel>
-            <StyledInput
-              type={'date'}
-              name={'end'}
-              onChange={(e) => setEnd(e.target.value)}
-              value={end}
-              required
-            />
-          </StyledInputWrapper>
           <StyledInputWrapper className={'reservation-layout'}>
             <StyledInputWrapper>
-              <StyledInputWrapper>
-                <StyledLabel htmlFor={'room'}>
-                  Nazwa pokoju:
-
-                </StyledLabel>
-                <StyledSelect
-                  className={'select--short'}
-                  defaultValue={room}
-                  name={'room'}
-                  onChange={(e) => setRoom(e.target.value)}
-                >{rooms.map(room => {
-                  return (
-                    <option
-                      required
-                      key={room.id}
-                      value={room.id}
-                    >{room.title}
-                    </option>)
-                })}
-                </StyledSelect>
-              </StyledInputWrapper>
-              <StyledInputWrapper>
-                <StyledLabel htmlFor={'guests'}>
-                  Ilość osób:
-
-                </StyledLabel> <StyledSelect
-                  className={'select--short'}
-                  defaultValue={guests}
-                  name={'guests'}
-                  onChange={(e) => setGuests(e.target.value)}
-                               >{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => {
-                                 return (
-                                   <option
-                                     key={num}
-                                     value={num}
-                                   >{num}
-                                   </option>)
-                               })}
-                               </StyledSelect>
-              </StyledInputWrapper>
+              <FormElementWithSelect
+                title = {'Nazwa pokoju'}
+                name = {'room'}
+                onChange = {(e) => setRoom(e.target.value)}
+                defaultValue = {room}
+                options = {rooms}
+                className={'select--short'}
+                required
+              />
+              <FormElementWithSelect
+                title = {'Ilość osób'}
+                name = {'guests'}
+                onChange = {(e) => setGuests(e.target.value)}
+                defaultValue = {guests}
+                options = {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                className={'select--short'}
+              />
             </StyledInputWrapper>
             <StyledInputWrapper className={'reservation-layout-prices'}>
-              <StyledInputWrapper>
-                <StyledLabel htmlFor={'price'}>
-                  Cena za dobę:
-                </StyledLabel> <StyledInput
-                  min={0}
-                  className={'input-price'}
-                  type={'number'}
-                  name={'price'}
-                  onChange={(e) => setPrice(e.target.value)}
-                  value={price}
-                               />
-
-              </StyledInputWrapper>
-              <StyledInputWrapper>
-                <StyledLabel htmlFor={'price'}>
-                  Cena za cały pobyt*:
-                </StyledLabel> <StyledInput
-                  readOnly
-                  className={'input-price-read'}
-                  type={'number'}
-                  name={'price'}
-                  value={getTotalPrice() || 0}
-                               />
-              </StyledInputWrapper>
+              <FormElement
+                title = {'Cena za dobę'}
+                name={'price'}
+                type={'number'}
+                onChange={(e) => setPrice(e.target.value)}
+                value={price}
+                min={0}
+                className={'input-price'}
+              />
+              <FormElement
+                title = {'Cena za cały pobyt*'}
+                name={'price'}
+                type={'number'}
+                value={getTotalPrice() || 0}
+                className={'input-price-read'}
+                readOnly
+              />
             </StyledInputWrapper>
           </StyledInputWrapper>
           <StyledInputWrapper>
             <StyledLabel htmlFor={'status'}>
               Status
-
             </StyledLabel>
             <RadioGroup
               name={'status'}
@@ -249,127 +199,82 @@ export const ReservationForm = (props) => {
             </RadioGroup>
           </StyledInputWrapper>
         </StyledInputWrapper>
-
         <StyledInputWrapper
           className={'row-wrapper'}
         ><h5>Gość</h5>
-          <StyledInputWrapper>
-            <StyledLabel htmlFor={'name'}>
-              Imię i nazwisko
-            </StyledLabel>
-            <StyledInput
-              name={'name'}
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-              required
-            />
-          </StyledInputWrapper>
-          <StyledInputWrapper>
-            <StyledLabel htmlFor={'email'}>
-              Email:
-            </StyledLabel>
-            <StyledInput
-              type={'email'}
-              name={'email'}
-              onChange={(e) => setGuestData({ ...guestData, email: e.target.value })}
-              value={guestData.email}
-              placeholder={'nazwa@poczty.pl'}
-            />
-          </StyledInputWrapper>
-          <StyledInputWrapper>
-            <StyledLabel htmlFor={'phone'}>
-              Telefon:
-
-            </StyledLabel> <StyledInput
-              name={'phone'}
-              onChange={(e) => setGuestData({ ...guestData, phone: e.target.value })}
-              value={guestData.phone}
-              placeholder={'xxx-xxx-xxx'}
-                           />
-          </StyledInputWrapper>
-          <StyledInputWrapper>
-            <StyledLabel htmlFor={'street'}>
-              Ulica:
-
-            </StyledLabel> <StyledInput
-              name={'street'}
-              onChange={(e) => setGuestData({ ...guestData, street: e.target.value })}
-              value={guestData.street}
-                           />
-          </StyledInputWrapper>
+          <FormElement
+            title = {'Imię i nazwisko'}
+            name={'name'}
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            required
+          />
+          <FormElement
+            title = {'Email'}
+            type={'email'}
+            name={'email'}
+            onChange={(e) => setGuestData({ ...guestData, email: e.target.value })}
+            value={guestData.email}
+            placeholder={'nazwa@poczty.pl'}
+          />
+          <FormElement
+            title = {'Telefon'}
+            name={'phone'}
+            onChange={(e) => setGuestData({ ...guestData, phone: e.target.value })}
+            value={guestData.phone}
+            placeholder={'xxx-xxx-xxx'}
+          />
+          <FormElement
+            title = {'Ulica'}
+            name={'street'}
+            onChange={(e) => setGuestData({ ...guestData, street: e.target.value })}
+            value={guestData.street}
+          />
           <div style={{ display: 'flex' }}>
-            <StyledInputWrapper>
-              <StyledLabel htmlFor={'houseNum'}>
-                Numer domu:
-              </StyledLabel> <StyledInput
-                className={'input--short'}
-                name={'houseNum'}
-                onChange={(e) => setGuestData({ ...guestData, houseNum: e.target.value })}
-                value={guestData.houseNum}
-                             />
-
-            </StyledInputWrapper>
-            <StyledInputWrapper>
-              <StyledLabel htmlFor={'apartmentNum'}>
-                Numer lokalu:
-              </StyledLabel>
-              <StyledInput
-                className={'input--short'}
-                name={'apartmentNum'}
-                onChange={(e) => setGuestData({ ...guestData, apartmentNum: e.target.value })}
-                value={guestData.apartmentNum}
-              />
-            </StyledInputWrapper>
+            <FormElement
+              title = {'Number domu'}
+              name={'houseNum'}
+              className={'input--short'}
+              onChange={(e) => setGuestData({ ...guestData, houseNum: e.target.value })}
+              value={guestData.houseNum}
+            />
+            <FormElement
+              title = {'Numer lokalu'}
+              name={'apartmentNum'}
+              className={'input--short'}
+              onChange={(e) => setGuestData({ ...guestData, apartmentNum: e.target.value })}
+              value={guestData.apartmentNum}
+            />
           </div>
           <div style={{ display: 'flex' }}>
-            <StyledInputWrapper>
-              <StyledLabel htmlFor={'zipCode'}>
-                Kod pocztowy:
-              </StyledLabel> <StyledInput
-                className={'input--short'}
-                name={'zipCode'}
-                onChange={(e) => setGuestData({ ...guestData, zipCode: e.target.value })}
-                value={guestData.zipCode}
-                             />
-
-            </StyledInputWrapper>
-            <StyledInputWrapper>
-              <StyledLabel htmlFor={'city'}>
-                Miasto:
-              </StyledLabel>
-              <StyledInput
-                className={'input--short'}
-                name={'city'}
-                onChange={(e) => setGuestData({ ...guestData, city: e.target.value })}
-                value={guestData.city}
-              />
-            </StyledInputWrapper>
+            <FormElement
+              title = {'Kod pocztowy'}
+              name={'zipCode'}
+              className={'input--short'}
+              onChange={(e) => setGuestData({ ...guestData, zipCode: e.target.value })}
+              value={guestData.zipCode}
+            />
+            <FormElement
+              title = {'Miasto'}
+              name={'city'}
+              className={'input--short'}
+              onChange={(e) => setGuestData({ ...guestData, city: e.target.value })}
+              value={guestData.city}
+            />
           </div>
-          <StyledInputWrapper>
-            <StyledLabel htmlFor={'country'}>
-              Kraj:
-
-            </StyledLabel>  <StyledSelect
-              defaultValue={guestData.country}
-              name={'country'}
-              onChange={(e) => setGuestData({ ...guestData, country: e.target.value })}
-                            >{countries.map(country => {
-                              return (
-                                <option
-                                  key={country.code}
-                                  value={country.label}
-                                >{country.label}
-                                </option>)
-                            })}
-            </StyledSelect>
-          </StyledInputWrapper>
-
+          <FormElementWithSelect
+            title = {'Kraj'}
+            name = {'country'}
+            onChange = {(e) => setGuestData({ ...guestData, country: e.target.value })}
+            defaultValue = {guestData.country}
+            options = {countries}
+          />
         </StyledInputWrapper>
         <StyledButton
           className={'button-reservation--form'}
           variant={'contained'}
           type={'submit'}
-        >{type === 'new' ? 'DODAJ' : 'ZAPISZ'}
+        >{type === 'edit' ? 'ZAPISZ' : 'DODAJ'}
         </StyledButton>
         {
          type === 'edit' ?
@@ -389,10 +294,11 @@ export const ReservationForm = (props) => {
 }
 
 ReservationForm.propTypes = {
-  type: PropTypes.oneOf(['new', 'edit']),
+  type: PropTypes.oneOf(['new', 'edit', 'newPar']),
   data: PropTypes.object,
   close: PropTypes.func,
-  user: PropTypes.string
+  user: PropTypes.string,
+  params: PropTypes.array
 }
 
 export default ReservationForm

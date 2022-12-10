@@ -9,10 +9,11 @@ import IconButton from '@mui/material/IconButton'
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormGroup from '@mui/material/FormGroup'
+import FormElement from '../../components/FormElement'
 import { addRoomDataAction, removeRoomDataAction, editRoomDataAction } from '../../actions/rooms'
 import { StyledPaper, StyledForm, StyledInput, StyledButton, StyledInputWrapper, StyledLabel, StyledTextField } from '../../styledComponents'
 import DataApi from '../../api/DataApi'
-import { createUserId, roomEquipment } from '../../helpers'
+import { createUserId, getRoomEquipment } from '../../helpers'
 
 export const RoomForm = (props) => {
   const { close, type, data, user } = props
@@ -25,7 +26,7 @@ export const RoomForm = (props) => {
   const [singleBeds, setSingleBeds] = React.useState(type === 'new' ? '' : data.roomData.singleBeds)
   const [doubleBeds, setDoubleBeds] = React.useState(type === 'new' ? '' : data.roomData.doubleBeds)
   const [desc, setDesc] = React.useState(type === 'new' ? '' : data.roomData.desc)
-  // const [roomEquip, setRoomEquip] = React.useState(type === 'new' ? roomEquipment : data.roomData.roomEquip)
+  const [roomEquip, setRoomEquip] = React.useState(type === 'new' ? getRoomEquipment() : data.roomData.roomEquip)
 
   const room = {
     id: type === 'new' ? uuid() : data.id,
@@ -35,8 +36,8 @@ export const RoomForm = (props) => {
     roomData: {
       singleBeds: singleBeds,
       doubleBeds: doubleBeds,
-      desc: desc
-      // roomEquip: roomEquip
+      desc: desc,
+      roomEquip: roomEquip
     }
   }
 
@@ -67,18 +68,18 @@ export const RoomForm = (props) => {
     close()
   }
 
-  // const handleChangeCheckbox = (e) => {
-  //   const copyRoomEquip = [...roomEquip]
-  //   const equipment = copyRoomEquip.map(item => {
-  //     if (e.target.value === item.name) {
-  //       item.checked = !item.checked
-  //     }
+  const handleChangeCheckbox = (e) => {
+    const copyRoomEquip = [...roomEquip]
+    const equipment = copyRoomEquip.map(item => {
+      if (e.target.value === item.name) {
+        item.checked = !item.checked
+      }
 
-  //     return item
-  //   })
+      return item
+    })
 
-  //   setRoomEquip(equipment)
-  // }
+    setRoomEquip(equipment)
+  }
 
   return (
     <StyledPaper className={'paper-room'}>
@@ -105,50 +106,39 @@ export const RoomForm = (props) => {
       >
         <StyledInputWrapper className={'room-form--wrapper'}>
           <h5>Dane na temat pokoju</h5>
+          <FormElement
+            title = {'Nazwa'}
+            name={'title'}
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
+            className={'input--short'}
+            required
+          />
+          <FormElement
+            title = {'Ilość łóżek pojedynczych'}
+            name={'singleBeds'}
+            onChange={(e) => setSingleBeds(e.target.value)}
+            value={singleBeds}
+            min={0}
+            type={'number'}
+            className={'input--number'}
+          />
+          <FormElement
+            title = {'Ilość łóżek podwójnych'}
+            name={'doubleBeds'}
+            onChange={(e) => setDoubleBeds(e.target.value)}
+            value={doubleBeds}
+            min={0}
+            type={'number'}
+            className={'input--number'}
+          />
           <StyledInputWrapper>
-            <StyledLabel htmlFor={'title'}>
-              Nazwa:
-
-            </StyledLabel>
-            <StyledInput
-              name={'title'}
-              onChange={(e) => setTitle(e.target.value)}
-              value={title}
-              required
-            />
-          </StyledInputWrapper>
-          <StyledInputWrapper>
-            <StyledLabel htmlFor={'singleBeds'}>
-              Ilość łóżek pojedynczych:
-            </StyledLabel>
-            <StyledInput
-              min={0}
-              type={'number'}
-              className={'input--number'}
-              name={'singleBeds'}
-              onChange={(e) => setSingleBeds(e.target.value)}
-              value={singleBeds}
-            />
-          </StyledInputWrapper>
-          <StyledInputWrapper>
-            <StyledLabel htmlFor={'doubleBeds'}>
-              Ilość łóżek podwójnych:
-            </StyledLabel>
-            <StyledInput
-              min={0}
-              type={'number'}
-              className={'input--number'}
-              name={'doubleBeds'}
-              onChange={(e) => setDoubleBeds(e.target.value)}
-              value={doubleBeds}
-            />
-          </StyledInputWrapper>
-          {/* <StyledInputWrapper>
             <StyledLabel htmlFor={'roomEquipment'}>
               Wyposażenie:
 
             </StyledLabel>
             <FormGroup
+              className={'checkbox-grid'}
               row
               name={'roomEquipment'}
             >{roomEquip.map(item => {
@@ -158,20 +148,16 @@ export const RoomForm = (props) => {
                   control={<Checkbox
                     value={item.name}
                     checked={item.checked}
+                    icon={<item.icon/>}
+                    checkedIcon={<item.checkedIcon/>}
                     onChange={handleChangeCheckbox}
-                    sx={{
-                      color: item.color,
-                      '&.Mui-checked': {
-                        color: item.color
-                      }
-                    }}
                            />}
                   label={item.name}
                 />
               )
             })}
             </FormGroup>
-          </StyledInputWrapper> */}
+          </StyledInputWrapper>
           <StyledInputWrapper>
             <StyledLabel htmlFor={'desc'}>
               Informacje dodatkowe:

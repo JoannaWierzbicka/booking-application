@@ -110,7 +110,6 @@ export class App extends React.Component {
     this.setState(() => ({
       isUserLoggedIn: false,
       userEmail: ''
-      // notLoginUserRoute: 'START'
     }))
   }
 
@@ -121,7 +120,6 @@ export class App extends React.Component {
       errorMessage,
       isInfoDisplayed,
       infoMessage,
-
       isUserLoggedIn,
       userEmail
     } = this.state
@@ -154,6 +152,30 @@ export class App extends React.Component {
                 logOut={this.onLogOut}
                        />}
             />
+            <Route
+              path={'/login'}
+              element={<Message
+                message={'Użytkownik jest zalogowany!'}
+                icon={'info'}
+                onButtonClick={this.dismissMessage}
+                       />}
+            />
+            <Route
+              path={'/create-account'}
+              element={<Message
+                message={'Użytkownik jest zalogowany!'}
+                icon={'info'}
+                onButtonClick={this.dismissMessage}
+                       />}
+            />
+            <Route
+              path={'/recover-password'}
+              element={<Message
+                message={'Użytkownik jest zalogowany!'}
+                icon={'info'}
+                onButtonClick={this.dismissMessage}
+                       />}
+            />
 
           </Routes>
           :
@@ -162,95 +184,34 @@ export class App extends React.Component {
               path={'/info'}
               element={<PageInfo
                 userLoggedIn={isUserLoggedIn}
-                signUp={() => this.setState(() => ({
-                  notLoginUserRoute: 'CREATE-ACCOUNT'
-                }))}
-                logIn={() => this.setState(() =>
-                  ({
-                    notLoginUserRoute: 'LOGIN'
-                  }))}
                        />}
             />
             <Route
               path={'/'}
               element={<PageMain
-                userLoggedIn={isUserLoggedIn}
-                signUp={() => this.setState(() => ({
-                  notLoginUserRoute: 'CREATE-ACCOUNT'
-                }))}
-                logIn={() => this.setState(() =>
-                  ({
-                    notLoginUserRoute: 'LOGIN'
-                  }))}
-                       />}
+                userLoggedIn={isUserLoggedIn}/>}
             />
             <Route
               path={'/login'}
               element={<PageLogin
                 onClickLogin={this.onClickLogin}
-                onClickCreateAccount={() => this.setState(() => ({ notLoginUserRoute: 'CREATE-ACCOUNT' }))}
-                onClickBackToStartPage={() => this.setState(() => ({ notLoginUserRoute: 'START' }))}
-                onClickRecoverPassword={() => this.setState(() => ({ notLoginUserRoute: 'FORGOT-PASSWORD' }))}
                        />}
             />
             <Route
               path={'/create-account'}
               element={<PageCreateAccount
                 onClickCreateAccount={this.onClickCreateAccount}
-                onClickBackToStartPage={() => this.setState(() => ({ notLoginUserRoute: 'START' }))}
-                onClickBackToLogin={() => this.setState(() => ({ notLoginUserRoute: 'LOGIN' }))}
                        />}
             />
             <Route
               path={'/recover-password'}
               element={<PageRecoverPassword
                 onClickRecover={this.onClickRecover}
-                onClickBackToLogin={() => this.setState(() => ({ notLoginUserRoute: 'LOGIN' }))}
                        />}
             />
 
           </Routes>
         }
-        {/* { isUserLoggedIn ?
-          <PageAdmin
-            userLoggedIn={isUserLoggedIn}
-            logOut={this.onLogOut}
-            user={userEmail}
-          />
-          :
-          notLoginUserRoute === 'START' ?
-            <PageMain
-              signUp={() => this.setState(() => ({
-                notLoginUserRoute: 'CREATE-ACCOUNT'
-              }))}
-              logIn={() => this.setState(() =>
-                ({
-                  notLoginUserRoute: 'LOGIN'
-                }))}
-            /> :
-            notLoginUserRoute === 'LOGIN' ?
-              <PageLogin
-                onClickLogin={this.onClickLogin}
-                onClickCreateAccount={() => this.setState(() => ({ notLoginUserRoute: 'CREATE-ACCOUNT' }))}
-                onClickBackToStartPage={() => this.setState(() => ({ notLoginUserRoute: 'START' }))}
-                onClickRecoverPassword={() => this.setState(() => ({ notLoginUserRoute: 'FORGOT-PASSWORD' }))}
-              /> :
-
-              notLoginUserRoute === 'CREATE-ACCOUNT' ?
-                <PageCreateAccount
-                  onClickCreateAccount={this.onClickCreateAccount}
-                  onClickBackToStartPage={() => this.setState(() => ({ notLoginUserRoute: 'START' }))}
-                  onClickBackToLogin={() => this.setState(() => ({ notLoginUserRoute: 'LOGIN' }))}
-                />
-                :
-                notLoginUserRoute === 'FORGOT-PASSWORD' ?
-                  <PageRecoverPassword
-                    onClickRecover={this.onClickRecover}
-                    onClickBackToLogin={() => this.setState(() => ({ notLoginUserRoute: 'LOGIN' }))}
-                  />
-
-                  : null
-          } */}
         {
           isLoading ?
             <Loader/>

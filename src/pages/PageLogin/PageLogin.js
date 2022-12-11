@@ -6,10 +6,7 @@ import PropTypes from 'prop-types'
 
 export const PageLogin = (props) => {
   const {
-    onClickLogin,
-    onClickCreateAccount,
-    onClickBackToStartPage,
-    onClickRecoverPassword
+    onClickLogin
   } = props
 
   const navigate = useNavigate()
@@ -34,20 +31,14 @@ export const PageLogin = (props) => {
       email={email}
       password={password}
       onClickLogin={onClickLoginFunc}
-      onClickCreateAccount={onClickCreateAccount}
       onChangeEmail={(e) => setEmail(() => e.target.value)}
-      onClickBackToStartPage={onClickBackToStartPage}
       onChangePassword={(e) => setPassword(() => e.target.value)}
-      onClickRecoverPassword={onClickRecoverPassword}
     />
   )
 }
 
 PageLogin.propTypes = {
-  onClickLogin: PropTypes.func.isRequired,
-  onClickCreateAccount: PropTypes.func.isRequired,
-  onClickBackToStartPage: PropTypes.func.isRequired,
-  onClickRecoverPassword: PropTypes.func.isRequired
+  onClickLogin: PropTypes.func.isRequired
 }
 
 export default PageLogin

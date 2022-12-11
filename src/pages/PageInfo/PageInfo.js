@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StyledFullPage, StyledInfo, StyledNavLink, StyledButton } from '../../styledComponents'
@@ -9,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons'
 
 export const PageInfo = (props) => {
-  const { logIn, signUp, logOut, user, userLoggedIn } = props
+  const { logOut, user, userLoggedIn } = props
   const [visiblePhone, setVisiblePhone] = React.useState(false)
   const [visibleEmail, setVisibleEmail] = React.useState(false)
 
@@ -17,36 +16,34 @@ export const PageInfo = (props) => {
     <StyledFullPage className={'start-page'}>
       <Stars>
         <NavBar
-          logIn={logIn}
-          signUp={signUp}
           user={user}
           logOut={logOut}
           userLoggedIn={userLoggedIn}
         />
         <StyledInfo>
-          <Typography className={'info-text'}>Booking APP to idealne miejsce do zarządzania rezerwacjami w twoim obiekcie turystycznym</Typography>
-          <Typography className={'info-text'}>Mobilna recepcja - działa na wielu urządzeniach jednocześnie</Typography>
-          <Typography className={'info-text'}>Łatwy podgląd na dostępność pokoi</Typography>
+          <Typography className={'page-info-text'}>Booking APP to idealne miejsce do zarządzania rezerwacjami w twoim obiekcie turystycznym</Typography>
+          <Typography className={'page-info-text'}>Mobilna recepcja - działa na wielu urządzeniach jednocześnie</Typography>
+          <Typography className={'page-info-text'}>Łatwy podgląd na dostępność pokoi</Typography>
 
-          <Typography className={'info-text'}>Masz pytania? Zapraszam do kontaktu:</Typography>
+          <Typography className={'page-info-text'}>Masz pytania? Zapraszam do kontaktu:</Typography>
           <div style={{ display: 'flex' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 2, margin: '20px' }}>
+            <div style={{ display: 'flex', position: 'relative', flexDirection: 'column', lineHeight: 2, margin: '20px', marginRight: '60px' }}>
               <StyledButton onClick={() => setVisibleEmail(!visibleEmail)}>
                 <FontAwesomeIcon
                   style={{ fontSize: '30px', cursor: 'pointer' }}
                   icon={faEnvelope}
                 />
               </StyledButton>
-              {visibleEmail ? <span>joannawierzbicka@poczta.onet.pl</span> : null}
+              {visibleEmail ? <span className={'info-mail'}>joannawierzbicka@poczta.onet.pl</span> : null}
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 2, margin: '20px' }}>
+            <div style={{ display: 'flex', position: 'relative', flexDirection: 'column', lineHeight: 2, margin: '20px', marginLeft: '60px' }}>
               <StyledButton onClick={() => setVisiblePhone(!visiblePhone)}>
                 <FontAwesomeIcon
                   style={{ fontSize: '30px', cursor: 'pointer' }}
                   icon={faPhone}
                 />
               </StyledButton>
-              {visiblePhone ? <span>661120290</span> : null}
+              {visiblePhone ? <span className={'info-phone'}>661120290</span> : null}
             </div>
           </div>
           {userLoggedIn
@@ -62,7 +59,7 @@ export const PageInfo = (props) => {
               >Mój kalendarz
 
               </StyledButton>
-              </StyledNavLink> :
+            </StyledNavLink> :
             <StyledNavLink
               to={'/create-account'}
               style={{ textAlign: 'center' }}
@@ -71,7 +68,6 @@ export const PageInfo = (props) => {
                 className={'button-start-page'}
                 variant={'contained'}
                 color={'primary'}
-                onClick={signUp}
               >Załóż konto
               </StyledButton>
             </StyledNavLink>}
@@ -83,8 +79,9 @@ export const PageInfo = (props) => {
 }
 
 PageInfo.propTypes = {
-  logIn: PropTypes.func,
-  signUp: PropTypes.func
+  logOut: PropTypes.func,
+  user: PropTypes.string,
+  userLoggedIn: PropTypes.bool
 }
 
 export default PageInfo

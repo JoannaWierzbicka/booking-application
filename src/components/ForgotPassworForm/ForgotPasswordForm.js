@@ -9,7 +9,6 @@ export const ForgotPasswordForm = (props) => {
     email,
     onChangeEmail,
     onClickRecover,
-    onClickBackToLogin,
     errors
   } = props
 
@@ -48,7 +47,6 @@ export const ForgotPasswordForm = (props) => {
             className={'button-login'}
             variant={'outlined'}
             color={'secondary'}
-            onClick={onClickBackToLogin}
           >Zaloguj się
           </StyledButton>
         </StyledNavLink>
@@ -62,7 +60,6 @@ ForgotPasswordForm.propTypes = {
   email: PropTypes.string.isRequired,
   onChangeEmail: PropTypes.func.isRequired,
   onClickRecover: PropTypes.func.isRequired,
-  onClickBackToLogin: PropTypes.func.isRequired,
   errors: PropTypes.array
 }
 

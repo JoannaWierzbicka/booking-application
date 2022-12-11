@@ -29,13 +29,55 @@ top: -120px;
     text-align: center;
 }
 }
+.page-info-text{
+    margin: 15px;
+    color: white; 
+    font-size: 15px;
+    line-height: 2;
+    @media only screen and (max-width: 770px) {
+    text-align: center;
+}
+@media only screen and (max-width: 620px) {
+    text-align: center;
+}
+}
 .start-page-button{
     margin-top: 20px;
     margin: 20px;
 }
-@media only screen and (max-width: 620px) {
-  
+.info-mail{
+    position: absolute;
+    bottom: -28px;
+    color: white;
+    font-weight: 100;
+    left: -75px;
+    font-size: 14px;
+    @media only screen and (max-width: 430px) {
+        font-size: 10px;
+        left: -45px;
+    bottom: -20px;
 }
+}
+.info-phone{
+    position: absolute;
+    bottom: -28px;
+    left: 7px;
+    color: white;
+    font-weight: 100;
+     font-size: 14px;
+     @media only screen and (max-width: 430px) {
+        font-size: 10px;
+        left: 12px;
+        bottom: -20px;
+}
+}
+.info-contact{
+    position: 'relative';
+    line-height: 2;
+    margin: 20px;
+    margin-right: 60px;
+}
+
 `
 
 export default StyledInfo

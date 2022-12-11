@@ -6,8 +6,7 @@ import { validateRecover } from '../../helpers/validation'
 
 export const PageRecoverPassword = (props) => {
   const {
-    onClickRecover,
-    onClickBackToLogin
+    onClickRecover
   } = props
 
   const [email, setEmail] = React.useState('')
@@ -30,15 +29,13 @@ export const PageRecoverPassword = (props) => {
       email={email}
       onChangeEmail={(e) => setEmail(() => e.target.value)}
       onClickRecover={onClickRecoverFunc}
-      onClickBackToLogin={onClickBackToLogin}
       errors={errors}
     />
   )
 }
 
 PageRecoverPassword.propTypes = {
-  onClickRecover: PropTypes.func.isRequired,
-  onClickBackToLogin: PropTypes.func.isRequired
+  onClickRecover: PropTypes.func.isRequired
 }
 
 export default PageRecoverPassword

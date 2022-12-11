@@ -27,14 +27,20 @@ export const Message = (props) => {
         <p>{message}
         </p>
         {icon === 'info'
-          ? <StyledNavLink to={'/admin'}><Button
+          ? <StyledNavLink
+              to={'/admin'}
+              className={'button-message'}
+            ><Button
               variant={'contained'}
               color={'primary'}
               onClick={onButtonClick}
-                                         >OK
-          </Button>
-          </StyledNavLink> :
-          <StyledNavLink to={'/'}>
+            >OK
+            </Button>
+            </StyledNavLink> :
+          <StyledNavLink
+            to={'/'}
+            className={'button-message'}
+          >
             <Button
               variant={'contained'}
               color={'primary'}

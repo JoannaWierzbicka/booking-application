@@ -286,9 +286,7 @@ export const ReservationForm = (props) => {
            </StyledButton>
            : null
         }
-        <span style={{ position: 'absolute', bottom: '2px', left: '2px', fontSize: '8px' }}>*Cena całkowita: ilość nocy x cena za dobę</span>
       </StyledForm>
-
     </StyledPaper>
   )
 }

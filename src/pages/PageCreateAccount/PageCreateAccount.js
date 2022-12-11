@@ -6,9 +6,7 @@ import { validateFormCreate } from '../../helpers'
 
 export const PageCreateAccount = (props) => {
   const {
-    onClickCreateAccount,
-    onClickBackToStartPage,
-    onClickBackToLogin
+    onClickCreateAccount
   } = props
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
@@ -37,16 +35,12 @@ export const PageCreateAccount = (props) => {
       onChangePassword={(e) => setPassword(() => e.target.value)}
       onChangeRepeatPassword={(e) => setPasswordRepeat(() => e.target.value)}
       onClickCreateAccount={onClickCreateAccountFunc}
-      onClickBackToStartPage={onClickBackToStartPage}
-      onClickBackToLogin={onClickBackToLogin}
     />
   )
 }
 
 PageCreateAccount.propTypes = {
-  onClickCreateAccount: PropTypes.func.isRequired,
-  onClickBackToStartPage: PropTypes.func.isRequired,
-  onClickBackToLogin: PropTypes.func.isRequired
+  onClickCreateAccount: PropTypes.func.isRequired
 }
 
 export default PageCreateAccount

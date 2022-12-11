@@ -33,6 +33,9 @@ border-radius: 10px;
   display: grid;
   grid-template-columns: 150px 150px 150px;
   padding: 10px;
+  @media only screen and (max-width: 500px) {
+    grid-template-columns: 160px 160px;
+  }
 }
 `
 

@@ -13,8 +13,6 @@ export const CreateAccountForm = (props) => {
     repeatPassword,
     onChangeRepeatPassword,
     onClickCreateAccount,
-    onClickBackToLogin,
-    onClickBackToStartPage,
     errors
   } = props
 
@@ -70,7 +68,6 @@ export const CreateAccountForm = (props) => {
             className={'button-login'}
             variant={'outlined'}
             color={'secondary'}
-            onClick={onClickBackToLogin}
           >
             Zaloguj się
           </StyledButton>
@@ -80,7 +77,6 @@ export const CreateAccountForm = (props) => {
             className={'button-login'}
             variant={'text'}
             color={'secondary'}
-            onClick={onClickBackToStartPage}
           >Powrót na stronę główną
           </StyledButton>
         </StyledNavLink>
@@ -97,9 +93,7 @@ CreateAccountForm.propTypes = {
   onChangeEmail: PropTypes.func.isRequired,
   onChangePassword: PropTypes.func.isRequired,
   onClickCreateAccount: PropTypes.func.isRequired,
-  onClickBackToLogin: PropTypes.func.isRequired,
   onChangeRepeatPassword: PropTypes.func.isRequired,
-  onClickBackToStartPage: PropTypes.func.isRequired,
   errors: PropTypes.array
 }
 

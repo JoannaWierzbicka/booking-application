@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StyledFullPage, StyledInfo, StyledNavLink, StyledButton, StyledInputWrapper } from '../../styledComponents'
@@ -8,13 +6,11 @@ import Stars from '../../components/Stars'
 import Typography from '@mui/material/Typography'
 
 export const PageMain = (props) => {
-  const { logIn, signUp, logOut, userLoggedIn } = props
+  const { logOut, userLoggedIn } = props
   return (
     <StyledFullPage className={'start-page'}>
       <Stars>
         <NavBar
-          logIn={logIn}
-          signUp={signUp}
           logOut={logOut}
           userLoggedIn={userLoggedIn}
         />
@@ -59,7 +55,6 @@ export const PageMain = (props) => {
                     className={'button-start-page'}
                     variant={'contained'}
                     color={'primary'}
-                    onClick={signUp}
                   >Załóż konto
                   </StyledButton>
                 </StyledNavLink>}
@@ -71,8 +66,8 @@ export const PageMain = (props) => {
 }
 
 PageMain.propTypes = {
-  logIn: PropTypes.func,
-  signUp: PropTypes.func
+  logOut: PropTypes.func,
+  userLoggedIn: PropTypes.bool
 }
 
 export default PageMain

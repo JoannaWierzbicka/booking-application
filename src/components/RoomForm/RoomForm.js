@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -11,7 +10,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import FormGroup from '@mui/material/FormGroup'
 import FormElement from '../../components/FormElement'
 import { addRoomDataAction, removeRoomDataAction, editRoomDataAction } from '../../actions/rooms'
-import { StyledPaper, StyledForm, StyledInput, StyledButton, StyledInputWrapper, StyledLabel, StyledTextField } from '../../styledComponents'
+import { StyledPaper, StyledForm, StyledButton, StyledInputWrapper, StyledLabel, StyledTextField } from '../../styledComponents'
 import DataApi from '../../api/DataApi'
 import { createUserId, getRoomEquipment, handleChangeIcon, handleChangeCheckedIcon } from '../../helpers'
 

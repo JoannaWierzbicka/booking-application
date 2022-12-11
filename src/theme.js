@@ -9,7 +9,7 @@ export const theme = createTheme({
       main: '#1D3557'
     },
     info: {
-      main: '#F1FAEE'
+      main: '#795548'
     },
     warning: {
       main: '#E0CA3C'
@@ -30,7 +30,25 @@ export const theme = createTheme({
           fontWeight: '600'
         }
       }
-
+    },
+    MuiList: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#5989a736',
+          padding: 0
+        }
+      }
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'Montserrat,sans-serif',
+          padding: '10px',
+          '&:hover': {
+            backgroundColor: '#5989a794'
+          }
+        }
+      }
     }
   }
 

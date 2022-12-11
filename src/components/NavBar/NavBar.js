@@ -1,17 +1,10 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import React from 'react'
+import PropTypes from 'prop-types'
 import AppBar from '@mui/material/AppBar'
-import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
-import MenuIcon from '@mui/icons-material/Menu'
-import AccountCircle from '@mui/icons-material/AccountCircle'
-import Switch from '@mui/material/Switch'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import FormGroup from '@mui/material/FormGroup'
+import PersonIcon from '@mui/icons-material/Person'
 import MenuItem from '@mui/material/MenuItem'
 import Menu from '@mui/material/Menu'
 import Logo from '../Logo'
@@ -21,10 +14,7 @@ export const NavBar = (props) => {
   const {
     user,
     logOut,
-    userLoggedIn,
-    goToAdminPage,
-    logIn,
-    signUp
+    userLoggedIn
   } = props
   const [anchorEl, setAnchorEl] = React.useState(null)
 
@@ -50,7 +40,7 @@ export const NavBar = (props) => {
               onClick={handleMenu}
               color={'inherit'}
             >
-              <AccountCircle />
+              <PersonIcon fontSize={'inherit'} />
             </IconButton>
             <Menu
               id={'menu-appbar'}
@@ -70,22 +60,36 @@ export const NavBar = (props) => {
               userLoggedIn ?
                 <div>
                   {!user
-                    ? <StyledNavLink to={'/admin'}>
-                      <MenuItem onClick={goToAdminPage}>Zobacz swój kalendarz</MenuItem>
+                    ? <StyledNavLink
+                        to={'/admin'}
+                        className={'nav-bar-link'}
+                      >
+                      <MenuItem>Zobacz swój kalendarz</MenuItem>
                     </StyledNavLink>
                     : <MenuItem>{user}</MenuItem>}
 
-                  <StyledNavLink to={'/'}>
+                  <StyledNavLink
+                    to={'/'}
+                    className={'nav-bar-link'}
+                  >
                     <MenuItem onClick={logOut}>Wyloguj</MenuItem>
                   </StyledNavLink>
                 </div>
 
                 : <div>
-                  <StyledNavLink to={'/login'}>
-                    <MenuItem onClick={logIn}>ZALOGUJ SIĘ</MenuItem>
+                  <StyledNavLink
+                    to={'/login'}
+                    className={'nav-bar-link'}
+                  >
+                    <MenuItem >ZALOGUJ SIĘ
+                    </MenuItem>
                   </StyledNavLink>
-                  <StyledNavLink to={'/create-account'}>
-                    <MenuItem onClick={signUp}>Zarejestruj się</MenuItem>
+                  <StyledNavLink
+                    to={'/create-account'}
+                    className={'nav-bar-link'}
+                  >
+                    <MenuItem >Zarejestruj się
+                    </MenuItem>
                   </StyledNavLink>
                   </div>}
             </Menu>
@@ -94,6 +98,12 @@ export const NavBar = (props) => {
       </AppBar>
     </Box>
   )
+}
+
+NavBar.propTypes = {
+  user: PropTypes.string,
+  logOut: PropTypes.func,
+  userLoggedIn: PropTypes.bool
 }
 
 export default NavBar

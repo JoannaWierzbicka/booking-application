@@ -13,7 +13,7 @@ import FormElement from '../../components/FormElement'
 import { addRoomDataAction, removeRoomDataAction, editRoomDataAction } from '../../actions/rooms'
 import { StyledPaper, StyledForm, StyledInput, StyledButton, StyledInputWrapper, StyledLabel, StyledTextField } from '../../styledComponents'
 import DataApi from '../../api/DataApi'
-import { createUserId, getRoomEquipment } from '../../helpers'
+import { createUserId, getRoomEquipment, handleChangeIcon, handleChangeCheckedIcon } from '../../helpers'
 
 export const RoomForm = (props) => {
   const { close, type, data, user } = props
@@ -148,8 +148,8 @@ export const RoomForm = (props) => {
                   control={<Checkbox
                     value={item.name}
                     checked={item.checked}
-                    icon={<item.icon/>}
-                    checkedIcon={<item.checkedIcon/>}
+                    icon={handleChangeIcon(item.name)}
+                    checkedIcon={handleChangeCheckedIcon(item.name)}
                     onChange={handleChangeCheckbox}
                            />}
                   label={item.name}

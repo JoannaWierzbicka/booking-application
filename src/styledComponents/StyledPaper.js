@@ -19,6 +19,7 @@ export const StyledPaper = styled.div`
     position: sticky;
     top: 0;
     left: 0;
+    z-index: 1000000;
   }
   &.paper-reservation{
    @media only screen and (max-width: 1050px) {

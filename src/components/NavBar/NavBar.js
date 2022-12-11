@@ -41,7 +41,7 @@ export const NavBar = (props) => {
       <AppBar position={'static'}>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Logo
-            width={50}
+            width={70}
             type={'nav'}
           />
           <div>

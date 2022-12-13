@@ -45,7 +45,6 @@ export const PageMain = (props) => {
                     className={'button-start-page'}
                     variant={'contained'}
                     color={'primary'}
-                    onClick={() => console.log('kalendarz')}
                   >Mój kalendarz
 
                   </StyledButton>

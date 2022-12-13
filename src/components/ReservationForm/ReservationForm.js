@@ -163,7 +163,7 @@ export const ReservationForm = (props) => {
                 className={'input-price'}
               />
               <FormElement
-                title = {'Cena za cały pobyt*'}
+                title = {'Cena za cały pobyt'}
                 name={'price'}
                 type={'number'}
                 value={getTotalPrice() || 0}

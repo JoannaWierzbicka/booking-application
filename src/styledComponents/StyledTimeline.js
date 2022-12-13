@@ -12,19 +12,13 @@ z-index: 999999;
     border: none;
 }
 .rct-scroll {
-    background: #457b9d3d;;
+    background: #457b9d3d;    
 }
 .rct-sidebar {
     background: #457b9db8;
 }
 .rct-dateHeader {
     cursor: default;
-}
-.rct-scroll{
-
-}
-.rct-outer {
-   
 }
 `
 

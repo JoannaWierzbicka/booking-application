@@ -40,13 +40,14 @@ export const DateButtons = () => {
   }
 
   return (
-    <><StyledButtonGroup className={'button-today'}>
-      <StyledButton
-        className={'button-today'}
-        onClick={setTodayDate}
-      >Dzisiaj
-      </StyledButton>
-    </StyledButtonGroup>
+    <>
+      <StyledButtonGroup className={'button-today'}>
+        <StyledButton
+          className={'button-today'}
+          onClick={setTodayDate}
+        >Dzisiaj
+        </StyledButton>
+      </StyledButtonGroup>
       <StyledButtonGroup
         variant={'text'}
       >
@@ -62,7 +63,6 @@ export const DateButtons = () => {
         })
       }
       </StyledButtonGroup>
-
       <StyledButtonGroup
         variant={'text'}
       >

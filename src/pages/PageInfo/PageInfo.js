@@ -47,30 +47,30 @@ export const PageInfo = (props) => {
             </div>
           </div>
           {userLoggedIn
-            ? <StyledNavLink
+            ?
+              <StyledNavLink
                 to={'/admin'}
                 style={{ textAlign: 'center' }}
               >
-              <StyledButton
-                className={'button-start-page'}
-                variant={'contained'}
-                color={'primary'}
-                onClick={() => console.log('kalendarz')}
-              >Mój kalendarz
-
-              </StyledButton>
-            </StyledNavLink> :
-            <StyledNavLink
-              to={'/create-account'}
-              style={{ textAlign: 'center' }}
-            >
-              <StyledButton
-                className={'button-start-page'}
-                variant={'contained'}
-                color={'primary'}
-              >Załóż konto
-              </StyledButton>
-            </StyledNavLink>}
+                <StyledButton
+                  className={'button-start-page'}
+                  variant={'contained'}
+                  color={'primary'}
+                  onClick={() => console.log('kalendarz')}
+                >Mój kalendarz
+                </StyledButton>
+              </StyledNavLink> :
+              <StyledNavLink
+                to={'/create-account'}
+                style={{ textAlign: 'center' }}
+              >
+                <StyledButton
+                  className={'button-start-page'}
+                  variant={'contained'}
+                  color={'primary'}
+                >Załóż konto
+                </StyledButton>
+              </StyledNavLink>}
 
         </StyledInfo>
       </Stars>

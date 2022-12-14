@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 export const StyledButton = styled(Button)`
 font-family: Montserrat, sans-serif;
 font-size: 12px;
+transition: ease-in 0.6s;
 &.button-start-page{
     font-size: 16px;
     margin: 20px;
@@ -70,6 +71,12 @@ padding: 2px 8px;
       @media only screen and (max-width: 650px) {
        position: static;
   }
+}
+&.button-res-list{
+    &:hover{
+        background-color: #5989A7;
+        color: white;
+    }
 }
 `
 

@@ -1,8 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React from 'react'
-// import { CustomMarker } from 'react-calendar-timeline'
 import PropTypes from 'prop-types'
-// import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadDataAction } from '../../actions/reservation'
 import { loadRoomsDataAction } from '../../actions/rooms'
@@ -101,7 +98,7 @@ export const CalendarTimeline = (props) => {
       <StyledButton
         variant={'contained'}
         className={'button-reservation--add'}
-        onClick={() => setReservationListOn(true)}
+        onClick={() => setReservationListOn(!reservationListOn)}
       >Lista rezerwacji
       </StyledButton>
       {
@@ -157,7 +154,6 @@ export const CalendarTimeline = (props) => {
         reservationListOn ?
           <ReservationList
             reservations={reservations}
-            close={() => setReservationListOn(false)}
             onClickDetails={(id) => setEdited(items.filter((item) => item.id === id))}
             rooms={rooms}
           />

@@ -137,7 +137,6 @@ export class App extends React.Component {
                        />}
             />
             <Route
-              exact
               path={'/'}
               element={<PageMain
                 userLoggedIn={isUserLoggedIn}
@@ -189,10 +188,17 @@ export class App extends React.Component {
             <Route
               path={'/'}
               element={<PageMain
-                userLoggedIn={isUserLoggedIn}/>}
+                userLoggedIn={isUserLoggedIn}
+                       />}
             />
             <Route
               path={'/login'}
+              element={<PageLogin
+                onClickLogin={this.onClickLogin}
+                       />}
+            />
+            <Route
+              path={'/admin'}
               element={<PageLogin
                 onClickLogin={this.onClickLogin}
                        />}

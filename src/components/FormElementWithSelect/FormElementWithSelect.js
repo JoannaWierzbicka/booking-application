@@ -18,8 +18,8 @@ export const FormElementWithSelect = (props) => {
         return (
           <option
             required
-            key={item.id || item.code || item }
-            value={item.id || item.label || item }
+            key={item.id || item.code || item}
+            value={item.id || item.label || item}
           >{item.title || item.label || item }
           </option>)
       })}

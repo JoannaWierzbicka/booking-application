@@ -33,6 +33,8 @@ export const ReservationForm = (props) => {
   const [guestData, setGuestData] = React.useState(type === 'edit' ? data.guestData : initialGuestData)
   const [status, setStatus] = React.useState(type === 'edit' ? data.status : 'pre-booking')
 
+  console.log(status)
+
   const getTotalPrice = () => {
     const arrival = moment(start).valueOf()
     const departure = moment(end).valueOf()
@@ -180,13 +182,14 @@ export const ReservationForm = (props) => {
             </StyledLabel>
             <RadioGroup
               name={'status'}
+              value={status}
               onChange={(e) => setStatus(e.target.value)}
             >{statusOptions.map(stat => {
               return (
                 <FormControlLabel
                   key={stat.name}
-                  value={stat.status}
                   control={<Radio
+                    value={stat.status}
                     sx={{
                       color: stat.color,
                       '&.Mui-checked': {

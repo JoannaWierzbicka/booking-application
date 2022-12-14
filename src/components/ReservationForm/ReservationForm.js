@@ -33,8 +33,6 @@ export const ReservationForm = (props) => {
   const [guestData, setGuestData] = React.useState(type === 'edit' ? data.guestData : initialGuestData)
   const [status, setStatus] = React.useState(type === 'edit' ? data.status : 'pre-booking')
 
-  console.log(status)
-
   const getTotalPrice = () => {
     const arrival = moment(start).valueOf()
     const departure = moment(end).valueOf()
@@ -275,13 +273,14 @@ export const ReservationForm = (props) => {
             options = {countries}
           />
         </StyledInputWrapper>
-        <StyledButton
-          className={'button-reservation--form'}
-          variant={'contained'}
-          type={'submit'}
-        >{type === 'edit' ? 'ZAPISZ' : 'DODAJ'}
-        </StyledButton>
-        {
+        <div>
+          <StyledButton
+            className={'button-reservation--form'}
+            variant={'contained'}
+            type={'submit'}
+          >{type === 'edit' ? 'ZAPISZ' : 'DODAJ'}
+          </StyledButton>
+          {
          type === 'edit' ?
            <StyledButton
              className={'button-reservation--form'}
@@ -291,6 +290,7 @@ export const ReservationForm = (props) => {
            </StyledButton>
            : null
         }
+        </div>
       </StyledForm>
     </StyledPaper>
   )

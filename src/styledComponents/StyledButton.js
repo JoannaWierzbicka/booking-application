@@ -24,7 +24,7 @@ padding: 2px 8px;
     }
     &.button-reservation--form{
         padding: 3px;
-        margin: 3px;
+        margin: 5px;
         @media only screen and (max-width: 650px) {
            margin-top: 20px;
            padding: 10px 20px;

@@ -10,7 +10,11 @@ export const StyledPaper = styled.div`
   height: fit-content;
   font-family: Montserrat, sans-serif;
   line-height: 1.15;
+  box-shadow: 8px 8px 24px 0px rgb(66 68 90/51%);
+  border-radius: 4px;
   .form-header{
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
     display: flex; 
     justify-content: space-between;
     align-items: center;
@@ -25,7 +29,7 @@ export const StyledPaper = styled.div`
    @media only screen and (max-width: 1050px) {
     left: 120px;
   }
-  @media only screen and (max-width: 900px) {
+  @media only screen and (max-width: 930px) {
     left: 80px;
     width: auto;
   }

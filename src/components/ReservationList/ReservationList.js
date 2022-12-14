@@ -4,12 +4,12 @@ import { StyledList, StyledButton } from '../../styledComponents'
 import moment from 'moment'
 import 'moment/locale/pl'
 import Alert from '@mui/material/Alert'
+import { Divider } from '@mui/material'
 
 export const ReservationList = (props) => {
   const { reservations, onClickDetails, rooms } = props
 
   const sorted = reservations.sort((a, b) => a.start_time - b.start_time)
-  console.log(sorted)
 
   const findRoom = (id) => {
     return rooms.map(room => {
@@ -39,14 +39,18 @@ export const ReservationList = (props) => {
                     className={'reservation-item'}
                     key={res.id}
                   >
-                    <h3 style={{ textAlign: 'center', backgroundColor: '#5989A7', borderRadius: '5px' }}>{getDate(res.start_time._i)}</h3>
-                    <h5>Pokój: {findRoom(res.group)}</h5>
-                    <h6>{res.title}</h6>
-                    <StyledButton
-                      className={'button-res-list'}
-                      onClick={() => onClickDetails(res.id)}
-                    >Szczegóły
-                    </StyledButton>
+                    <h3 style={{ textAlign: 'center', backgroundColor: 'rgb(89 137 167 / 35%)', width: '100%' }}>{getDate(res.start_time._i)}</h3>
+                    <h5><span style={{ fontWeight: 300, marginLeft: '6px' }}>Pokój:</span> {findRoom(res.group)}</h5>
+                    <h6 style={{ marginLeft: '6px' }}>{res.title}</h6>
+                    <Divider variant={'middle'}/>
+                    <div style={{ display: 'flex', justifyContent: 'center', padding: '4px' }}>
+                      <StyledButton
+                        className={'button-res-list'}
+                        onClick={() => onClickDetails(res.id)}
+                      >Szczegóły
+                      </StyledButton>
+                    </div>
+
                   </li>)
               })}
             </StyledList>

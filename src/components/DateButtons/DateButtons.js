@@ -10,8 +10,6 @@ import { faAnglesRight, faAnglesLeft } from '@fortawesome/free-solid-svg-icons'
 export const DateButtons = () => {
   const dispatch = useDispatch()
   const { date } = useSelector((state) => state.calendar)
-  const startSliced = date.start.toString().slice(0, -3)
-  const endSliced = date.end.toString().slice(0, -3)
 
   const handleChangeMonth = (month) => {
     return dispatch(changeMonthAction(month))
@@ -22,15 +20,15 @@ export const DateButtons = () => {
   }
 
   const onClickNext = () => {
-    const nextStart = moment.unix(startSliced).add(1, 'month')
-    const nextEnd = moment.unix(endSliced).add(1, 'month')
+    const nextStart = moment(date.start).add(1, 'month')
+    const nextEnd = moment(nextStart).endOf('month')
 
     return dispatch(arrowMonthAction(nextStart, nextEnd))
   }
 
   const onClickPrev = () => {
-    const prevStart = moment.unix(startSliced).subtract(1, 'month')
-    const prevEnd = moment.unix(endSliced).subtract(1, 'month')
+    const prevStart = moment(date.start).subtract(1, 'month')
+    const prevEnd = moment(prevStart).endOf('month')
 
     return dispatch(arrowMonthAction(prevStart, prevEnd))
   }

@@ -180,6 +180,10 @@ export class App extends React.Component {
           :
           <Routes>
             <Route
+              path={'/admin'}
+              element={<Loader/>}
+            />
+            <Route
               path={'/info'}
               element={<PageInfo
                 userLoggedIn={isUserLoggedIn}
@@ -193,12 +197,6 @@ export class App extends React.Component {
             />
             <Route
               path={'/login'}
-              element={<PageLogin
-                onClickLogin={this.onClickLogin}
-                       />}
-            />
-            <Route
-              path={'/admin'}
               element={<PageLogin
                 onClickLogin={this.onClickLogin}
                        />}

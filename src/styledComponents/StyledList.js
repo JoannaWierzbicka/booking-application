@@ -12,7 +12,6 @@ flex-wrap: wrap;
     min-width: 200px;
     border: none;
     margin: 6px;
-    padding: 6px;
 
 }
 `

@@ -45,8 +45,8 @@ export const ReservationForm = (props) => {
     id: type === 'edit' ? data.id : uuid(),
     group: room,
     title: name,
-    start_time: moment(start),
-    end_time: moment(end),
+    start_time: moment(start).format('YYYY-MM-DD'),
+    end_time: moment(end).format('YYYY-MM-DD'),
     price: price,
     totalPrice: getTotalPrice(),
     status: status,
@@ -116,6 +116,7 @@ export const ReservationForm = (props) => {
         <StyledInputWrapper className={'row-wrapper'}>
           <h5>Rezerwacja</h5>
           <FormElement
+            min={moment().format('YYYY-MM-DD')}
             title = {'Data przyjazdu'}
             name={'start'}
             type={'date'}
@@ -124,6 +125,7 @@ export const ReservationForm = (props) => {
             required
           />
           <FormElement
+            min={start}
             title = {'Data wyjazdu'}
             name={'end'}
             type={'date'}

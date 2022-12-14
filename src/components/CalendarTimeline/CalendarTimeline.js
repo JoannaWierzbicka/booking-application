@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 // import { CustomMarker } from 'react-calendar-timeline'
 import PropTypes from 'prop-types'
@@ -8,8 +9,9 @@ import { loadRoomsDataAction } from '../../actions/rooms'
 import DataApi from '../../api/DataApi'
 import { StyledTimeline, StyledButton } from '../../styledComponents'
 import { itemsConverter, itemRenderer, createUserId } from '../../helpers'
-import ReservationForm from '../ReservationForm/ReservationForm'
-import RoomForm from '../../components/RoomForm'
+import ReservationForm from '../ReservationForm'
+import RoomForm from '../RoomForm'
+import ReservationList from '../ReservationList'
 
 export const CalendarTimeline = (props) => {
   const { user } = props
@@ -26,6 +28,7 @@ export const CalendarTimeline = (props) => {
   const [addNewResWithParams, setAddResWithParams] = React.useState(false)
   const [edited, setEdited] = React.useState([])
   const [editedRoom, setEditedRoom] = React.useState([])
+  const [reservationListOn, setReservationListOn] = React.useState(false)
 
   const items = Array.isArray(reservations) ? itemsConverter(reservations) : []
   const dataApi = new DataApi()
@@ -95,6 +98,12 @@ export const CalendarTimeline = (props) => {
         onClick={onClickAddRes}
       >Dodaj rezerwację
       </StyledButton>
+      <StyledButton
+        variant={'contained'}
+        className={'button-reservation--add'}
+        onClick={() => setReservationListOn(true)}
+      >Lista rezerwacji
+      </StyledButton>
       {
         addNewRes
           ? <ReservationForm
@@ -143,8 +152,18 @@ export const CalendarTimeline = (props) => {
             />
           : null
       }
-    </>
 
+      {
+        reservationListOn ?
+          <ReservationList
+            reservations={reservations}
+            close={() => setReservationListOn(false)}
+            onClickDetails={(id) => setEdited(items.filter((item) => item.id === id))}
+            rooms={rooms}
+          />
+          : null
+      }
+    </>
   )
 }
 

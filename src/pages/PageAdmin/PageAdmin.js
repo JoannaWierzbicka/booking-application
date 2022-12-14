@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import NavBar from '../../components/NavBar'
 import { PropTypes } from 'prop-types'
@@ -9,12 +10,13 @@ export const PageAdmin = (props) => {
   const { logOut, user, userLoggedIn } = props
 
   return (
-    <StyledFullPage className={'admin-page'}>
+    <div>
       <NavBar
         user={user}
         logOut={logOut}
         userLoggedIn={userLoggedIn}
       />
+
       <StyledButtonsContainer>
         <DateButtons/>
       </StyledButtonsContainer>
@@ -22,7 +24,7 @@ export const PageAdmin = (props) => {
         <CalendarTimeline user={user}/>
       </StyledCalendarContainer>
 
-    </StyledFullPage>
+    </div>
   )
 }
 

@@ -1,9 +1,10 @@
 import React from 'react'
-import { StyledFullPage, StyledForm, StyledNavLink } from '../../styledComponents'
-import Button from '@mui/material/Button'
 import { PropTypes } from 'prop-types'
+import Button from '@mui/material/Button'
 import ErrorIcon from '@mui/icons-material/Error'
 import InfoIcon from '@mui/icons-material/Info'
+import PasswordIcon from '@mui/icons-material/Password'
+import { StyledFullPage, StyledForm, StyledNavLink } from '../../styledComponents'
 
 export const Message = (props) => {
   const { message, icon, onButtonClick } = props
@@ -22,7 +23,12 @@ export const Message = (props) => {
                 color={'error'}
                 fontSize={'large'}
               />
-            : null
+            : icon === 'help'
+              ? <PasswordIcon
+                  color={'success'}
+                  fontSize={'large'}
+                />
+              : null
       }
         <p>{message}
         </p>
@@ -38,18 +44,33 @@ export const Message = (props) => {
                 onClick={onButtonClick}
               >OK
               </Button>
-            </StyledNavLink> :
-            <StyledNavLink
-              to={'/'}
-              className={'button-message'}
-            >
-              <Button
-                variant={'contained'}
-                color={'primary'}
-                onClick={onButtonClick}
-              >WRÓĆ
-              </Button>
-            </StyledNavLink>}
+            </StyledNavLink>
+          : icon === 'help'
+            ?
+              <StyledNavLink
+                to={'/login'}
+                className={'button-message'}
+              >
+                <Button
+                  variant={'contained'}
+                  color={'primary'}
+                  onClick={onButtonClick}
+                >Zaloguj się
+                </Button>
+              </StyledNavLink>
+            :
+
+              <StyledNavLink
+                to={'/'}
+                className={'button-message'}
+              >
+                <Button
+                  variant={'contained'}
+                  color={'primary'}
+                  onClick={onButtonClick}
+                >WRÓĆ
+                </Button>
+              </StyledNavLink>}
 
       </StyledForm>
 
@@ -59,7 +80,7 @@ export const Message = (props) => {
 
 Message.propTypes = {
   message: PropTypes.string.isRequired,
-  icon: PropTypes.oneOf(['error', 'info']),
+  icon: PropTypes.oneOf(['error', 'info', 'help']),
   onButtonClick: PropTypes.func.isRequired
 }
 

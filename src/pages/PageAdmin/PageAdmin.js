@@ -1,6 +1,7 @@
 import React from 'react'
-import NavBar from '../../components/NavBar'
 import { PropTypes } from 'prop-types'
+
+import NavBar from '../../components/NavBar'
 import DateButtons from '../../components/DateButtons'
 import CalendarTimeline from '../../components/CalendarTimeline'
 import { StyledButtonsContainer, StyledCalendarContainer } from '../../styledComponents'

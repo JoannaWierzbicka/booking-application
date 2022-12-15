@@ -2,16 +2,18 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { v4 as uuid } from 'uuid'
+
 import DeleteIcon from '@mui/icons-material/Delete'
 import Checkbox from '@mui/material/Checkbox'
 import IconButton from '@mui/material/IconButton'
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormGroup from '@mui/material/FormGroup'
-import FormElement from '../../components/FormElement'
-import { addRoomDataAction, removeRoomDataAction, editRoomDataAction } from '../../actions/rooms'
-import { StyledPaper, StyledForm, StyledButton, StyledInputWrapper, StyledLabel, StyledTextField } from '../../styledComponents'
+
 import DataApi from '../../api/DataApi'
+import { addRoomDataAction, removeRoomDataAction, editRoomDataAction } from '../../actions/rooms'
+import FormElement from '../../components/FormElement'
+import { StyledPaper, StyledForm, StyledButton, StyledInputWrapper, StyledLabel, StyledTextField } from '../../styledComponents'
 import { createUserId, getRoomEquipment, handleChangeIcon, handleChangeCheckedIcon } from '../../helpers'
 
 export const RoomForm = (props) => {

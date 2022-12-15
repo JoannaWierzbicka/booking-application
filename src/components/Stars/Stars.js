@@ -1,8 +1,8 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-indent */
 /* eslint-disable react/jsx-max-props-per-line */
 /* eslint-disable react/jsx-curly-brace-presence */
 import React from 'react'
+import PropTypes from 'prop-types'
 import './stars.css'
 
 export const Stars = (props) => {
@@ -635,6 +635,10 @@ export const Stars = (props) => {
   {children}
 </div>
   )
+}
+
+Stars.propTypes = {
+  children: PropTypes.node
 }
 
 export default Stars

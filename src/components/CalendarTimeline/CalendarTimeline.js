@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
+
 import { loadDataAction } from '../../actions/reservation'
 import { loadRoomsDataAction } from '../../actions/rooms'
 import DataApi from '../../api/DataApi'
-import { StyledTimeline, StyledButton } from '../../styledComponents'
+
 import { itemsConverter, itemRenderer, createUserId } from '../../helpers'
+import { StyledTimeline, StyledButton } from '../../styledComponents'
 import ReservationForm from '../ReservationForm'
 import RoomForm from '../RoomForm'
 import ReservationList from '../ReservationList'
@@ -13,6 +15,7 @@ import ReservationList from '../ReservationList'
 export const CalendarTimeline = (props) => {
   const { user } = props
   const userIdAdded = createUserId(user)
+  const dataApi = new DataApi()
   const dispatch = useDispatch()
 
   const { date } = useSelector((state) => state.calendar)
@@ -28,7 +31,6 @@ export const CalendarTimeline = (props) => {
   const [reservationListOn, setReservationListOn] = React.useState(false)
 
   const items = Array.isArray(reservations) ? itemsConverter(reservations) : []
-  const dataApi = new DataApi()
 
   React.useEffect(() => {
     dataApi.loadData(userIdAdded, 'rooms')
@@ -81,7 +83,7 @@ export const CalendarTimeline = (props) => {
         buffer={1}
         canMove={false}
         onCanvasDoubleClick={(id, time) => onClickAddRes(id, time)}
-        sidebarWidth={70}
+        sidebarWidth={75}
       />
       <StyledButton
         variant={'contained'}
@@ -149,7 +151,6 @@ export const CalendarTimeline = (props) => {
             />
           : null
       }
-
       {
         reservationListOn ?
           <ReservationList

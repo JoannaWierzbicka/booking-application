@@ -1,20 +1,22 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
+import { v4 as uuid } from 'uuid'
+import moment from 'moment'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
+import DeleteIcon from '@mui/icons-material/Delete'
+import IconButton from '@mui/material/IconButton'
+import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone'
+
+import DataApi from '../../api/DataApi'
+import { countries, createUserId, statusOptions, initialGuestData } from '../../helpers'
+import { addDataAction, removeDataAction, editDataAction } from '../../actions/reservation'
+
 import FormElement from '../../components/FormElement'
 import FormElementWithSelect from '../../components/FormElementWithSelect'
 import { StyledPaper, StyledForm, StyledButton, StyledInputWrapper, StyledLabel } from '../../styledComponents'
-import IconButton from '@mui/material/IconButton'
-import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone'
-import { countries, createUserId, statusOptions, initialGuestData } from '../../helpers'
-import { addDataAction, removeDataAction, editDataAction } from '../../actions/reservation'
-import DataApi from '../../api/DataApi'
-import DeleteIcon from '@mui/icons-material/Delete'
-import { v4 as uuid } from 'uuid'
-import moment from 'moment'
 
 export const ReservationForm = (props) => {
   const { type, data, close, user, params } = props
@@ -22,6 +24,7 @@ export const ReservationForm = (props) => {
   const userId = createUserId(user)
 
   const dataApi = new DataApi()
+
   const { rooms } = useSelector((state) => state.rooms)
 
   const [name, setName] = React.useState(type === 'edit' ? data.title : '')
@@ -133,7 +136,6 @@ export const ReservationForm = (props) => {
             value={end}
             required
           />
-
           <StyledInputWrapper className={'reservation-layout'}>
             <StyledInputWrapper>
               <FormElementWithSelect

@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Typography from '@mui/material/Typography'
 import { StyledFullPage, StyledInfo, StyledNavLink, StyledButton, StyledInputWrapper } from '../../styledComponents'
 import NavBar from '../../components/NavBar'
 import Stars from '../../components/Stars'
-import Typography from '@mui/material/Typography'
 
 export const PageMain = (props) => {
   const { logOut, userLoggedIn } = props

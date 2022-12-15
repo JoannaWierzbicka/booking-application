@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyledFullPage, StyledInfo, StyledNavLink, StyledButton } from '../../styledComponents'
-import NavBar from '../../components/NavBar'
-import Stars from '../../components/Stars'
 import Typography from '@mui/material/Typography'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons'
+import { StyledFullPage, StyledInfo, StyledNavLink, StyledButton } from '../../styledComponents'
+import NavBar from '../../components/NavBar'
+import Stars from '../../components/Stars'
 
 export const PageInfo = (props) => {
   const { logOut, user, userLoggedIn } = props

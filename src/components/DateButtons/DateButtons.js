@@ -1,11 +1,13 @@
 import React from 'react'
-import { StyledButton, StyledButtonGroup } from '../../styledComponents'
 import { useDispatch, useSelector } from 'react-redux'
-import { changeMonthAction, changeYearAction, arrowMonthAction, setTodayAction } from '../../actions/calendar'
-import { years, months } from '../../helpers'
 import moment from 'moment'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAnglesRight, faAnglesLeft } from '@fortawesome/free-solid-svg-icons'
+
+import { StyledButton, StyledButtonGroup } from '../../styledComponents'
+import { changeMonthAction, changeYearAction, arrowMonthAction, setTodayAction } from '../../actions/calendar'
+import { years, months } from '../../helpers'
 
 export const DateButtons = () => {
   const dispatch = useDispatch()

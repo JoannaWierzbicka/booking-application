@@ -18,6 +18,8 @@ export class App extends React.Component {
     isLoading: false,
     hasError: false,
     isInfoDisplayed: false,
+    helpNeeded: false,
+    helpMessage: '',
     errorMessage: '',
     infoMessage: '',
 
@@ -46,6 +48,13 @@ export class App extends React.Component {
     this.setState(() => ({
       hasError: false,
       errorMessage: ''
+    }))
+  }
+
+  dismissHelp = () => {
+    this.setState(() => ({
+      helpNeeded: false,
+      helpMessage: ''
     }))
   }
 
@@ -99,8 +108,8 @@ export class App extends React.Component {
     this.handleUserAction(async () => {
       await sendPasswordResetEmail(email)
       this.setState(() => ({
-        isInfoDisplayed: true,
-        infoMessage: 'E-mail został wysłany na podaną pocztę'
+        helpNeeded: true,
+        helpMessage: 'E-mail został wysłany na podaną pocztę'
       }))
     })
   }
@@ -121,7 +130,9 @@ export class App extends React.Component {
       isInfoDisplayed,
       infoMessage,
       isUserLoggedIn,
-      userEmail
+      userEmail,
+      helpNeeded,
+      helpMessage
     } = this.state
     return (
       <div>
@@ -181,7 +192,7 @@ export class App extends React.Component {
           <Routes>
             <Route
               path={'/admin'}
-              element={<Loader/>}
+              element={<Loader />}
             />
             <Route
               path={'/info'}
@@ -236,6 +247,15 @@ export class App extends React.Component {
                  message={errorMessage}
                  icon={'error'}
                  onButtonClick={this.dismissError}
+               />
+               : null
+          }
+        {
+             helpNeeded ?
+               <Message
+                 message={helpMessage}
+                 icon={'help'}
+                 onButtonClick={this.dismissHelp}
                />
                : null
           }

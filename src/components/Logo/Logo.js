@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import image from '../../img/Logo1.png'
 import nav from '../../img/Logo10.png'

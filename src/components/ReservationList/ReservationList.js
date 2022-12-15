@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyledList, StyledButton } from '../../styledComponents'
 import moment from 'moment'
 import 'moment/locale/pl'
+
 import Alert from '@mui/material/Alert'
 import { Divider } from '@mui/material'
+import { StyledList, StyledButton } from '../../styledComponents'
 
 export const ReservationList = (props) => {
   const { reservations, onClickDetails, rooms } = props

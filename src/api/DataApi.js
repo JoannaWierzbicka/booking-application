@@ -44,9 +44,6 @@ export class DataApi extends React.Component {
     makeAuthorizedRequest(`${this.apiUrl}/${user}/${key}/${id}.json`, {
       method: 'DELETE'
     })
-      .then((data) => {
-        objectToArray(data)
-      })
       .catch((error) => {
         console.error(error)
       })

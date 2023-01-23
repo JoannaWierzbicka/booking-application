@@ -35,6 +35,7 @@ export const ReservationForm = (props) => {
   const [price, setPrice] = React.useState(type === 'edit' ? data.price : '')
   const [guestData, setGuestData] = React.useState(type === 'edit' ? data.guestData : initialGuestData)
   const [status, setStatus] = React.useState(type === 'edit' ? data.status : 'pre-booking')
+  const [prepaid, setPrepaid] = React.useState(type === 'edit' ? data.prepaid : '')
 
   const getTotalPrice = () => {
     const arrival = moment(start).valueOf()
@@ -54,6 +55,7 @@ export const ReservationForm = (props) => {
     totalPrice: getTotalPrice(),
     status: status,
     guests: guests,
+    prepaid: prepaid,
     guestData: {
       phone: guestData.phone,
       email: guestData.email,
@@ -202,6 +204,28 @@ export const ReservationForm = (props) => {
               )
             })}
             </RadioGroup>
+            {status === 'pre-paid' ?
+              <div style={{ display: 'flex' }}>
+                <FormElement
+                  title={'Zaliczka'}
+                  name={'prepaid'}
+                  value={prepaid}
+                  onChange={(e) => setPrepaid(e.target.value)}
+                  type={'number'}
+                  className={'input--short'}
+                  min={0}
+                />
+                <FormElement
+                  title = {'Pozostało do zapłaty'}
+                  name={'price'}
+                  type={'number'}
+                  value={getTotalPrice() - prepaid || 0}
+                  className={'input-price-read'}
+                  readOnly
+                />
+              </div>
+              : null
+             }
           </StyledInputWrapper>
         </StyledInputWrapper>
         <StyledInputWrapper

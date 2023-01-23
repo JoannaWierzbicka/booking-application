@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
+// import { Eventcalendar } from '@mobiscroll/react'
+// import '@mobiscroll/react/dist/css/mobiscroll.min.css'
 
 import { loadDataAction } from '../../actions/reservation'
 import { loadRoomsDataAction } from '../../actions/rooms'
@@ -33,16 +35,13 @@ export const CalendarTimeline = (props) => {
   const items = Array.isArray(reservations) ? itemsConverter(reservations) : []
 
   React.useEffect(() => {
-    dataApi.loadData(userIdAdded, 'rooms')
-      .then((data) => {
-        dispatch(loadRoomsDataAction(data))
-      })
-  }, [user])
-
-  React.useEffect(() => {
     dataApi.loadData(userIdAdded, 'reservations')
       .then(data => {
         dispatch(loadDataAction(data))
+      })
+    dataApi.loadData(userIdAdded, 'rooms')
+      .then((data) => {
+        dispatch(loadRoomsDataAction(data))
       })
   }, [user])
 
@@ -71,39 +70,59 @@ export const CalendarTimeline = (props) => {
     setEditedRoom(editedRoom)
   }
 
+  // const view = React.useMemo(() => {
+  //   return {
+  //     timeline: {
+  //       type: 'month'
+  //     }
+  //   }
+  // }, [])
+
   return (
     <>
-      <StyledTimeline
-        groups={Array.isArray(rooms) ? rooms : []}
-        items={items}
-        visibleTimeStart={date.start}
-        visibleTimeEnd={date.end}
-        onItemClick={(id) => setEdited(items.filter((item) => item.id === id))}
-        itemRenderer={itemRenderer}
-        buffer={1}
-        canMove={false}
-        onCanvasDoubleClick={(id, time) => onClickAddRes(id, time)}
-        sidebarWidth={75}
-      />
-      <StyledButton
-        variant={'contained'}
-        className={'button-reservation--add'}
-        onClick={() => setAddNewRoom(true)}
-      >Dodaj pokój
-      </StyledButton>
-      <StyledButton
-        variant={'contained'}
-        className={'button-reservation--add'}
-        onClick={onClickAddRes}
-      >Dodaj rezerwację
-      </StyledButton>
-      <StyledButton
-        variant={'contained'}
-        className={'button-reservation--add'}
-        onClick={() => setReservationListOn(!reservationListOn)}
-      >Lista rezerwacji
-      </StyledButton>
-      {
+      <div>
+        <StyledTimeline
+          groups={Array.isArray(rooms) ? rooms : []}
+          items={items}
+          visibleTimeStart={date.start}
+          visibleTimeEnd={date.end}
+          onItemClick={(id) => setEdited(items.filter((item) => item.id === id))}
+          itemRenderer={itemRenderer}
+          buffer={1}
+          canMove={false}
+          onCanvasDoubleClick={(id, time) => onClickAddRes(id, time)}
+          sidebarWidth={75}
+        />
+
+        {/* <Eventcalendar
+          theme={'ios'}
+          themeVariant={'light'}
+          view={view}
+          data={items}
+          resources={Array.isArray(rooms) ? rooms : []}
+        /> */}
+
+      </div>
+      <div>
+        <StyledButton
+          variant={'contained'}
+          className={'button-reservation--add'}
+          onClick={() => setAddNewRoom(true)}
+        >Dodaj pokój
+        </StyledButton>
+        <StyledButton
+          variant={'contained'}
+          className={'button-reservation--add'}
+          onClick={onClickAddRes}
+        >Dodaj rezerwację
+        </StyledButton>
+        <StyledButton
+          variant={'contained'}
+          className={'button-reservation--add'}
+          onClick={() => setReservationListOn(!reservationListOn)}
+        >Lista rezerwacji
+        </StyledButton>
+        {
         addNewRes
           ? <ReservationForm
               user={user}
@@ -112,7 +131,7 @@ export const CalendarTimeline = (props) => {
             />
           : null
       }
-      {
+        {
         addNewRoom
           ? <RoomForm
               user={user}
@@ -121,7 +140,7 @@ export const CalendarTimeline = (props) => {
             />
           : null
       }
-      {
+        {
         addNewResWithParams
           ? <ReservationForm
               user={user}
@@ -131,7 +150,7 @@ export const CalendarTimeline = (props) => {
             />
           : null
       }
-      {
+        {
         edited.length > 0
           ? <ReservationForm
               user={user}
@@ -141,7 +160,7 @@ export const CalendarTimeline = (props) => {
             />
           : null
       }
-      {
+        {
         editedRoom.length > 0
           ? <RoomForm
               user={user}
@@ -151,7 +170,7 @@ export const CalendarTimeline = (props) => {
             />
           : null
       }
-      {
+        {
         reservationListOn ?
           <ReservationList
             reservations={reservations}
@@ -160,6 +179,8 @@ export const CalendarTimeline = (props) => {
           />
           : null
       }
+      </div>
+
     </>
   )
 }

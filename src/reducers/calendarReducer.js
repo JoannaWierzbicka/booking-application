@@ -2,7 +2,7 @@ import { CHANGE_MONTH, CHANGE_YEAR, NEXT_PREV_MONTH, SET_TODAY } from '../action
 import moment from 'moment'
 
 const initialState = {
-  year: '2022',
+  year: moment().year(),
   month: '',
   date: {
     start: moment().startOf('month').valueOf(),

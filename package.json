@@ -10,6 +10,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mobiscroll/react": "https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.21.1.tgz",
     "@mui/icons-material": "^5.10.14",
     "@mui/material": "^5.10.14",
     "moment": "^2.29.4",
